@@ -61,7 +61,7 @@
         <img class="qr-img" src="assets/wechat-qr.png" alt="微信收款码" onclick="document.getElementById('qr-modal').classList.add('show')" style="width:140px;height:140px;border-radius:8px;cursor:pointer;border:1px solid var(--border-default);">
         <div style="flex:1;font-size:13px;color:var(--text-secondary);line-height:1.6;">
           <strong style="color:var(--text-primary);">微信支付</strong><br>
-          扫描二维码付款后，将微信支付「交易单号」填入下方表单。
+          扫描二维码付款后，将微信支付「交易单号」填入下方表单即可获取激活码。
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
       <div class="form-group" style="margin-bottom:20px;">
         <label class="form-label" for="order-no" style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text-secondary);">订单号</label>
         <input class="form-input" id="order-no" type="text" autocomplete="off" placeholder="微信支付交易单号" style="width:100%;height:48px;padding:0 14px;border-radius:10px;border:1px solid var(--border-default);background:var(--bg-page);color:var(--text-primary);font-size:15px;outline:none;">
-        <div class="form-hint" style="font-size:12px;color:var(--text-muted);margin-top:4px;">付款后可在微信账单中查看</div>
+        <div class="form-hint" style="font-size:12px;color:var(--text-muted);margin-top:4px;">付款后在微信账单详情中查看「交易单号」</div>
         <div class="form-error" id="order-error">请输入订单号</div>
       </div>
       <button class="submit-btn" id="submit-btn" type="button" onclick="showConfirmModal()" style="width:100%;height:50px;border-radius:12px;background:var(--primary);color:#fff;font-weight:700;font-size:16px;border:none;cursor:pointer;">获取激活码</button>
@@ -109,94 +109,65 @@
 </div>
 
 <script>
-(function() {
-  // 激活码生成算法（与手表端一致）
-  function djb2(str) {
-    var h = 5381
-    for (var i = 0; i < str.length; i++) { h = ((h << 5) + h) + str.charCodeAt(i); h = h & 0x7FFFFFFF }
-    return h
-  }
-  function generateKey(deviceCode) {
-    var SALT = 'GuGUc_gSR?J_Bj?oBc?fRS?_ExCRD'
-    var hash = djb2(deviceCode + SALT).toString(16)
-    var expected = ''
-    for (var i = 0; i < 5; i++) {
-      var n = parseInt(hash[i % hash.length], 16)
-      if (isNaN(n)) n = 0
-      expected += (n % 10).toString()
-    }
-    var w = [1, 3, 7, 9, 5], sum = 0
-    for (var i = 0; i < 5; i++) sum += parseInt(expected[i]) * w[i]
-    expected += (sum % 10).toString()
-    return expected
-  }
+// SALT 编码（防止源码直接搜到字符串）
+var _S=[71,117,71,85,99,95,103,83,82,63,74,95,66,106,63,111,66,99,63,102,82,83,63,95,69,120,67,82,68]
+function _d(a){var s='';for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return s}
+function _h(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h)+s.charCodeAt(i);return h&0x7FFFFFFF}
+function _g(dc){
+  var h=_h(dc+_d(_S)).toString(16),r=''
+  for(var i=0;i<5;i++){var n=parseInt(h[i%h.length],16);r+=(isNaN(n)?0:n%10).toString()}
+  var w=[1,3,7,9,5],s=0;for(var i=0;i<5;i++)s+=parseInt(r[i])*w[i]
+  return r+(s%10).toString()
+}
 
-  window.showConfirmModal = function() {
-    var deviceCode = document.getElementById('device-code').value.trim()
-    var orderNo = document.getElementById('order-no').value.trim()
-    var hasError = false
+// 订单号格式校验：
+//   微信支付交易单号: 28 位纯数字，以 10 开头
+//   支付宝等其他平台: 16 位以上纯数字
+function _v(on){
+  var c=on.replace(/\s/g,'')
+  // 微信: 28 位以 10 开头
+  if(/^10\d{26}$/.test(c)) return true
+  // 其他: 至少 16 位纯数字
+  if(/^\d{16,}$/.test(c)) return true
+  return false
+}
 
-    if (!deviceCode) {
-      document.getElementById('device-code').style.borderColor = 'var(--error)'
-      document.getElementById('device-error').style.display = 'block'
-      hasError = true
-    } else {
-      document.getElementById('device-code').style.borderColor = ''
-      document.getElementById('device-error').style.display = 'none'
-    }
-    if (!orderNo) {
-      document.getElementById('order-no').style.borderColor = 'var(--error)'
-      document.getElementById('order-error').style.display = 'block'
-      hasError = true
-    } else {
-      document.getElementById('order-no').style.borderColor = ''
-      document.getElementById('order-error').style.display = 'none'
-    }
-    if (hasError) return
+function _showRes(success,msg,key){
+  var a=document.getElementById('result-area'),c=document.getElementById('result-card'),m=document.getElementById('result-message'),k=document.getElementById('result-key')
+  a.classList.add('show')
+  if(success){c.className='result-card success';m.innerHTML='<p style="font-weight:600;">激活成功！请在手表端输入以下激活码：</p>';k.textContent=key;k.style.display='inline-block'}
+  else{c.className='result-card error';m.innerHTML='<p style="font-weight:600;color:var(--error);">'+msg+'</p>';k.style.display='none'}
+  document.getElementById('submit-btn').disabled=false;document.getElementById('submit-btn').textContent='获取激活码'
+}
 
-    document.getElementById('confirm-code').textContent = deviceCode
-    document.getElementById('confirm-modal').classList.add('show')
-    document.getElementById('confirm-ok').disabled = false
-    document.getElementById('confirm-ok').textContent = '确认无误'
-  }
+window.showConfirmModal=function(){
+  var dc=document.getElementById('device-code').value.trim(),on=document.getElementById('order-no').value.trim(),err=false
+  if(!dc){document.getElementById('device-code').style.borderColor='var(--error)';document.getElementById('device-error').style.display='block';err=true}
+  else{document.getElementById('device-code').style.borderColor='';document.getElementById('device-error').style.display='none'}
+  if(!on){document.getElementById('order-no').style.borderColor='var(--error)';document.getElementById('order-error').style.display='block';err=true}
+  else{document.getElementById('order-no').style.borderColor='';document.getElementById('order-error').style.display='none'}
+  if(err)return
+  document.getElementById('confirm-code').textContent=dc
+  document.getElementById('confirm-modal').classList.add('show')
+  document.getElementById('confirm-ok').disabled=false;document.getElementById('confirm-ok').textContent='确认无误'
+}
 
-  window.closeConfirmModal = function() {
-    document.getElementById('confirm-modal').classList.remove('show')
-  }
+window.closeConfirmModal=function(){document.getElementById('confirm-modal').classList.remove('show')}
 
-  window.doActivate = function() {
-    var btn = document.getElementById('confirm-ok')
-    btn.disabled = true
-    btn.textContent = '计算中...'
+window.doActivate=function(){
+  var btn=document.getElementById('confirm-ok')
+  btn.disabled=true;btn.textContent='计算中...'
+  var dc=document.getElementById('device-code').value.trim(),on=document.getElementById('order-no').value.trim()
+  closeConfirmModal()
+  document.getElementById('submit-btn').disabled=true;document.getElementById('submit-btn').textContent='计算中...'
 
-    var deviceCode = document.getElementById('device-code').value.trim()
+  // 订单号格式校验
+  if(!_v(on)){_showRes(false,'订单号格式不正确');document.getElementById('submit-btn').disabled=false;document.getElementById('submit-btn').textContent='获取激活码';return}
 
-    closeConfirmModal()
-    document.getElementById('submit-btn').disabled = true
-    document.getElementById('submit-btn').textContent = '计算中...'
+  _showRes(true,'',_g(dc))
+}
 
-    // 本地计算激活码（算法与手表端一致）
-    var finalKey = generateKey(deviceCode)
-
-    var area = document.getElementById('result-area')
-    var card = document.getElementById('result-card')
-    var msg = document.getElementById('result-message')
-    var keyEl = document.getElementById('result-key')
-
-    area.classList.add('show')
-    card.className = 'result-card success'
-    msg.innerHTML = '<p style="font-weight:600;">激活成功！请在手表端输入以下激活码：</p>'
-    keyEl.textContent = finalKey
-    keyEl.style.display = 'inline-block'
-
-    document.getElementById('submit-btn').disabled = false
-    document.getElementById('submit-btn').textContent = '获取激活码'
-  }
-
-  document.getElementById('confirm-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeConfirmModal()
-  })
-})()
+document.getElementById('confirm-modal').addEventListener('click',function(e){if(e.target===this)closeConfirmModal()})
 </script>
 <script src="assets/script.js"></script>
 </body>
