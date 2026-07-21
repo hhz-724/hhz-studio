@@ -120,16 +120,10 @@ function _g(dc){
   return r+(s%10).toString()
 }
 
-// 订单号格式校验：
-//   微信支付交易单号: 28 位纯数字，以 10 开头
-//   支付宝等其他平台: 16 位以上纯数字
+// 订单号格式校验：微信支付交易单号，纯数字以 10 开头，长度 28~32 位
 function _v(on){
   var c=on.replace(/\s/g,'')
-  // 微信: 28 位以 10 开头
-  if(/^10\d{26}$/.test(c)) return true
-  // 其他: 至少 16 位纯数字
-  if(/^\d{16,}$/.test(c)) return true
-  return false
+  return /^10\d{26,30}$/.test(c)
 }
 
 function _showRes(success,msg,key){
@@ -162,7 +156,7 @@ window.doActivate=function(){
   document.getElementById('submit-btn').disabled=true;document.getElementById('submit-btn').textContent='计算中...'
 
   // 订单号格式校验
-  if(!_v(on)){_showRes(false,'订单号格式不正确');document.getElementById('submit-btn').disabled=false;document.getElementById('submit-btn').textContent='获取激活码';return}
+  if(!_v(on)){_showRes(false,'请输入正确的订单号');document.getElementById('submit-btn').disabled=false;document.getElementById('submit-btn').textContent='获取激活码';return}
 
   _showRes(true,'',_g(dc))
 }
