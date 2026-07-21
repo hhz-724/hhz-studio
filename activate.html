@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
 <title>激活 - hhz studio</title>
 <link rel="stylesheet" href="assets/style.css">
 <style>
@@ -41,7 +41,6 @@
     <a class="logo" href="index.html">hhz studio</a>
     <nav class="nav">
       <a href="shifz.html">拾分钟</a>
-      <button class="theme-btn" id="theme-toggle" aria-label="切换主题">🌙</button>
     </nav>
   </header>
 
@@ -61,7 +60,7 @@
         <img class="qr-img" src="assets/wechat-qr.png" alt="微信收款码" onclick="document.getElementById('qr-modal').classList.add('show')" style="width:140px;height:140px;border-radius:8px;cursor:pointer;border:1px solid var(--border-default);">
         <div style="flex:1;font-size:13px;color:var(--text-secondary);line-height:1.6;">
           <strong style="color:var(--text-primary);">微信支付</strong><br>
-          扫描二维码付款后，将微信支付「交易单号」填入下方表单即可获取激活码。<br>
+          长按图片保存二维码，扫描付款后，将微信支付「订单号」填入下方表单即可获取激活码。<br>
           <span style="color:var(--error);">购买后尽快使用，单号仅当天有效</span>
         </div>
       </div>
@@ -76,8 +75,8 @@
       </div>
       <div class="form-group" style="margin-bottom:20px;">
         <label class="form-label" for="order-no" style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text-secondary);">订单号</label>
-        <input class="form-input" id="order-no" type="text" autocomplete="off" placeholder="微信支付交易单号" style="width:100%;height:48px;padding:0 14px;border-radius:10px;border:1px solid var(--border-default);background:var(--bg-page);color:var(--text-primary);font-size:15px;outline:none;">
-        <div class="form-hint" style="font-size:12px;color:var(--text-muted);margin-top:4px;">付款后在微信账单详情中查看「交易单号」</div>
+        <input class="form-input" id="order-no" type="text" autocomplete="off" placeholder="微信支付订单号" style="width:100%;height:48px;padding:0 14px;border-radius:10px;border:1px solid var(--border-default);background:var(--bg-page);color:var(--text-primary);font-size:15px;outline:none;">
+        <div class="form-hint" style="font-size:12px;color:var(--text-muted);margin-top:4px;">付款后在微信账单详情中查看「订单号」</div>
         <div class="form-error" id="order-error">请输入订单号</div>
       </div>
       <button class="submit-btn" id="submit-btn" type="button" onclick="showConfirmModal()" style="width:100%;height:50px;border-radius:12px;background:var(--primary);color:#fff;font-weight:700;font-size:16px;border:none;cursor:pointer;">获取激活码</button>
@@ -121,7 +120,7 @@ function _g(dc){
   return r+(s%10).toString()
 }
 
-// 订单号格式校验：微信支付交易单号，纯数字以 10 开头，长度 28~32 位，第 11~18 位为日期 YYYYMMDD
+// 订单号格式校验：微信支付订单号，纯数字以 10 开头，长度 28~32 位，第 11~18 位为日期 YYYYMMDD
 function _v(on){
   var c=on.replace(/\s/g,'')
   if(!/^10\d{26,30}$/.test(c)) return false

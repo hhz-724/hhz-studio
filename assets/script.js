@@ -1,28 +1,15 @@
 (function() {
   'use strict';
 
-  // ===== Theme Toggle =====
-  var themeKey = 'hhz-theme'
-  function getTheme() { return localStorage.getItem(themeKey) || 'light' }
-  function setTheme(t) {
-    document.documentElement.setAttribute('data-theme', t)
-    localStorage.setItem(themeKey, t)
-    var btn = document.getElementById('theme-toggle')
-    if (btn) btn.textContent = t === 'light' ? '🌙' : '☀️'
-  }
-  function toggleTheme() { setTheme(getTheme() === 'light' ? 'dark' : 'light') }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    setTheme(getTheme())
-    var btn = document.getElementById('theme-toggle')
-    if (btn) btn.addEventListener('click', toggleTheme)
-
-    // Nav highlight
+  // ===== Nav highlight =====
+  function setup() {
     var path = location.pathname.split('/').pop() || 'index.html'
     document.querySelectorAll('.nav a').forEach(function(a) {
       if (a.getAttribute('href') === path) a.style.color = 'var(--primary)'
     })
-  })
+  }
+
+  document.addEventListener('DOMContentLoaded', setup)
 
   // ===== Copy QQ Group =====
   window.copyQQGroup = function() {

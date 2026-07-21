@@ -1,6 +1,6 @@
 /* ============================================
    hhz studio -- style.css
-   亮色简约风格，品牌色 #0891b2
+   深色模式，品牌色 #0891b2
    ============================================ */
 
 /* ---------- CSS 变量 ---------- */
@@ -9,34 +9,10 @@
   --primary: #0891b2;
   --primary-dark: #0e7490;
   --primary-light: #22d3ee;
-  --primary-glow: rgba(8,145,178,0.08);
+  --primary-glow: rgba(8,145,178,0.12);
   --accent: #f59e0b;
 
-  /* 亮色 */
-  --bg-page: #f7f8fa;
-  --bg-card: #ffffff;
-  --bg-header: rgba(247,248,250,0.88);
-  --text-primary: #1a1a1a;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
-  --border-default: #e5e7eb;
-  --border-card: #f0f1f3;
-  --shadow-card: var(--glass-shadow);
-  --shadow-card-hover: 0 8px 40px rgba(0,0,0,0.08);
-
-  /* 光效背景 */
-  --bg-glow-1: rgba(8,145,178,0.12);
-  --bg-glow-2: rgba(8,145,178,0.07);
-  --bg-glow-3: rgba(245,158,11,0.05);
-  --bg-glow-accent: rgba(8,145,178,0.06);
-  --glass-bg: rgba(255,255,255,0.55);
-  --glass-border: rgba(255,255,255,0.3);
-  --glass-shadow: 0 8px 32px rgba(0,0,0,0.04);
-  --error: #ef4444;
-  --success: #10b981;
-}
-
-[data-theme="dark"] {
+  /* 深色 */
   --bg-page: #0f0f11;
   --bg-card: #18181b;
   --bg-header: rgba(15,15,17,0.9);
@@ -47,41 +23,17 @@
   --border-card: #27272a;
   --shadow-card: none;
   --shadow-card-hover: 0 0 0 1px rgba(8,145,178,0.15);
-  --primary-glow: rgba(8,145,178,0.12);
 
-  /* 光效背景 - 暗色 */
-  --bg-glow-1: rgba(8,145,178,0.15);
-  --bg-glow-2: rgba(8,145,178,0.08);
-  --bg-glow-3: rgba(245,158,11,0.06);
-  --bg-glow-accent: rgba(8,145,178,0.1);
+  /* 光效背景 */
+  --bg-glow-1: rgba(8,145,178,0.25);
+  --bg-glow-2: rgba(8,145,178,0.15);
+  --bg-glow-3: rgba(245,158,11,0.10);
+  --bg-glow-accent: rgba(8,145,178,0.18);
   --glass-bg: rgba(24,24,27,0.7);
   --glass-border: rgba(39,39,42,0.5);
   --glass-shadow: 0 8px 32px rgba(0,0,0,0.12);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg-page: #0f0f11;
-    --bg-card: #18181b;
-    --bg-header: rgba(15,15,17,0.9);
-    --text-primary: #e4e4e7;
-    --text-secondary: #71717a;
-    --text-muted: #52525b;
-    --border-default: #27272a;
-    --border-card: #27272a;
-    --shadow-card: none;
-    --shadow-card-hover: 0 0 0 1px rgba(8,145,178,0.15);
-    --primary-glow: rgba(8,145,178,0.12);
-
-    /* 光效背景 - 暗色 */
-    --bg-glow-1: rgba(8,145,178,0.15);
-    --bg-glow-2: rgba(8,145,178,0.08);
-    --bg-glow-3: rgba(245,158,11,0.06);
-    --bg-glow-accent: rgba(8,145,178,0.1);
-    --glass-bg: rgba(24,24,27,0.7);
-    --glass-border: rgba(39,39,42,0.5);
-    --glass-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  }
+  --error: #ef4444;
+  --success: #10b981;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -120,18 +72,12 @@ body::before {
   pointer-events: none;
   z-index: -1;
   background:
-    radial-gradient(ellipse 90% 60% at 10% 15%, var(--bg-glow-1) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 50% at 85% 25%, var(--bg-glow-2) 0%, transparent 55%),
-    radial-gradient(ellipse 100% 60% at 20% 75%, var(--bg-glow-accent) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 75% 70%, var(--bg-glow-3) 0%, transparent 50%),
-    radial-gradient(ellipse 120% 70% at 50% 50%, var(--bg-glow-accent) 0%, transparent 65%);
+    radial-gradient(ellipse 95% 65% at 10% 15%, var(--bg-glow-1) 0%, transparent 50%),
+    radial-gradient(ellipse 85% 55% at 85% 20%, var(--bg-glow-2) 0%, transparent 45%),
+    radial-gradient(ellipse 105% 65% at 20% 70%, var(--bg-glow-accent) 0%, transparent 50%),
+    radial-gradient(ellipse 75% 55% at 75% 65%, var(--bg-glow-3) 0%, transparent 40%),
+    radial-gradient(ellipse 130% 75% at 50% 50%, var(--bg-glow-accent) 0%, transparent 55%);
 }
-[data-theme="dark"] body::before {
-  background:
-    radial-gradient(ellipse 90% 60% at 10% 15%, var(--bg-glow-1) 0%, transparent 55%),
-    radial-gradient(ellipse 80% 50% at 85% 25%, var(--bg-glow-2) 0%, transparent 50%),
-    radial-gradient(ellipse 100% 60% at 20% 75%, var(--bg-glow-accent) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 75% 70%, var(--bg-glow-3) 0%, transparent 45%);
 }
 
 a {
@@ -188,11 +134,6 @@ img { max-width: 100%; display: block; }
 .site-header nav a:hover {
   color: var(--primary);
   text-decoration: none;
-}
-
-.theme-btn {
-  background: none; border: none; cursor: pointer; font-size: 18px;
-  padding: 4px; line-height: 1; color: var(--text-secondary);
 }
 
 /* ---------- 首页 ---------- */
