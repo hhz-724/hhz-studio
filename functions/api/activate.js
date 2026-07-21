@@ -27,7 +27,12 @@ function generateKey(deviceCode) {
 
 function isValidOrderNo(orderNo) {
   if (!orderNo || typeof orderNo !== 'string') return false
-  return orderNo.length >= 6 && orderNo.length <= 64
+  // 微信支付交易单号：28 位数字，以 420000 开头
+  // 支付宝等其他支付方式放宽校验
+  var cleaned = orderNo.replace(/\s/g, '')
+  if (/^420000\d{22}$/.test(cleaned)) return true
+  // 备用规则：至少 10 位纯数字（兼容其他支付平台）
+  return /^\d{10,64}$/.test(cleaned)
 }
 
 var CORS_HEADERS = {
