@@ -61,7 +61,8 @@
         <img class="qr-img" src="assets/wechat-qr.png" alt="微信收款码" onclick="document.getElementById('qr-modal').classList.add('show')" style="width:140px;height:140px;border-radius:8px;cursor:pointer;border:1px solid var(--border-default);">
         <div style="flex:1;font-size:13px;color:var(--text-secondary);line-height:1.6;">
           <strong style="color:var(--text-primary);">微信支付</strong><br>
-          扫描二维码付款后，将微信支付「交易单号」填入下方表单即可获取激活码。
+          扫描二维码付款后，将微信支付「交易单号」填入下方表单即可获取激活码。<br>
+          <span style="color:var(--error);">购买后尽快使用，单号仅当天有效</span>
         </div>
       </div>
     </div>
@@ -120,16 +121,22 @@ function _g(dc){
   return r+(s%10).toString()
 }
 
-// 订单号格式校验：微信支付交易单号，纯数字以 10 开头，长度 28~32 位
+// 订单号格式校验：微信支付交易单号，纯数字以 10 开头，长度 28~32 位，第 11~18 位为日期 YYYYMMDD
 function _v(on){
   var c=on.replace(/\s/g,'')
-  return /^10\d{26,30}$/.test(c)
+  if(!/^10\d{26,30}$/.test(c)) return false
+  // 提取日期（第 11-18 位，0-indexed: 10-17）
+  var ds=c.substr(10,8),y=parseInt(ds.substr(0,4),10),m=parseInt(ds.substr(4,2),10)-1,d=parseInt(ds.substr(6,2),10)
+  if(!y||m<0||m>11||d<1||d>31) return false
+  var order=new Date(y,m,d),today=new Date()
+  today.setHours(0,0,0,0)
+  return order>=today
 }
 
 function _showRes(success,msg,key){
   var a=document.getElementById('result-area'),c=document.getElementById('result-card'),m=document.getElementById('result-message'),k=document.getElementById('result-key')
   a.classList.add('show')
-  if(success){c.className='result-card success';m.innerHTML='<p style="font-weight:600;">激活成功！请在手表端输入以下激活码：</p>';k.textContent=key;k.style.display='inline-block'}
+  if(success){c.className='result-card success';m.innerHTML='<p style="font-weight:600;">激活成功！请在手表端输入以下激活码：</p><p style="font-size:13px;color:var(--error);margin-top:8px;">请保存好你的激活码</p>';k.textContent=key;k.style.display='inline-block'}
   else{c.className='result-card error';m.innerHTML='<p style="font-weight:600;color:var(--error);">'+msg+'</p>';k.style.display='none'}
   document.getElementById('submit-btn').disabled=false;document.getElementById('submit-btn').textContent='获取激活码'
 }
