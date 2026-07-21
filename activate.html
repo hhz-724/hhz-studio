@@ -130,7 +130,7 @@ function _v(on){
   if(!y||m<0||m>11||d<1||d>31) return false
   var order=new Date(y,m,d),today=new Date()
   today.setHours(0,0,0,0)
-  return order>=today
+  return order.getTime()===today.getTime()
 }
 
 function _showRes(success,msg,key){
