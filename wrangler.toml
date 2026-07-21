@@ -1,0 +1,10 @@
+name = "shifz"
+main = "functions/api/activate.js"
+compatibility_date = "2025-12-01"
+
+assets = { directory = "." }
+
+[[kv_namespaces]]
+binding = "ACTIVATE_ORDERS"
+id = "5f2b29b0882e4f6fb766674e980977a6"
+preview_id = "5f2b29b0882e4f6fb766674e980977a6"

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>拾分钟 - hhz studio</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="index.html">hhz studio</a>
+    <nav class="nav">
+      <a href="activate.html">激活</a>
+      <button class="theme-btn" id="theme-toggle" aria-label="切换主题">🌙</button>
+    </nav>
+  </header>
+
+  <main class="page-section">
+    <a class="page-back" href="index.html">&larr; 返回</a>
+
+    <!-- 标题 -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;" data-animate>
+      <img src="assets/app-icon.png" alt="拾分钟" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;">
+      <div>
+        <h1 class="page-title" style="margin-bottom:2px;">拾分钟</h1>
+        <div style="color:var(--text-secondary);font-size:13px;">v2.0 · 小米手环专属效率工具</div>
+      </div>
+    </div>
+
+    <!-- 简介 -->
+    <div class="glass-card" style="padding:16px;margin-bottom:24px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate data-delay="1">
+      拾分钟是一款运行在小米手环上的专注效率工具。支持普通专注计时与番茄钟工作法，帮你充分利用每一分钟。
+    </div>
+
+    <!-- 截图轮播 -->
+    <div style="margin-bottom:24px;" data-animate data-delay="2">
+      <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;">界面预览</h2>
+      <div class="screenshot-scroll">
+        <div class="screenshot-card active">
+          <img src="assets/screenshot-home.png" alt="主页面" style="width:100%;display:block;">
+          <div class="screenshot-label">主页面</div>
+          <div class="screenshot-desc">今日目标与快捷入口</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-pomodoro.png" alt="番茄钟" style="width:100%;display:block;">
+          <div class="screenshot-label">番茄钟专注</div>
+          <div class="screenshot-desc">25分钟倒计时</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-focus-starry.png" alt="专注页" style="width:100%;display:block;">
+          <div class="screenshot-label">专注计时</div>
+          <div class="screenshot-desc">自由正计时模式</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-summary.png" alt="专注总结" style="width:100%;display:block;">
+          <div class="screenshot-label">专注总结</div>
+          <div class="screenshot-desc">完成评价与数据</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-records.png" alt="专注统计" style="width:100%;display:block;">
+          <div class="screenshot-label">专注统计</div>
+          <div class="screenshot-desc">周/月数据一目了然</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-achievements.png" alt="成就系统" style="width:100%;display:block;">
+          <div class="screenshot-label">成就系统</div>
+          <div class="screenshot-desc">25个成就等你解锁</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-styles.png" alt="样式定制" style="width:100%;display:block;">
+          <div class="screenshot-label">样式定制</div>
+          <div class="screenshot-desc">时钟/背景/进度条</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-clock-picker.png" alt="时钟色盘" style="width:100%;display:block;">
+          <div class="screenshot-label">时钟色盘</div>
+          <div class="screenshot-desc">颜色自由搭配</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/screenshot-style-geo.png" alt="专心样式" style="width:100%;display:block;">
+          <div class="screenshot-label">专注样式</div>
+          <div class="screenshot-desc">丰富主题选择</div>
+        </div>
+      </div>
+      <div class="scroll-dots">
+        <span class="scroll-dot active" data-index="0"></span>
+        <span class="scroll-dot" data-index="1"></span>
+        <span class="scroll-dot" data-index="2"></span>
+        <span class="scroll-dot" data-index="3"></span>
+        <span class="scroll-dot" data-index="4"></span>
+        <span class="scroll-dot" data-index="5"></span>
+        <span class="scroll-dot" data-index="6"></span>
+        <span class="scroll-dot" data-index="7"></span>
+        <span class="scroll-dot" data-index="8"></span>
+      </div>
+    </div>
+
+    <!-- 功能亮点 -->
+    <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;" data-animate data-delay="3">功能亮点</h2>
+
+    <div data-animate data-delay="3">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;">&#9200;</div>
+        <div class="feature-body">
+          <div class="feature-title">番茄钟模式</div>
+          <div class="feature-desc">自定义专注/休息时间，自动轮换。净专注算法检测真实运动状态，划水会自动减速计时。</div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;">&#9776;</div>
+        <div class="feature-body">
+          <div class="feature-title">专注统计</div>
+          <div class="feature-desc">自动记录每一次专注，日/周/累计数据一目了然。支持日历视图和趋势图表，帮你持续进步。</div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;">&#8986;</div>
+        <div class="feature-body">
+          <div class="feature-title">普通专注</div>
+          <div class="feature-desc">自由正计时，无时长限制。支持暂停和结束总结，适合任意时长的专注场景。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 次要功能 2x2 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:24px 0;" data-animate data-delay="4">
+      <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+        <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;">&#127942;</div>
+        <div class="feature-body">
+          <div class="feature-title">成就系统</div>
+          <div class="feature-desc">25个成就等你解锁</div>
+        </div>
+      </div>
+      <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+        <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;">&#9728;</div>
+        <div class="feature-body">
+          <div class="feature-title">样式定制</div>
+          <div class="feature-desc">时钟/背景/进度条</div>
+        </div>
+      </div>
+      <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+        <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;">&#9889;</div>
+        <div class="feature-body">
+          <div class="feature-title">净专注算法</div>
+          <div class="feature-desc">运动检测防划水</div>
+        </div>
+      </div>
+      <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+        <div class="feature-icon" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;">&#9889;</div>
+        <div class="feature-body">
+          <div class="feature-title">省电模式</div>
+          <div class="feature-desc">静止简化显示</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="glass-card" style="padding:24px;text-align:center;margin-bottom:24px;" data-animate data-delay="4">
+      <div style="font-weight:700;font-size:16px;margin-bottom:6px;">立即开始专注</div>
+      <div style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">拾分钟已登陆小米手环</div>
+      <a class="btn-primary" href="activate.html" style="width:auto;padding:0 40px;line-height:50px;height:50px;display:inline-flex;text-decoration:none;">获取激活码 →</a>
+    </div>
+
+    <!-- 更新日志 -->
+    <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;">更新日志</h2>
+    <div class="glass-card" style="padding:16px;margin-bottom:8px;" data-animate>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v2.0.0</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-07</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">全新样式定制系统 · 专注统计全面升级 · 成就系统重做</div>
+    </div>
+    <div class="glass-card" style="padding:16px;" data-animate data-delay="1">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v1.0.0</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-06</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">首次发布 · 普通专注 + 番茄钟模式 · 净专注算法</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 hhz studio</span>
+  </footer>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>

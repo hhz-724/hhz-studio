@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>hhz studio</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="index.html">hhz studio</a>
+    <nav class="nav">
+      <a href="shifz.html">拾分钟</a>
+      <a href="activate.html">激活</a>
+      <button class="theme-btn" id="theme-toggle" aria-label="切换主题">🌙</button>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <h1 data-animate>hhz studio</h1>
+    <p data-animate data-delay="1">为小米手环打造的高效工具</p>
+
+    <div style="margin-top:28px;" data-animate data-delay="2">
+      <!-- 产品卡片 -->
+      <div class="product-card" onclick="location.href='shifz.html'" style="cursor:pointer;">
+        <div class="product-card-inner" style="flex-direction:row;align-items:center;gap:12px;padding:14px 16px;">
+          <img src="assets/app-icon.png" alt="拾分钟" style="width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-weight:700;font-size:15px;">拾分钟</span>
+              <span style="background:var(--primary);color:#fff;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;">v2.0</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:3px 10px;font-size:12px;color:var(--text-secondary);">
+              <span>番茄钟</span>
+              <span>专注计时</span>
+              <span>成就系统</span>
+              <span>专注统计</span>
+              <span>样式定制</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span class="tag" style="font-size:10px;padding:1px 8px;">小米手环</span>
+              <span class="tag" style="font-size:10px;padding:1px 8px;">专注</span>
+              <span class="tag" style="font-size:10px;padding:1px 8px;">效率</span>
+              <span style="margin-left:auto;"><a class="btn-primary" href="shifz.html" style="height:28px;font-size:12px;width:auto;padding:0 14px;border-radius:6px;">了解详情</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 占位卡片 -->
+      <div class="card-placeholder" style="text-align:center;padding:24px;">
+        <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+          <div style="width:48px;height:48px;border-radius:12px;border:2px dashed var(--border-default);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--text-muted);">+</div>
+          <div style="color:var(--text-muted);font-weight:600;font-size:15px;">更多产品即将到来</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 工作室介绍 -->
+    <div class="glass-card" style="padding:20px;margin:32px 0;" data-animate>
+      <h2 style="font-size:15px;font-weight:700;margin-bottom:8px;">关于工作室</h2>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">hhz studio 是一个个人开发者工作室，专注于为小米手环等穿戴设备打造好用的小工具。我们相信好的工具应该简洁、高效、触手可及。</p>
+    </div>
+
+    <!-- 联系 -->
+    <div style="display:flex;gap:10px;margin-bottom:32px;" data-animate>
+      <a class="glass-card" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener" style="flex:1;padding:16px;text-align:center;text-decoration:none;display:block;">
+        <div style="font-size:16px;font-weight:600;margin-bottom:2px;">爱发电</div>
+        <div style="font-size:12px;color:var(--text-secondary);">支持我们</div>
+      </a>
+      <div class="glass-card" onclick="copyQQGroup()" style="flex:1;padding:16px;text-align:center;cursor:pointer;" id="qq-card">
+        <div style="font-size:16px;font-weight:600;margin-bottom:2px;">QQ 群</div>
+        <div style="font-size:12px;color:var(--text-secondary);" id="qq-desc">点击复制群号</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 hhz studio</span>
+  </footer>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>
