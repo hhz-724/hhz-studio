@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>激活 - hhz studio</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="index.html">hhz studio</a>
+    <nav class="nav">
+      <a href="shifz.html">拾分钟</a>
+    </nav>
+  </header>
+
+  <main class="page-section">
+    <a class="page-back" href="index.html" data-animate>&larr; 返回</a>
+    <h1 class="page-title" data-animate>获取激活码</h1>
+
+    <div class="steps" style="margin-bottom:20px;" data-animate>
+      <div class="step active"><span class="step-num">1</span>爱发电赞助</div>
+      <div class="step"><span class="step-num">2</span>填写信息</div>
+      <div class="step"><span class="step-num">3</span>获取激活码</div>
+    </div>
+
+    <!-- 爱发电引导 -->
+    <div class="glass-card" style="padding:20px;margin-bottom:16px;" data-animate>
+      <div style="font-size:18px;font-weight:700;margin-bottom:12px;" data-animate data-delay="1">爱发电赞助 &yen;2</div>
+      <div style="display:flex;flex-direction:row;align-items:flex-start;gap:16px;">
+        <img src="assets/afdian-qr.jpg" alt="爱发电收款码" style="width:160px;height:160px;border-radius:12px;object-fit:cover;flex-shrink:0;cursor:pointer;" onclick="window.open('https://ifdian.net/a/h072409')">
+        <div style="flex:1;font-size:14px;color:var(--text-secondary);line-height:1.8;">
+          <strong style="color:var(--text-primary);font-size:16px;">爱发电扫码赞助</strong><br>
+          保存图片到相册或点击下方按钮<br>
+          前往爱发电主页，选择拾分钟并购买<br>
+          购买后私信会自动回复授权码<br>
+          将设备码与授权码填写在下方输入框
+        </div>
+      </div>
+      <a class="glass-btn cta" href="https://ifdian.net/a/h072409" target="_blank" rel="noopener" style="margin-top:16px;width:auto;padding:0 32px;line-height:46px;height:46px;font-size:14px;">
+        前往爱发电赞助 &rarr;
+      </a>
+    </div>
+
+    <!-- 表单 -->
+    <div class="glass-card" style="padding:24px;" data-animate data-delay="1">
+      <div class="form-group" style="margin-bottom:16px;">
+        <label class="form-label" for="device-code" style="font-size:15px;">设备码</label>
+        <input class="form-input" id="device-code" type="text" autocomplete="off" placeholder="6位数字，在手表激活页查看" style="font-size:17px;">
+        <div class="form-hint" style="font-size:13px;">在手表「激活」页面可查看设备码</div>
+        <div class="form-error" id="device-error">请输入设备码</div>
+      </div>
+      <div class="form-group" style="margin-bottom:20px;">
+        <label class="form-label" for="auth-code" style="font-size:15px;">授权码</label>
+        <input class="form-input" id="auth-code" type="text" autocomplete="off" placeholder="10位大写字母与数字组合" style="text-transform:uppercase;font-size:17px;" oninput="this.value=this.value.toUpperCase()">
+        <div class="form-hint" style="font-size:13px;">赞助后私信中的授权码</div>
+        <div class="form-error" id="auth-error">请输入有效的授权码</div>
+      </div>
+      <button class="glass-btn cta" type="button" onclick="showConfirm()" style="width:100%;height:50px;font-size:16px;">获取激活码</button>
+    </div>
+
+    <!-- 结果区 -->
+    <div class="result-area" id="result-area">
+      <div class="result-card" id="result-card">
+        <div id="result-message"></div>
+        <div class="result-key" id="result-key" style="display:none;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 确认弹窗 -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-dialog">
+      <h2>确认设备码</h2>
+      <p>请确保下方设备码与手表应用显示完全一致。</p>
+      <div class="modal-code" id="confirm-code"></div>
+      <div class="modal-actions" style="display:flex;gap:10px;">
+        <button class="modal-btn secondary" onclick="closeConfirmModal()">返回修改</button>
+        <button class="modal-btn primary" id="confirm-ok" onclick="doActivate()">确认无误</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 hhz studio</span>
+  </footer>
+</div>
+
+<script>
+var _deviceCode = ''
+
+function showResult(success, msg, key) {
+  var a = document.getElementById('result-area')
+  var c = document.getElementById('result-card')
+  var m = document.getElementById('result-message')
+  var k = document.getElementById('result-key')
+  a.classList.add('show')
+  a.scrollIntoView({behavior:'smooth',block:'center'})
+  if (success) {
+    c.className = 'result-card success'
+    m.innerHTML = '<p style="font-weight:600;">激活成功！请在手表端输入以下激活码：</p><p style="font-size:13px;color:var(--error);margin-top:8px;">请保存好你的激活码</p>'
+    k.textContent = key
+    k.style.display = 'inline-block'
+  } else {
+    c.className = 'result-card error'
+    m.innerHTML = '<p style="font-weight:600;color:var(--error);">' + msg + '</p>'
+    k.style.display = 'none'
+  }
+}
+
+window.showConfirm = function() {
+  var dc = document.getElementById('device-code').value.trim()
+  var ac = document.getElementById('auth-code').value.trim().toUpperCase()
+  var err = false
+  var dcErr = document.getElementById('device-error')
+  if (!dc) {
+    document.getElementById('device-code').style.borderColor = 'var(--error)'
+    dcErr.textContent = '请输入设备码'
+    dcErr.style.display = 'block'
+    err = true
+  } else if (!/^\d{6}$/.test(dc)) {
+    document.getElementById('device-code').style.borderColor = 'var(--error)'
+    dcErr.textContent = '设备码为6位数字'
+    dcErr.style.display = 'block'
+    err = true
+  } else {
+    document.getElementById('device-code').style.borderColor = ''
+    dcErr.style.display = 'none'
+  }
+  var aErr = document.getElementById('auth-error')
+  if (!ac) {
+    document.getElementById('auth-code').style.borderColor = 'var(--error)'
+    aErr.textContent = '请输入授权码'
+    aErr.style.display = 'block'
+    err = true
+  } else if (!/^[A-Z0-9]{10}$/.test(ac)) {
+    document.getElementById('auth-code').style.borderColor = 'var(--error)'
+    aErr.textContent = '授权码为10位大写字母与数字组合'
+    aErr.style.display = 'block'
+    err = true
+  } else {
+    document.getElementById('auth-code').style.borderColor = ''
+    aErr.style.display = 'none'
+  }
+  if (err) return
+  _deviceCode = dc
+  document.getElementById('confirm-code').textContent = dc
+  document.getElementById('confirm-modal').classList.add('show')
+  document.getElementById('confirm-ok').disabled = false
+  document.getElementById('confirm-ok').textContent = '确认无误'
+}
+
+window.closeConfirmModal = function() {
+  document.getElementById('confirm-modal').classList.remove('show')
+}
+
+window.doActivate = function() {
+  var btn = document.getElementById('confirm-ok')
+  btn.disabled = true
+  btn.textContent = '请求中...'
+  closeConfirmModal()
+
+  var dc = _deviceCode
+  var ac = document.getElementById('auth-code').value.trim().toUpperCase()
+
+  fetch('/api/activate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ device_code: dc, auth_code: ac, source: 'web' })
+  })
+  .then(function(r) { return r.json() })
+  .then(function(data) {
+    if (data.success) {
+      showResult(true, '', data.activation_code)
+    } else {
+      showResult(false, data.message || '激活失败')
+    }
+  })
+  .catch(function() {
+    showResult(false, '服务器暂时不可用，请稍后重试或通过爱发电机器人获取')
+  })
+}
+
+document.getElementById('confirm-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeConfirmModal()
+})
+</script>
+<script src="assets/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>拾分钟 - hhz studio</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="index.html">hhz studio</a>
+    <nav class="nav">
+      <a href="activate.html">激活</a>
+    </nav>
+  </header>
+
+  <main class="page-section">
+    <a class="page-back" href="index.html">&larr; 返回</a>
+
+    <!-- 设备 Tab -->
+    <div class="device-tabs" data-animate>
+      <div class="device-tab active" data-device="band10" onclick="switchDevice('band10')">小米手环 10</div>
+      <div class="device-tab" data-device="band9" onclick="switchDevice('band9')">小米手环 9 Pro</div>
+    </div>
+
+    <!-- ===== 小米手环 10 ===== -->
+    <div class="device-panel active" id="panel-band10" data-animate>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <img src="assets/app-icon.png" alt="拾分钟" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;">
+        <div>
+          <h1 class="page-title" style="margin-bottom:2px;">拾分钟 <span class="badge badge-primary">v1.1.0</span></h1>
+          <div style="color:var(--text-secondary);font-size:13px;">已适配小米手环 10</div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding:16px;margin-bottom:24px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate>
+        拾分钟是一款为小米手环打造的实用专注工具。普通计时、番茄钟、多样化的样式定制、丰富的背景图片——让你的每一次专注都舒适自在。无需复杂操作，打开即用，人性化体验。
+      </div>
+
+      <!-- 下载卡 -->
+      <div class="glass-card" style="padding:16px;margin-bottom:24px;" data-animate>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:2px;">应用下载</div>
+            <div style="font-size:12px;color:var(--text-secondary);">RPK 安装包 · Band 10 版</div>
+          </div>
+          <a class="btn-primary" href="assets/shifz-band10.rpk" download style="width:auto;padding:0 24px;line-height:44px;height:44;font-size:14px;gap:6px;">
+            <span>&darr;</span> 下载
+          </a>
+        </div>
+      </div>
+
+      <!-- 截图轮播 -->
+      <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;" data-animate data-delay="1">界面预览</h2>
+      <div class="screenshot-scroll" id="scroll-band10" data-animate>
+        <div class="screenshot-card active">
+          <img src="assets/band10-screenshots/home.png" alt="主页面" style="width:100%;display:block;">
+          <div class="screenshot-label">主页面</div>
+          <div class="screenshot-desc">今日目标与快捷入口</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/mode-select.png" alt="模式选择" style="width:100%;display:block;">
+          <div class="screenshot-label">模式选择</div>
+          <div class="screenshot-desc">普通/番茄钟模式</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/focus.png" alt="专注计时" style="width:100%;display:block;">
+          <div class="screenshot-label">专注计时</div>
+          <div class="screenshot-desc">倒计时专注进行中</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/focus-panel.png" alt="控制面板" style="width:100%;display:block;">
+          <div class="screenshot-label">控制面板</div>
+          <div class="screenshot-desc">暂停与结束操作</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/summary.png" alt="专注总结" style="width:100%;display:block;">
+          <div class="screenshot-label">专注总结</div>
+          <div class="screenshot-desc">完成评价与数据</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/records-top.png" alt="本周记录" style="width:100%;display:block;">
+          <div class="screenshot-label">本周记录</div>
+          <div class="screenshot-desc">每日达标一览</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/records-stats.png" alt="记录统计" style="width:100%;display:block;">
+          <div class="screenshot-label">专注统计</div>
+          <div class="screenshot-desc">数据趋势分析</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/records-list.png" alt="记录列表" style="width:100%;display:block;">
+          <div class="screenshot-label">专注记录</div>
+          <div class="screenshot-desc">历史记录查看</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/achievements.png" alt="成就" style="width:100%;display:block;">
+          <div class="screenshot-label">成就系统</div>
+          <div class="screenshot-desc">25个成就等你解锁</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/settings.png" alt="设置" style="width:100%;display:block;">
+          <div class="screenshot-label">设置</div>
+          <div class="screenshot-desc">专注偏好与开关</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/clock-settings.png" alt="时钟设置" style="width:100%;display:block;">
+          <div class="screenshot-label">时钟设置</div>
+          <div class="screenshot-desc">颜色与大小定制</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/progress-settings.png" alt="进度条设置" style="width:100%;display:block;">
+          <div class="screenshot-label">进度条设置</div>
+          <div class="screenshot-desc">颜色与位置调整</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/bg-shop.png" alt="背景商店" style="width:100%;display:block;">
+          <div class="screenshot-label">背景商店</div>
+          <div class="screenshot-desc">专注币购买新背景</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/bg-starry.png" alt="星空" style="width:100%;display:block;">
+          <div class="screenshot-label">背景选择</div>
+          <div class="screenshot-desc">丰富图片自由切换</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/bg-aurora.png" alt="极光" style="width:100%;display:block;">
+          <div class="screenshot-label">极光幻彩</div>
+          <div class="screenshot-desc">20张精美背景</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/bg-desert.png" alt="沙漠" style="width:100%;display:block;">
+          <div class="screenshot-label">沙漠星河</div>
+          <div class="screenshot-desc">沉浸式专注体验</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/bg-light.png" alt="流光" style="width:100%;display:block;">
+          <div class="screenshot-label">流光轨迹</div>
+          <div class="screenshot-desc">科技感动态风格</div>
+        </div>
+        <div class="screenshot-card">
+          <img src="assets/band10-screenshots/bg-sunrise.png" alt="日出" style="width:100%;display:block;">
+          <div class="screenshot-label">海面日出</div>
+          <div class="screenshot-desc">治愈系自然风光</div>
+        </div>
+      </div>
+      <div class="scroll-dots" id="dots-band10">
+        <span class="scroll-dot active" data-index="0"></span><span class="scroll-dot" data-index="1"></span><span class="scroll-dot" data-index="2"></span><span class="scroll-dot" data-index="3"></span><span class="scroll-dot" data-index="4"></span><span class="scroll-dot" data-index="5"></span><span class="scroll-dot" data-index="6"></span><span class="scroll-dot" data-index="7"></span><span class="scroll-dot" data-index="8"></span><span class="scroll-dot" data-index="9"></span><span class="scroll-dot" data-index="10"></span><span class="scroll-dot" data-index="11"></span><span class="scroll-dot" data-index="12"></span><span class="scroll-dot" data-index="13"></span><span class="scroll-dot" data-index="14"></span><span class="scroll-dot" data-index="15"></span><span class="scroll-dot" data-index="16"></span><span class="scroll-dot" data-index="17"></span>
+      </div>
+
+      <!-- 功能 -->
+      <h2 style="font-size:15px;font-weight:700;margin-top:24px;margin-bottom:12px;" data-animate data-delay="1">功能亮点</h2>
+
+      <div class="feature-card" style="margin-bottom:8px;" data-animate data-delay="1">
+        <div class="feature-icon">&#9200;</div>
+        <div class="feature-body">
+          <div class="feature-title">番茄钟模式</div>
+          <div class="feature-desc">自定义专注/休息时间，自动轮换。净专注算法检测真实运动状态，划水会自动减速计时。</div>
+        </div>
+      </div>
+      <div class="feature-card" style="margin-bottom:8px;" data-animate data-delay="1">
+        <div class="feature-icon">&#9776;</div>
+        <div class="feature-body">
+          <div class="feature-title">专注统计</div>
+          <div class="feature-desc">自动记录每一次专注，日/周/累计数据一目了然。</div>
+        </div>
+      </div>
+      <div class="feature-card" style="margin-bottom:24px;" data-animate data-delay="2">
+        <div class="feature-icon">&#8986;</div>
+        <div class="feature-body">
+          <div class="feature-title">普通专注</div>
+          <div class="feature-desc">自由正计时，无时长限制。支持暂停和结束总结。</div>
+        </div>
+      </div>
+
+      <!-- 2x2 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 24px;" data-animate data-delay="2">
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+          <div class="feature-icon">&#127942;</div>
+          <div class="feature-body"><div class="feature-title">成就系统</div><div class="feature-desc">25个成就等你解锁</div></div>
+        </div>
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+          <div class="feature-icon">&#9728;</div>
+          <div class="feature-body"><div class="feature-title">样式定制</div><div class="feature-desc">时钟/背景/进度条</div></div>
+        </div>
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+          <div class="feature-icon">&#9889;</div>
+          <div class="feature-body"><div class="feature-title">净专注算法</div><div class="feature-desc">运动检测防划水</div></div>
+        </div>
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;">
+          <div class="feature-icon">&#9889;</div>
+          <div class="feature-body"><div class="feature-title">省电模式</div><div class="feature-desc">静止简化显示</div></div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="glass-card cta-card" style="padding:24px;text-align:center;margin-bottom:24px;" data-animate data-delay="2">
+        <div style="font-weight:700;font-size:16px;margin-bottom:6px;">立即开始专注</div>
+        <div style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">拾分钟已登陆小米手环 10</div>
+        <a class="btn-primary cta" href="activate.html" style="width:auto;padding:0 40px;line-height:50px;height:50px;font-size:1rem;">获取激活码 &rarr;</a>
+      </div>
+    </div>
+
+    <!-- ===== 小米手环 9 Pro ===== -->
+    <div class="device-panel" id="panel-band9" data-animate>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;" data-animate>
+        <img src="assets/app-icon.png" alt="拾分钟" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;">
+        <div>
+          <h1 class="page-title" style="margin-bottom:2px;">拾分钟 <span class="badge badge-secondary">v1.0.2</span></h1>
+          <div style="color:var(--text-secondary);font-size:13px;">小米手环专属效率工具</div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding:16px;margin-bottom:24px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate>
+        拾分钟是一款运行在小米手环上的专注效率工具。支持普通专注计时与番茄钟工作法，帮你充分利用每一分钟。
+      </div>
+
+      <div class="glass-card" style="padding:16px;margin-bottom:24px;" data-animate>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:2px;">应用下载</div>
+            <div style="font-size:12px;color:var(--text-secondary);">RPK 安装包 · v1.0.2</div>
+          </div>
+          <a class="btn-primary" href="assets/shifz.rpk" download style="width:auto;padding:0 24px;line-height:44px;height:44px;font-size:14px;gap:6px;"><span>&darr;</span> 下载</a>
+        </div>
+      </div>
+
+      <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;">界面预览</h2>
+      <div class="screenshot-scroll" id="scroll-band9">
+        <div class="screenshot-card active"><img src="assets/screenshot-home.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">主页面</div><div class="screenshot-desc">今日目标与快捷入口</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-pomodoro.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">番茄钟专注</div><div class="screenshot-desc">25分钟倒计时</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-focus-starry.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">专注计时</div><div class="screenshot-desc">自由正计时模式</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-summary.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">专注总结</div><div class="screenshot-desc">完成评价与数据</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-records.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">专注统计</div><div class="screenshot-desc">周/月数据一目了然</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-achievements.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">成就系统</div><div class="screenshot-desc">25个成就等你解锁</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-styles.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">样式定制</div><div class="screenshot-desc">时钟/背景/进度条</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-clock-picker.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">时钟色盘</div><div class="screenshot-desc">颜色自由搭配</div></div>
+        <div class="screenshot-card"><img src="assets/screenshot-style-geo.png" alt="" style="width:100%;display:block;"><div class="screenshot-label">专注样式</div><div class="screenshot-desc">丰富主题选择</div></div>
+      </div>
+      <div class="scroll-dots" id="dots-band9">
+        <span class="scroll-dot active" data-index="0"></span><span class="scroll-dot" data-index="1"></span><span class="scroll-dot" data-index="2"></span><span class="scroll-dot" data-index="3"></span><span class="scroll-dot" data-index="4"></span><span class="scroll-dot" data-index="5"></span><span class="scroll-dot" data-index="6"></span><span class="scroll-dot" data-index="7"></span><span class="scroll-dot" data-index="8"></span>
+      </div>
+
+      <h2 style="font-size:15px;font-weight:700;margin-top:24px;margin-bottom:12px;">功能亮点</h2>
+      <div class="feature-card" style="margin-bottom:8px;"><div class="feature-icon">&#9200;</div><div class="feature-body"><div class="feature-title">番茄钟模式</div><div class="feature-desc">自定义专注/休息时间，自动轮换。净专注算法检测真实运动状态。</div></div></div>
+      <div class="feature-card" style="margin-bottom:8px;"><div class="feature-icon">&#9776;</div><div class="feature-body"><div class="feature-title">专注统计</div><div class="feature-desc">自动记录每一次专注，日/周/累计数据一目了然。</div></div></div>
+      <div class="feature-card" style="margin-bottom:24px;"><div class="feature-icon">&#8986;</div><div class="feature-body"><div class="feature-title">普通专注</div><div class="feature-desc">自由正计时，无时长限制。支持暂停和结束总结。</div></div></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 24px;">
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;"><div class="feature-icon">&#127942;</div><div class="feature-body"><div class="feature-title">成就系统</div><div class="feature-desc">25个成就</div></div></div>
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;"><div class="feature-icon">&#9728;</div><div class="feature-body"><div class="feature-title">样式定制</div><div class="feature-desc">时钟/背景/进度条</div></div></div>
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;"><div class="feature-icon">&#9889;</div><div class="feature-body"><div class="feature-title">净专注算法</div><div class="feature-desc">运动检测防划水</div></div></div>
+        <div class="feature-card" style="flex-direction:column;align-items:center;text-align:center;gap:8px;"><div class="feature-icon">&#9889;</div><div class="feature-body"><div class="feature-title">省电模式</div><div class="feature-desc">静止简化显示</div></div></div>
+      </div>
+
+      <div class="glass-card" style="padding:24px;text-align:center;margin-bottom:24px;">
+        <div style="font-weight:700;font-size:16px;margin-bottom:6px;">立即开始专注</div>
+        <div style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">拾分钟已登陆小米手环</div>
+        <a class="btn-primary cta" href="activate.html" style="width:auto;padding:0 40px;line-height:50px;height:50px;font-size:1rem;">获取激活码 &rarr;</a>
+      </div>
+    </div>
+
+    <!-- 更新日志 -->
+    <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;" data-animate>更新日志</h2>
+    <div class="glass-card" style="padding:16px;margin-bottom:8px;" data-animate>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v1.1.0</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-07</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">小米手环 10 适配 · 专注币系统 · 背景商店 · 图片换新</div>
+    </div>
+    <div class="glass-card" style="padding:16px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v1.0.2</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-07</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">专注币系统 · 成就购买 · 图片背景商店 · 帮助页重写 · 支付激活系统</div>
+    </div>
+    <div class="glass-card" style="padding:16px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v1.0.1</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-06</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">UI 重构 · Bug 修复 · 功能增强</div>
+    </div>
+    <div class="glass-card" style="padding:16px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v1.0.0</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-06</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">首次发布 · 普通专注 + 番茄钟模式 · 净专注算法</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 hhz studio</span>
+  </footer>
+</div>
+
+<script>
+window.switchDevice = function(device) {
+  document.querySelectorAll('.device-tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.device === device)
+  })
+  document.querySelectorAll('.device-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'panel-' + device)
+  })
+  setTimeout(function() {
+    document.querySelectorAll('.screenshot-scroll').forEach(function(sc) {
+      if (sc.offsetParent !== null) initCarousel(sc)
+    })
+  }, 50)
+}
+
+function initCarousel(sc) {
+  var dots = sc.parentElement.querySelector('.scroll-dots')
+  if (!dots) return
+  function updateDots() {
+    var cards = sc.querySelectorAll('.screenshot-card')
+    var idx = Math.round(sc.scrollLeft / (cards[0] ? cards[0].offsetWidth + 16 : 150))
+    idx = Math.max(0, Math.min(idx, dots.children.length - 1))
+    Array.from(dots.children).forEach(function(d, i) { d.classList.toggle('active', i === idx) })
+    cards.forEach(function(c, i) { c.classList.toggle('active', i === idx) })
+  }
+  sc.addEventListener('scroll', updateDots)
+  Array.from(dots.children).forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(this.getAttribute('data-index'), 10)
+      var cards = sc.querySelectorAll('.screenshot-card')
+      if (cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'start' })
+    })
+  })
+  updateDots()
+  var autoTimer = setInterval(function() {
+    var cards = sc.querySelectorAll('.screenshot-card')
+    if (!cards.length) return
+    var currentIdx = Array.from(dots.children).findIndex(function(d) { return d.classList.contains('active') })
+    var nextIdx = (currentIdx + 1) % cards.length
+    sc.scrollTo({ left: nextIdx * (cards[0].offsetWidth + 16), behavior: 'smooth' })
+  }, 1200)
+  var idleTimer
+  function resetAutoScroll() {
+    clearTimeout(idleTimer); clearInterval(autoTimer)
+    idleTimer = setTimeout(function() {
+      autoTimer = setInterval(function() {
+        var cards = sc.querySelectorAll('.screenshot-card')
+        if (!cards.length) return
+        var currentIdx = Array.from(dots.children).findIndex(function(d) { return d.classList.contains('active') })
+        sc.scrollTo({ left: ((currentIdx + 1) % cards.length) * (cards[0].offsetWidth + 16), behavior: 'smooth' })
+      }, 1200)
+    }, 6000)
+  }
+  sc.addEventListener('scroll', resetAutoScroll)
+  Array.from(dots.children).forEach(function(d) { d.addEventListener('click', resetAutoScroll) })
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.screenshot-scroll').forEach(function(sc) {
+    if (sc.offsetParent !== null) initCarousel(sc)
+  })
+})
+</script>
+<script src="assets/script.js"></script>
+</body>
+</html>
