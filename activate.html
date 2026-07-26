@@ -165,7 +165,7 @@ window.doActivate = function() {
   var dc = _deviceCode
   var ac = document.getElementById('auth-code').value.trim().toUpperCase()
 
-  fetch('/api/activate', {
+  fetch('https://shifz.3376000458.workers.dev/api/activate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ device_code: dc, auth_code: ac, source: 'web' })
