@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>激活指南 - hhz studio</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.step-card {
+  display: flex; gap: 14px; padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  position: relative; overflow: hidden;
+}
+.step-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 25%, transparent 50%);
+  pointer-events: none;
+}
+.step-card > * { position: relative; z-index: 1; }
+.step-num {
+  width: 28px; height: 28px; min-width: 28px;
+  border-radius: 50%;
+  background: rgba(8,145,178,0.2);
+  border: 1px solid rgba(8,145,178,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; color: var(--primary);
+}
+.step-body { flex: 1; }
+.step-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.qr-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  text-align: center;
+}
+.qr-wrap img {
+  width: 180px; height: 180px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 14px;
+}
+.notice-box {
+  padding: 14px 16px;
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.15);
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.notice-box strong { color: var(--error); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="index.html">hhz studio</a>
+    <nav class="nav">
+      <a href="shifz.html">拾分钟</a>
+    </nav>
+  </header>
+
+  <main class="page-section">
+    <a class="page-back" href="shifz.html">← 返回</a>
+    <h1 class="page-title">激活指南</h1>
+
+    <div class="glass-card" style="padding:16px;margin-bottom:20px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate>
+      拾分钟是一款免费应用，基础功能无需激活即可使用。如果你希望解锁全部高级功能（背景商店、专注币系统等），可以通过以下方式激活。
+    </div>
+
+    <h2 style="font-size:15px;font-weight:700;margin-bottom:14px;" data-animate>激活步骤</h2>
+
+    <div data-animate>
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">打开手表应用</div>
+          <div class="step-desc">在手表上打开拾分钟 → 进入「设置」→ 选择「激活」，记下显示的设备码。</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">扫码支持</div>
+          <div class="step-desc">通过下方爱发电扫码赞助（金额随意），赞助时请备注你的设备码。</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">等待激活</div>
+          <div class="step-desc">收到赞助后，我会尽快将激活码发送到你的爱发电私信。在手表端输入激活码即可完成激活。</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="font-size:15px;font-weight:700;margin:24px 0 14px;" data-animate>支持我们</h2>
+
+    <div class="qr-wrap" data-animate>
+      <img src="assets/afdian-qr.jpg" alt="爱发电收款码">
+      <div style="font-weight:600;font-size:15px;margin-bottom:4px;">爱发电赞助</div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">赞助时请备注设备码</div>
+      <a class="btn-primary" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener" style="width:auto;padding:0 28px;line-height:44px;height:44px;font-size:14px;">
+        前往爱发电页面
+      </a>
+    </div>
+
+    <div class="notice-box" style="margin-top:16px;" data-animate>
+      <strong>请注意：</strong> 激活码与设备码绑定，更换手表后需要重新激活。激活后请勿恢复出厂设置，否则激活状态会丢失。如有问题，请通过 QQ 群 964879234 联系。
+    </div>
+
+    <div style="margin-top:24px;text-align:center;" data-animate>
+      <a class="btn-primary cta" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener" style="width:100%;">爱发电赞助</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 hhz studio</span>
+  </footer>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>
