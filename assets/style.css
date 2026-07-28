@@ -269,6 +269,38 @@ img { max-width: 100%; display: block; }
   transform: none;
 }
 
+/* ---- 次级按钮 (用于精简版下载) ---- */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0 24px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+.btn-secondary:active {
+  transform: scale(0.97);
+  transition-duration: 0.08s;
+}
+
 /* ---- CTA 按钮 — 带品牌色光的玻璃 ---- */
 .glass-btn.cta, .btn-primary.cta {
   background: rgba(8, 145, 178, 0.10);
@@ -690,6 +722,11 @@ img { max-width: 100%; display: block; }
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.06);
   color: var(--text-secondary);
+}
+.badge-lite {
+  background: rgba(210,153,34,0.20);
+  border: 1px solid rgba(210,153,34,0.30);
+  color: #D29922;
 }
 
 /* ---- 其他 ---- */
