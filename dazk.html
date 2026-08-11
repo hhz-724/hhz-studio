@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>咚咚砖 - hhz studio</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="index.html">hhz studio</a>
+    <nav class="nav">
+      <a href="shifz.html">拾分钟</a>
+      <a href="dazk.html">咚咚砖</a>
+    </nav>
+  </header>
+
+  <main class="page-section">
+    <a class="page-back" href="index.html">&larr; 返回</a>
+
+    <!-- 产品头部 -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;" data-animate>
+      <img src="assets/dazk-logo.png" alt="咚咚砖" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;">
+      <div>
+        <h1 class="page-title" style="margin-bottom:2px;">咚咚砖 <span class="badge badge-primary">v6.0</span></h1>
+        <div style="color:var(--text-secondary);font-size:13px;">小米手环上的像素风打砖块</div>
+      </div>
+    </div>
+
+    <!-- 简介 -->
+    <div class="glass-card" style="padding:16px;margin-bottom:24px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate>
+      咚咚砖是一款为小米手环打造的像素风打砖块游戏。经典滑砖反弹玩法，融合闯关与无尽两大模式：闯关模式 3 章 30 关 + 10 场 Boss 战，无尽模式波次制挑战无限极限。丰富的道具掉落、24 种技能、成就收集与商店成长系统，让每一次挥拍都充满惊喜。
+    </div>
+
+    <!-- 下载卡 -->
+    <div class="glass-card" style="padding:16px;margin-bottom:24px;" data-animate>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:700;font-size:14px;margin-bottom:2px;">应用下载</div>
+          <div style="font-size:12px;color:var(--text-secondary);">RPK 安装包 · 签名加密版</div>
+        </div>
+        <a class="btn-primary" href="assets/dazk.rpk" download style="width:auto;padding:0 24px;line-height:44px;height:44px;font-size:14px;gap:6px;"><span>&darr;</span> 下载</a>
+      </div>
+    </div>
+
+    <!-- 截图轮播 -->
+    <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;" data-animate>界面预览</h2>
+    <div class="screenshot-scroll" id="scroll-dazk" data-animate>
+      <div class="screenshot-card active"><img src="assets/dazk-screenshots/menu.png" alt="主菜单" style="width:100%;display:block;"><div class="screenshot-label">主菜单</div><div class="screenshot-desc">模式选择与商店入口</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/level-select.png" alt="关卡选择" style="width:100%;display:block;"><div class="screenshot-label">关卡选择</div><div class="screenshot-desc">三章 30 关手调布局</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/level.png" alt="闯关第一关" style="width:100%;display:block;"><div class="screenshot-label">闯关第一关</div><div class="screenshot-desc">像素风实时对战</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/level-goal.png" alt="目标砖" style="width:100%;display:block;"><div class="screenshot-label">目标砖</div><div class="screenshot-desc">关卡目标一目了然</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/boss.png" alt="Boss 战" style="width:100%;display:block;"><div class="screenshot-label">Boss 战</div><div class="screenshot-desc">三阶段弹幕对决</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/endless.png" alt="无尽大砖" style="width:100%;display:block;"><div class="screenshot-label">无尽大砖</div><div class="screenshot-desc">波次制无限挑战</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/endless-event.png" alt="无尽事件" style="width:100%;display:block;"><div class="screenshot-label">无尽事件</div><div class="screenshot-desc">随机事件惊喜不断</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/skills.png" alt="技能选择" style="width:100%;display:block;"><div class="screenshot-label">技能选择</div><div class="screenshot-desc">三选一成长路线</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/shop.png" alt="商店升级" style="width:100%;display:block;"><div class="screenshot-label">商店升级</div><div class="screenshot-desc">永久升级系统</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/shop-skins.png" alt="球皮肤" style="width:100%;display:block;"><div class="screenshot-label">球皮肤</div><div class="screenshot-desc">多款外观选择</div></div>
+      <div class="screenshot-card"><img src="assets/dazk-screenshots/achievements.png" alt="成就" style="width:100%;display:block;"><div class="screenshot-label">成就</div><div class="screenshot-desc">21 个成就等你解锁</div></div>
+    </div>
+    <div class="scroll-dots" id="dots-dazk">
+      <span class="scroll-dot active" data-index="0"></span><span class="scroll-dot" data-index="1"></span><span class="scroll-dot" data-index="2"></span><span class="scroll-dot" data-index="3"></span><span class="scroll-dot" data-index="4"></span><span class="scroll-dot" data-index="5"></span><span class="scroll-dot" data-index="6"></span><span class="scroll-dot" data-index="7"></span><span class="scroll-dot" data-index="8"></span><span class="scroll-dot" data-index="9"></span><span class="scroll-dot" data-index="10"></span>
+    </div>
+
+    <!-- 功能亮点 -->
+    <h2 style="font-size:15px;font-weight:700;margin-top:24px;margin-bottom:12px;" data-animate>功能亮点</h2>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;" data-animate>游戏模式</h3>
+    <div class="feature-card" style="margin-bottom:6px;" data-animate>
+      <div class="feature-icon">&#127918;</div>
+      <div class="feature-body">
+        <div class="feature-title">闯关模式</div>
+        <div class="feature-desc">3 章 30 关全独立手调布局（翠绿草原/赤焰火山/寒冰深渊），每关限 1 球挑战。章末 Boss 战三阶段，弹幕、追踪、护盾、召唤砖层层升级。</div>
+      </div>
+    </div>
+    <div class="feature-card" style="margin-bottom:12px;" data-animate data-delay="1">
+      <div class="feature-icon">&#127939;</div>
+      <div class="feature-body">
+        <div class="feature-title">无尽模式</div>
+        <div class="feature-desc">波次制挑战，清完砖块三选一强化，HP 随波次递增。挡板每 15~25 次反弹压下一行，挑战你的极限。</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;" data-animate>核心玩法</h3>
+    <div class="feature-card" style="margin-bottom:6px;" data-animate>
+      <div class="feature-icon">&#127921;</div>
+      <div class="feature-body">
+        <div class="feature-title">经典打砖块</div>
+        <div class="feature-desc">手指滑动挡板反弹小球，AABB 物理碰撞精准判定。命中位置决定反弹角度，保速反弹手感扎实。</div>
+      </div>
+    </div>
+    <div class="feature-card" style="margin-bottom:12px;" data-animate data-delay="1">
+      <div class="feature-icon">&#128737;</div>
+      <div class="feature-body">
+        <div class="feature-title">特殊砖块</div>
+        <div class="feature-desc">金属砖 5 血、弹射砖、分裂砖、冰冻砖、传送砖……多种特殊砖块让每关策略各不相同。</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;" data-animate>道具与成长</h3>
+    <div class="feature-card" style="margin-bottom:6px;" data-animate>
+      <div class="feature-icon">&#127873;</div>
+      <div class="feature-body">
+        <div class="feature-title">道具掉落</div>
+        <div class="feature-desc">击碎砖块掉落道具：加宽、分裂、穿透、护盾、火焰、爆裂等正面道具，减速、加速、重力、反向等负面道具。躲开惩罚，接住惊喜。</div>
+      </div>
+    </div>
+    <div class="feature-card" style="margin-bottom:6px;" data-animate data-delay="1">
+      <div class="feature-icon">&#9889;</div>
+      <div class="feature-body">
+        <div class="feature-title">技能系统</div>
+        <div class="feature-desc">22 种技能：分身术、巨板流、燎原火、金钟罩、暴走狂怒、时间结界……合理搭配打出超神连击。</div>
+      </div>
+    </div>
+    <div class="feature-card" style="margin-bottom:12px;" data-animate data-delay="2">
+      <div class="feature-icon">&#128176;</div>
+      <div class="feature-body">
+        <div class="feature-title">商店成长</div>
+        <div class="feature-desc">8 项永久升级、4 款球皮肤、技能抽取。金币通关获取，无尽模式关卡内掉落，成长无上限。</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;" data-animate>成就奖励</h3>
+    <div class="feature-card" style="margin-bottom:24px;" data-animate>
+      <div class="feature-icon">&#127942;</div>
+      <div class="feature-body">
+        <div class="feature-title">成就收集</div>
+        <div class="feature-desc">21 个成就覆盖通关、连击、击碎、无尽波次、Boss 战、金币收集，达成时游戏内横幅提示，收集控的福音。</div>
+      </div>
+    </div>
+
+    <!-- 激活 CTA -->
+    <div class="glass-card cta-card" style="padding:24px;text-align:center;margin-bottom:24px;" data-animate data-delay="2">
+      <div style="font-weight:700;font-size:16px;margin-bottom:6px;">立即激活</div>
+      <div style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">获取激活码，解锁全部功能</div>
+      <a class="btn-primary cta" href="activate.html" style="width:auto;padding:0 40px;line-height:50px;height:50px;font-size:1rem;">激活指南</a>
+    </div>
+
+    <!-- 更新日志 -->
+    <h2 style="font-size:15px;font-weight:700;margin-bottom:12px;" data-animate>更新日志</h2>
+    <div class="glass-card" style="padding:16px;margin-bottom:8px;" data-animate>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v6.0</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-08</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">Boss 召唤砖三阶段 · 弹幕/掉落物提速 · 20 技能趣味化 · 速度叠加系统 · 无尽 Boss 专属表情</div>
+    </div>
+    <div class="glass-card" style="padding:16px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-weight:700;font-size:13px;">v5.x</span>
+        <span style="font-size:11px;color:var(--text-muted);">2026-08</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">性能优化（活砖数组/脏标记）· Boss 多样性 · 皮肤系统 · 11 新技能 · 成就商店扩展 · 付费激活系统</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 hhz studio</span>
+  </footer>
+</div>
+
+<script>
+window.switchDevice = function(device) {
+  document.querySelectorAll('.device-tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.device === device)
+  })
+  document.querySelectorAll('.device-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'panel-' + device)
+  })
+  setTimeout(function() {
+    document.querySelectorAll('.screenshot-scroll').forEach(function(sc) {
+      if (sc.offsetParent !== null) initCarousel(sc)
+    })
+  }, 50)
+}
+
+function initCarousel(sc) {
+  var dots = sc.parentElement.querySelector('.scroll-dots')
+  if (!dots) return
+  function updateDots() {
+    var cards = sc.querySelectorAll('.screenshot-card')
+    var idx = Math.round(sc.scrollLeft / (cards[0] ? cards[0].offsetWidth + 16 : 150))
+    idx = Math.max(0, Math.min(idx, dots.children.length - 1))
+    Array.from(dots.children).forEach(function(d, i) { d.classList.toggle('active', i === idx) })
+    cards.forEach(function(c, i) { c.classList.toggle('active', i === idx) })
+  }
+  sc.addEventListener('scroll', updateDots)
+  Array.from(dots.children).forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(this.getAttribute('data-index'), 10)
+      var cards = sc.querySelectorAll('.screenshot-card')
+      if (cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'start' })
+    })
+  })
+  updateDots()
+  var autoTimer = setInterval(function() {
+    var cards = sc.querySelectorAll('.screenshot-card')
+    if (!cards.length) return
+    var currentIdx = Array.from(dots.children).findIndex(function(d) { return d.classList.contains('active') })
+    var nextIdx = (currentIdx + 1) % cards.length
+    sc.scrollTo({ left: nextIdx * (cards[0].offsetWidth + 16), behavior: 'smooth' })
+  }, 1200)
+  var idleTimer
+  function resetAutoScroll() {
+    clearTimeout(idleTimer); clearInterval(autoTimer)
+    idleTimer = setTimeout(function() {
+      autoTimer = setInterval(function() {
+        var cards = sc.querySelectorAll('.screenshot-card')
+        if (!cards.length) return
+        var currentIdx = Array.from(dots.children).findIndex(function(d) { return d.classList.contains('active') })
+        sc.scrollTo({ left: ((currentIdx + 1) % cards.length) * (cards[0].offsetWidth + 16), behavior: 'smooth' })
+      }, 1200)
+    }, 6000)
+  }
+  sc.addEventListener('scroll', resetAutoScroll)
+  Array.from(dots.children).forEach(function(d) { d.addEventListener('click', resetAutoScroll) })
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.screenshot-scroll').forEach(function(sc) {
+    if (sc.offsetParent !== null) initCarousel(sc)
+  })
+})
+</script>
+<script src="assets/script.js"></script>
+</body>
+</html>

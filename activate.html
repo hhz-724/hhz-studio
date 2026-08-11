@@ -68,43 +68,85 @@
     <a class="logo" href="index.html">hhz studio</a>
     <nav class="nav">
       <a href="shifz.html">拾分钟</a>
+      <a href="dazk.html">咚咚砖</a>
     </nav>
   </header>
 
   <main class="page-section">
-    <a class="page-back" href="shifz.html">← 返回</a>
+    <a class="page-back" href="javascript:history.back()">← 返回</a>
     <h1 class="page-title">激活指南</h1>
 
-    <div class="glass-card" style="padding:16px;margin-bottom:20px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate>
-      拾分钟需要激活码才能正常使用。在爱发电「电铺」下单后自动获取授权码，向机器人发送授权码+设备码即可获取激活码。如果你已拥有激活码，在手表「设置」→「激活」中输入即可。
+    <!-- 产品 Tab -->
+    <div class="device-tabs" data-animate>
+      <div class="device-tab active" data-device="shifz" onclick="switchAct('shifz')">拾分钟</div>
+      <div class="device-tab" data-device="dazk" onclick="switchAct('dazk')">咚咚砖</div>
     </div>
 
-    <h2 style="font-size:15px;font-weight:700;margin-bottom:14px;" data-animate>激活步骤</h2>
+    <!-- ===== 拾分钟 ===== -->
+    <div class="device-panel active" id="act-shifz">
+      <div class="glass-card" style="padding:16px;margin-bottom:20px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate>
+        拾分钟需要激活码才能正常使用。在爱发电「电铺」下单后自动获取授权码，向机器人发送授权码+设备码即可获取激活码。如果你已拥有激活码，在手表「设置」→「激活」中输入即可。
+      </div>
 
-    <div data-animate>
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <div class="step-title">电铺下单</div>
-          <div class="step-desc">前往爱发电「电铺」，下单「拾分钟」并付款。付款后私信会自动回复你一个授权码（10位字母数字）。</div>
+      <h2 style="font-size:15px;font-weight:700;margin-bottom:14px;" data-animate>激活步骤</h2>
+      <div data-animate>
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">电铺下单</div>
+            <div class="step-desc">前往爱发电「电铺」，下单「拾分钟」并付款。付款后私信会自动回复你一个授权码（10位字母数字）。</div>
+          </div>
         </div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <div class="step-title">私信机器人获取激活码</div>
-          <div class="step-desc">向爱发电机器人发送：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">授权码+空格+设备码</code><br>例如：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">TL4BM6YPUS 123456</code><br>机器人会自动回复你6位激活码。设备码在手表「设置」→「激活」页面底部查看。</div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">私信机器人获取激活码</div>
+            <div class="step-desc">向爱发电机器人发送：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">授权码+空格+设备码</code><br>例如：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">TL4BM6YPUS 123456</code><br>机器人会自动回复你6位激活码。设备码在手表「设置」→「激活」页面底部查看。</div>
+          </div>
         </div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <div class="step-title">手表端输入激活码</div>
-          <div class="step-desc">在手表上打开拾分钟 → 进入「设置」→ 选择「激活」，输入收到的6位激活码即可完成激活。</div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">手表端输入激活码</div>
+            <div class="step-desc">在手表上打开拾分钟 → 进入「设置」→ 选择「激活」，输入收到的6位激活码即可完成激活。</div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- ===== 咚咚砖 ===== -->
+    <div class="device-panel" id="act-dazk">
+      <div class="glass-card" style="padding:16px;margin-bottom:20px;color:var(--text-secondary);line-height:1.8;font-size:14px;" data-animate>
+        咚咚砖需要激活码才能正常使用。在爱发电「电铺」下单后自动获取授权码，向机器人发送授权码+设备码即可获取激活码。如果你已拥有激活码，在手表「设置」→「激活」中输入即可。
+      </div>
+
+      <h2 style="font-size:15px;font-weight:700;margin-bottom:14px;" data-animate>激活步骤</h2>
+      <div data-animate>
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">电铺下单</div>
+            <div class="step-desc">前往爱发电「电铺」，下单「咚咚砖」并付款。付款后私信会自动回复你一个授权码（10位字母数字）。</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">私信机器人获取激活码</div>
+            <div class="step-desc">向爱发电机器人发送：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">授权码+空格+设备码</code><br>例如：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">FVRJFP93N2 123456</code><br>机器人会自动回复你6位激活码。设备码在手表「设置」→「激活」页面底部查看。</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">手表端输入激活码</div>
+            <div class="step-desc">在手表上打开咚咚砖 → 进入「设置」→ 选择「激活」，输入收到的6位激活码即可完成激活。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 前往电铺 -->
     <h2 style="font-size:15px;font-weight:700;margin:24px 0 14px;" data-animate>前往电铺</h2>
 
     <div class="qr-wrap" data-animate>
@@ -129,6 +171,16 @@
     <span>&copy; 2026 hhz studio</span>
   </footer>
 </div>
+<script>
+window.switchAct = function(id) {
+  document.querySelectorAll('.device-tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.device === id)
+  })
+  document.querySelectorAll('.device-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'act-' + id)
+  })
+}
+</script>
 <script src="assets/script.js"></script>
 </body>
 </html>
