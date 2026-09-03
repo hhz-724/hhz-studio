@@ -4,107 +4,296 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<title>hhz studio</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>hhz studio - 为小米手环打造的高效工具</title>
+<style>
+:root {
+  --bg: #070a12;
+  --bg-soft: #0c1220;
+  --card: rgba(255, 255, 255, 0.045);
+  --card-border: rgba(255, 255, 255, 0.09);
+  --text: #eef2f8;
+  --text-secondary: rgba(238, 242, 248, 0.62);
+  --text-muted: rgba(238, 242, 248, 0.38);
+  --primary: #22d3ee;
+  --accent: #a78bfa;
+  --grad: linear-gradient(120deg, #22d3ee 0%, #818cf8 55%, #c084fc 100%);
+  --radius: 18px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+/* 背景氛围光 */
+.bg-glow { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.bg-glow::before, .bg-glow::after {
+  content: ''; position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.35;
+}
+.bg-glow::before { width: 520px; height: 520px; top: -160px; left: -120px; background: rgba(34, 211, 238, 0.28); }
+.bg-glow::after { width: 620px; height: 620px; top: 30%; right: -220px; background: rgba(168, 139, 250, 0.22); }
+a { color: var(--primary); text-decoration: none; }
+.wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== 顶栏 ===== */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(7, 10, 18, 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.logo { font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: 0.5px; }
+.logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nav { display: flex; gap: 18px; font-size: 14px; }
+.nav a { color: var(--text-secondary); transition: color .2s; }
+.nav a:hover, .nav a.active { color: var(--text); }
+
+/* ===== Hero ===== */
+.hero { text-align: center; padding: 88px 20px 56px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.28);
+  color: var(--primary); font-size: 13px; font-weight: 600; margin-bottom: 22px;
+}
+.hero h1 {
+  font-size: clamp(38px, 7vw, 64px); font-weight: 800; letter-spacing: 2px; line-height: 1.15;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero .slogan { margin-top: 14px; font-size: clamp(16px, 2.6vw, 20px); color: var(--text-secondary); }
+.hero .sub { margin: 10px auto 0; max-width: 640px; font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+/* ===== 区块 ===== */
+.section { padding: 56px 0 8px; }
+.section-head { text-align: center; margin-bottom: 36px; }
+.section-kicker { font-size: 12.5px; font-weight: 700; letter-spacing: 2.5px; color: var(--primary); text-transform: uppercase; }
+.section-head h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; margin-top: 8px; }
+.section-head p { margin: 10px auto 0; max-width: 620px; font-size: 14px; color: var(--text-secondary); }
+
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  position: relative; overflow: hidden;
+}
+.glass::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 30%, transparent 55%);
+}
+.glass > * { position: relative; z-index: 1; }
+
+/* ===== 项目卡片 ===== */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; max-width: 860px; margin: 0 auto; }
+.project-card { padding: 22px; cursor: pointer; transition: transform .18s, border-color .18s; display: flex; flex-direction: column; gap: 14px; }
+.project-card:hover { transform: translateY(-4px); border-color: rgba(34, 211, 238, 0.35); }
+.project-head { display: flex; align-items: center; gap: 14px; }
+.project-icon { width: 52px; height: 52px; min-width: 52px; border-radius: 14px; border: 1px solid var(--card-border); }
+.project-name { font-weight: 800; font-size: 17px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.project-ver {
+  font-size: 10.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+  background: var(--grad); color: #06121a; letter-spacing: 0.5px;
+}
+.project-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.project-feats { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; color: var(--text-secondary); }
+.project-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.chip {
+  padding: 4px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 600;
+  background: var(--card); border: 1px solid var(--card-border); color: var(--text-secondary);
+}
+.chip.hot { border-color: rgba(167, 139, 250, 0.4); color: var(--accent); background: rgba(167, 139, 250, 0.08); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 40px; padding: 0 20px; border-radius: 10px;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .15s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--grad); color: #06121a; box-shadow: 0 8px 28px rgba(56, 189, 248, 0.28); }
+.project-card .btn { margin-left: auto; }
+
+/* 占位卡片 */
+.card-placeholder {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 26px; border-radius: var(--radius);
+  border: 1.5px dashed var(--card-border); color: var(--text-muted);
+}
+.card-placeholder .plus {
+  width: 44px; height: 44px; border-radius: 12px; border: 2px dashed var(--card-border);
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.card-placeholder .txt { font-weight: 600; font-size: 15px; }
+
+/* ===== 关于 / 联系 ===== */
+.about-card { padding: 24px; max-width: 860px; margin: 0 auto; }
+.about-card h2 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+.about-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.8; }
+
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 860px; margin: 16px auto 0; }
+.contact-card { padding: 20px; text-align: center; display: block; color: var(--text); cursor: pointer; transition: transform .18s, border-color .18s; }
+.contact-card:hover { transform: translateY(-3px); border-color: rgba(34, 211, 238, 0.35); }
+.contact-title { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+.contact-desc { font-size: 12px; color: var(--text-secondary); }
+
+.site-footer {
+  text-align: center; padding: 34px 20px 40px;
+  color: var(--text-muted); font-size: 12.5px;
+  border-top: 1px solid rgba(255,255,255,0.05); margin-top: 48px;
+}
+
+/* 入场动画 */
+[data-animate] { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+[data-animate].in { opacity: 1; transform: none; }
+
+@media (max-width: 640px) {
+  .hero { padding: 60px 16px 40px; }
+  .section { padding: 40px 0 4px; }
+}
+</style>
 </head>
 <body>
-<div class="container">
-  <header class="site-header">
-    <a class="logo" href="index.html">hhz studio</a>
-    <nav class="nav">
-      <a href="shifz.html">拾分钟</a>
-      <a href="dazk.html">咚咚砖</a>
-    </nav>
-  </header>
+<div class="bg-glow"></div>
 
-  <main class="hero">
+<header class="site-header">
+  <a class="logo" href="index.html"><em>hhz</em> studio</a>
+  <nav class="nav">
+    <a href="shifz.html">拾分钟</a>
+    <a href="dazk.html">咚咚砖</a>
+    <a href="activate.html">激活</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-badge" data-animate>小米手环工具工作室</div>
     <h1 data-animate>hhz studio</h1>
-    <p data-animate data-delay="1">为小米手环打造的高效工具</p>
-    <div style="margin-top:28px;" data-animate data-delay="2">
-      <!-- 产品卡片 -->
-      <div class="product-card" onclick="location.href='shifz.html'" style="cursor:pointer;">
-        <div class="product-card-inner" style="flex-direction:row;align-items:center;gap:12px;padding:14px 16px;">
-          <img src="assets/app-icon.png" alt="拾分钟" style="width:40px;height:40px;border-radius:10px;flex-shrink:0;">
-          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="font-weight:700;font-size:15px;">拾分钟</span>
-              <span style="background:var(--primary);color:#fff;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;">v1.2.0</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:3px 10px;font-size:12px;color:var(--text-secondary);">
-              <span>多学习法体系</span>
-              <span>番茄钟</span>
-              <span>随机提示音法</span>
-              <span>自动文字配色</span>
-              <span>手机端数据分析</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-              <span class="tag">小米手环</span>
-              <span class="tag">手机 App</span>
-              <span class="tag">专注</span>
-              <span style="margin-left:auto;"><a class="btn-primary" href="shifz.html" style="height:28px;font-size:12px;width:auto;padding:0 14px;border-radius:6px;">了解详情</a></span>
-            </div>
+    <div class="slogan" data-animate>为小米手环打造的高效工具</div>
+    <p class="sub" data-animate>从腕上专注到休闲小游戏，我们相信好的工具应该简洁、高效、触手可及。</p>
+  </section>
+
+  <!-- ===== 产品 ===== -->
+  <section class="section" id="projects">
+    <div class="section-head" data-animate>
+      <div class="section-kicker">Projects</div>
+      <h2>我们的产品</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- 拾分钟 -->
+      <div class="glass project-card" data-animate onclick="location.href='shifz.html'">
+        <div class="project-head">
+          <img class="project-icon" src="assets/app-icon.png" alt="拾分钟">
+          <div>
+            <div class="project-name">拾分钟 <span class="project-ver">v1.2.0</span></div>
+            <div class="project-sub">腕上专注，不止番茄钟</div>
           </div>
+        </div>
+        <div class="project-feats">
+          <span>多学习法体系</span>
+          <span>番茄钟</span>
+          <span>随机提示音法</span>
+          <span>自动文字配色</span>
+          <span>手机端数据分析</span>
+        </div>
+        <div class="project-tags">
+          <span class="chip hot">小米手环 10 / 9 Pro</span>
+          <span class="chip">手机 App</span>
+          <span class="chip">专注</span>
+          <a class="btn btn-primary" href="shifz.html" onclick="event.stopPropagation()">了解详情</a>
         </div>
       </div>
 
-      <!-- 产品卡片：咚咚砖 -->
-      <div class="product-card" onclick="location.href='dazk.html'" style="cursor:pointer;margin-top:16px;">
-        <div class="product-card-inner" style="flex-direction:row;align-items:center;gap:12px;padding:14px 16px;">
-          <img src="assets/dazk-logo.png" alt="咚咚砖" style="width:40px;height:40px;border-radius:10px;flex-shrink:0;">
-          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="font-weight:700;font-size:15px;">咚咚砖</span>
-              <span style="background:var(--primary);color:#fff;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;">v1.1.0</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:3px 10px;font-size:12px;color:var(--text-secondary);">
-              <span>打砖块</span>
-              <span>闯关 30 关</span>
-              <span>无尽模式</span>
-              <span>技能系统</span>
-              <span>成就收集</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-              <span class="tag">小米手环</span>
-              <span class="tag">游戏</span>
-              <span class="tag">街机</span>
-              <span style="margin-left:auto;"><a class="btn-primary" href="dazk.html" style="height:28px;font-size:12px;width:auto;padding:0 14px;border-radius:6px;">了解详情</a></span>
-            </div>
+      <!-- 咚咚砖 -->
+      <div class="glass project-card" data-animate onclick="location.href='dazk.html'">
+        <div class="project-head">
+          <img class="project-icon" src="assets/dazk-logo.png" alt="咚咚砖">
+          <div>
+            <div class="project-name">咚咚砖 <span class="project-ver">v1.1.0</span></div>
+            <div class="project-sub">腕上街机打砖块</div>
           </div>
+        </div>
+        <div class="project-feats">
+          <span>打砖块</span>
+          <span>闯关 30 关</span>
+          <span>无尽模式</span>
+          <span>技能系统</span>
+          <span>成就收集</span>
+        </div>
+        <div class="project-tags">
+          <span class="chip hot">小米手环</span>
+          <span class="chip">游戏</span>
+          <span class="chip">街机</span>
+          <a class="btn btn-primary" href="dazk.html" onclick="event.stopPropagation()">了解详情</a>
         </div>
       </div>
 
       <!-- 占位卡片 -->
-      <div class="card-placeholder" style="text-align:center;padding:24px;margin-top:16px;" data-animate data-delay="2">
-        <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
-          <div style="width:48px;height:48px;border-radius:12px;border:2px dashed var(--border-default);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--text-muted);">+</div>
-          <div style="color:var(--text-muted);font-weight:600;font-size:15px;">更多产品即将到来</div>
-        </div>
+      <div class="card-placeholder" data-animate>
+        <div class="plus">+</div>
+        <div class="txt">更多产品即将到来</div>
       </div>
     </div>
+  </section>
 
-    <!-- 工作室介绍 -->
-    <div class="glass-card" style="padding:20px;margin:32px 0;" data-animate>
-      <h2 style="font-size:15px;font-weight:700;margin-bottom:8px;">关于工作室</h2>
-      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">hhz studio 是一个个人开发者工作室，专注于为小米手环等穿戴设备打造好用的小工具。我们相信好的工具应该简洁、高效、触手可及。</p>
+  <!-- ===== 关于工作室 ===== -->
+  <section class="section" id="about">
+    <div class="section-head" data-animate>
+      <div class="section-kicker">About</div>
+      <h2>关于工作室</h2>
     </div>
-
-    <!-- 联系 -->
-    <div style="display:flex;gap:10px;margin-bottom:32px;" data-animate>
-      <a class="glass-card" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener" style="flex:1;padding:16px;text-align:center;text-decoration:none;display:block;">
-        <div style="font-size:16px;font-weight:600;margin-bottom:2px;">爱发电</div>
-        <div style="font-size:12px;color:var(--text-secondary);">支持我们</div>
+    <div class="glass about-card" data-animate>
+      <p>hhz studio 是一个个人开发者工作室，专注于为小米手环等穿戴设备打造好用的小工具。我们相信好的工具应该简洁、高效、触手可及。</p>
+    </div>
+    <div class="contact-grid">
+      <a class="glass contact-card" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener" data-animate>
+        <div class="contact-title">爱发电</div>
+        <div class="contact-desc">支持我们</div>
       </a>
-      <div class="glass-card" onclick="copyQQGroup()" style="flex:1;padding:16px;text-align:center;cursor:pointer;" id="qq-card">
-        <div style="font-size:16px;font-weight:600;margin-bottom:2px;">QQ 群</div>
-        <div style="font-size:12px;color:var(--text-secondary);" id="qq-desc">点击复制群号</div>
+      <div class="glass contact-card" id="qq-card" onclick="copyQQGroup()" data-animate>
+        <div class="contact-title">QQ 群</div>
+        <div class="contact-desc" id="qq-desc">点击复制群号</div>
       </div>
     </div>
-  </main>
+  </section>
 
-  <footer class="site-footer">
-    <span>&copy; 2026 hhz studio</span>
-  </footer>
 </div>
-<script src="assets/script.js"></script>
+
+<footer class="site-footer">
+  <span>&copy; 2026 hhz studio</span>
+</footer>
+
+<script>
+(function () {
+  // 入场动画
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('[data-animate]').forEach(function (el) { io.observe(el); });
+})();
+
+// 复制 QQ 群号
+function copyQQGroup() {
+  var input = document.createElement('input');
+  input.value = '964879234';
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand('copy');
+  document.body.removeChild(input);
+  var desc = document.getElementById('qq-desc');
+  if (desc) { desc.textContent = '已复制！'; setTimeout(function () { desc.textContent = '点击复制群号'; }, 2000); }
+}
+</script>
 </body>
 </html>

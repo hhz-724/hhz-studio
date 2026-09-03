@@ -5,61 +5,199 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <title>激活指南 - hhz studio</title>
-<link rel="stylesheet" href="assets/style.css">
 <style>
+:root {
+  --bg: #070a12;
+  --bg-soft: #0c1220;
+  --card: rgba(255, 255, 255, 0.045);
+  --card-border: rgba(255, 255, 255, 0.09);
+  --text: #eef2f8;
+  --text-secondary: rgba(238, 242, 248, 0.62);
+  --text-muted: rgba(238, 242, 248, 0.38);
+  --primary: #22d3ee;
+  --accent: #a78bfa;
+  --error: #f87171;
+  --grad: linear-gradient(120deg, #22d3ee 0%, #818cf8 55%, #c084fc 100%);
+  --radius: 18px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+/* 背景氛围光 */
+body::before, body::after {
+  content: ''; position: fixed; border-radius: 50%; filter: blur(120px);
+  opacity: 0.35; pointer-events: none; z-index: 0;
+}
+body::before { width: 520px; height: 520px; top: -160px; left: -120px; background: rgba(34, 211, 238, 0.28); }
+body::after { width: 620px; height: 620px; top: 30%; right: -220px; background: rgba(168, 139, 250, 0.22); }
+a { color: var(--primary); text-decoration: none; }
+.container {
+  position: relative; z-index: 1;
+  max-width: 720px; margin: 0 auto; padding: 0 20px;
+  display: flex; flex-direction: column; min-height: 100vh;
+}
+
+/* ===== 顶栏 ===== */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 4px;
+  background: rgba(7, 10, 18, 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.logo { font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: 0.5px; }
+.nav { display: flex; gap: 18px; font-size: 14px; }
+.nav a { color: var(--text-secondary); transition: color .2s; }
+.nav a:hover { color: var(--text); }
+
+/* ===== 页面通用 ===== */
+.page-section { padding: 28px 0 8px; flex: 1; }
+.page-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 13px; color: var(--text-muted); margin-bottom: 14px;
+  transition: color .2s;
+}
+.page-back:hover { color: var(--primary); }
+.page-title {
+  font-size: clamp(24px, 4vw, 30px); font-weight: 800; letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ===== 玻璃卡片 ===== */
+.glass-card {
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  position: relative; overflow: hidden;
+}
+.glass-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 30%, transparent 55%);
+}
+.glass-card > * { position: relative; z-index: 1; }
+
+/* ===== 产品 Tab ===== */
+.device-tabs { display: flex; gap: 10px; margin-bottom: 22px; }
+.device-tab {
+  flex: 1; padding: 11px; border-radius: 999px;
+  background: var(--card); border: 1px solid var(--card-border);
+  text-align: center; font-size: 14px; font-weight: 700;
+  color: var(--text-secondary); cursor: pointer;
+  transition: all .2s; user-select: none;
+}
+.device-tab:hover { border-color: rgba(34, 211, 238, 0.3); color: var(--text); }
+.device-tab.active { background: var(--grad); color: #06121a; border-color: transparent; }
+
+/* ===== 面板显隐 ===== */
+.device-panel { display: none; }
+.device-panel.active { display: block; animation: fadeUp .4s ease both; }
+
+/* ===== 步骤卡片 ===== */
 .step-card {
   display: flex; gap: 14px; padding: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   margin-bottom: 10px;
   position: relative; overflow: hidden;
 }
 .step-card::before {
   content: ''; position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 25%, transparent 50%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 30%, transparent 55%);
   pointer-events: none;
 }
 .step-card > * { position: relative; z-index: 1; }
 .step-num {
   width: 28px; height: 28px; min-width: 28px;
   border-radius: 50%;
-  background: rgba(8,145,178,0.2);
-  border: 1px solid rgba(8,145,178,0.3);
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.32);
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 14px; color: var(--primary);
 }
 .step-body { flex: 1; }
-.step-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-.step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.step-title { font-weight: 700; font-size: 14.5px; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+.step-desc code {
+  background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 6px;
+  font-size: 12.5px; color: var(--primary);
+  font-family: "SF Mono", "Fira Code", Consolas, monospace;
+}
+
+/* ===== 二维码区 ===== */
 .qr-wrap {
   display: flex; flex-direction: column; align-items: center;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
   text-align: center;
 }
 .qr-wrap img {
   width: 180px; height: 180px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--card-border);
   margin-bottom: 14px;
 }
+
+/* ===== 提示框 ===== */
 .notice-box {
   padding: 14px 16px;
-  background: rgba(239,68,68,0.06);
-  border: 1px solid rgba(239,68,68,0.15);
+  background: rgba(248, 113, 113, 0.06);
+  border: 1px solid rgba(248, 113, 113, 0.18);
   border-radius: 12px;
   font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.7;
 }
 .notice-box strong { color: var(--error); }
+
+/* ===== 按钮 ===== */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; padding: 0 28px; border-radius: 12px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  background: var(--grad); color: #06121a;
+  box-shadow: 0 8px 28px rgba(56, 189, 248, 0.28);
+  transition: transform .15s, box-shadow .2s;
+}
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary.cta { width: 100%; }
+
+/* ===== 页脚 ===== */
+.site-footer {
+  text-align: center; padding: 30px 20px 36px;
+  color: var(--text-muted); font-size: 12.5px;
+  border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px;
+}
+
+/* ===== 入场动画（纯 CSS，不依赖 JS） ===== */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+[data-animate] { animation: fadeUp .55s ease both; }
+[data-animate][data-delay="1"] { animation-delay: .08s; }
+[data-animate][data-delay="2"] { animation-delay: .16s; }
+
+@media (max-width: 640px) {
+  .container { padding: 0 16px; }
+  .nav { gap: 14px; }
+  .nav a { font-size: 13px; }
+}
 </style>
 </head>
 <body>
@@ -101,7 +239,7 @@
           <div class="step-num">2</div>
           <div class="step-body">
             <div class="step-title">私信机器人获取激活码</div>
-            <div class="step-desc">向爱发电机器人发送：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">授权码+空格+设备码</code><br>例如：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">TL4BM6YPUS 123456</code><br>机器人会自动回复你6位激活码。设备码在手表「设置」→「激活」页面底部查看。</div>
+            <div class="step-desc">向爱发电机器人发送：<code>授权码+空格+设备码</code><br>例如：<code>TL4BM6YPUS 123456</code><br>机器人会自动回复你6位激活码。设备码在手表「设置」→「激活」页面底部查看。</div>
           </div>
         </div>
         <div class="step-card">
@@ -133,7 +271,7 @@
           <div class="step-num">2</div>
           <div class="step-body">
             <div class="step-title">私信机器人获取激活码</div>
-            <div class="step-desc">向爱发电机器人发送：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">授权码+空格+设备码</code><br>例如：<code style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:4px;font-size:13px;">FVRJFP93N2 123456</code><br>机器人会自动回复你6位激活码。设备码在手表「设置」→「激活」页面底部查看。</div>
+            <div class="step-desc">向爱发电机器人发送：<code>授权码+空格+设备码</code><br>例如：<code>FVRJFP93N2 123456</code><br>机器人会自动回复你6位激活码。设备码在手表「设置」→「激活」页面底部查看。</div>
           </div>
         </div>
         <div class="step-card">
@@ -153,7 +291,7 @@
       <img src="assets/afdian-qr.jpg" alt="爱发电电铺二维码">
       <div style="font-weight:600;font-size:15px;margin-bottom:4px;">爱发电电铺</div>
       <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">下单后自动回复授权码</div>
-      <a class="btn-primary" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener" style="width:auto;padding:0 28px;line-height:44px;height:44px;font-size:14px;">
+      <a class="btn-primary" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener">
         前往电铺
       </a>
     </div>
@@ -163,7 +301,7 @@
     </div>
 
     <div style="margin-top:24px;text-align:center;" data-animate>
-      <a class="btn-primary cta" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener" style="width:100%;">前往电铺</a>
+      <a class="btn-primary cta" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener">前往电铺</a>
     </div>
   </main>
 
