@@ -104,4 +104,31 @@
       if (sc.offsetParent !== null) init(sc)
     })
   })();
+
+  // 鼠标跟随光晕（spotlight）：卡片内部随鼠标亮起
+  ;(function() {
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return
+    document.addEventListener('pointermove', function(e) {
+      var card = e.target.closest && e.target.closest('.glass')
+      if (!card) return
+      var r = card.getBoundingClientRect()
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px')
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px')
+    }, { passive: true })
+  })();
+
+  // 顶部滚动进度条
+  ;(function() {
+    var bar = document.createElement('div')
+    bar.className = 'scroll-progress'
+    document.body.appendChild(bar)
+    function update() {
+      var h = document.documentElement
+      var max = h.scrollHeight - h.clientHeight
+      var p = max > 0 ? (h.scrollTop / max) : 0
+      bar.style.transform = 'scaleX(' + p + ')'
+    }
+    document.addEventListener('scroll', update, { passive: true })
+    update()
+  })();
 })()
