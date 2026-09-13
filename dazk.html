@@ -233,6 +233,23 @@ body {
 .c-ice { color: var(--px-ice); }
 .c-gold { color: var(--px-gold); }
 
+/* 下载区：双设备卡片 */
+.px-dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.px-dl-card {
+  background: var(--px-panel);
+  border: 4px solid var(--px-border);
+  box-shadow: inset -4px -4px 0 rgba(0,0,0,0.45), inset 4px 4px 0 rgba(255,255,255,0.04);
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.px-dl-card .dev-name { font-family: var(--px-font); font-size: 10px; color: var(--px-gold); letter-spacing: 1px; }
+.px-dl-card .dev-sub { font-size: 11px; color: var(--text-secondary); }
+.px-dl-card .btn-primary { width: 100%; text-align: center; }
+@media (max-width: 640px) {
+  .px-stats { grid-template-columns: repeat(3, 1fr); }
+  .px-dl-grid { grid-template-columns: 1fr; }
+}
+
 /* 更新日志条目 */
 .px-log { margin-bottom: 12px; }
 .px-log-head {
@@ -289,17 +306,23 @@ body {
       咚咚砖是一款为小米手环 9 Pro 打造的像素风打砖块游戏。经典滑砖反弹玩法，融合<span class="c-green">闯关</span>与<span class="c-red">无尽</span>两大模式：闯关模式 3 章 &times; 10 关（翠绿草原 / 赤焰火山 / 寒冰深渊）+ 3 场 Boss 战，通关后开启<span class="c-gold">全新二周目</span>——30 关全新布局、难度提升、奖励翻倍；无尽模式波次挑战，阵型波、随机事件与诅咒轮番登场。<span class="c-ice">22 种技能</span>与 <span class="c-ice">19 种被动</span>自由搭配，商店皮肤 / 永久升级 / 技能抽卡，成就收集一应俱全。&#165;2.5 买断制，一次激活永久畅玩。
     </div>
 
-    <!-- 下载卡 -->
-    <div class="glass-card" style="padding:16px;margin-bottom:24px;border-color:var(--px-gold) !important;" data-animate>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-        <div>
-          <div style="font-weight:700;font-size:14px;margin-bottom:2px;" class="c-gold">应用下载</div>
-          <div style="font-size:12px;color:var(--text-secondary);">RPK 安装包 · v1.2.0</div>
-          <div style="font-size:12px;color:var(--text-secondary);">支持小米手环 9 Pro</div>
-        </div>
-        <a class="btn-primary" href="assets/dazk.rpk" download style="width:auto;padding:0 24px;line-height:44px;height:44px;font-size:14px;gap:6px;white-space:nowrap;flex:0 0 auto;"><span>&darr;</span> <span style="white-space:nowrap;">下载</span></a>
+    <!-- 下载区：双设备 -->
+    <h2 class="px-section-title" data-animate>应用下载</h2>
+    <div class="px-dl-grid" data-animate>
+      <div class="px-dl-card" style="border-color:var(--px-green) !important;">
+        <div class="dev-name">小米手环 9 Pro</div>
+        <div class="dev-sub">RPK 安装包 · v1.2.0 · release 签名版</div>
+        <div class="dev-sub">336×480 视口 · 892KB</div>
+        <a class="btn-primary" href="assets/dazk.rpk" download style="line-height:44px;height:44px;font-size:13px;"><span>&darr;</span> <span style="white-space:nowrap;">下载（9 Pro）</span></a>
+      </div>
+      <div class="px-dl-card" style="border-color:var(--px-ice) !important;">
+        <div class="dev-name" style="color:var(--px-ice);">红米手表 5 / 6</div>
+        <div class="dev-sub">RPK 安装包 · v1.2.0 · release 签名版</div>
+        <div class="dev-sub">336×400 视口 · 972KB · 与 9 Pro 同功能</div>
+        <a class="btn-primary" href="assets/dazk-redmi.rpk" download style="line-height:44px;height:44px;font-size:13px;background:var(--px-ice) !important;color:#04121a !important;"><span>&darr;</span> <span style="white-space:nowrap;">下载（红米）</span></a>
       </div>
     </div>
+    <div style="font-size:11px;color:var(--text-muted);margin:10px 0 24px;text-align:center;" data-animate>安装方式：AIoT-IDE 连接手表 → 安装调试包 → 选择对应型号的 .rpk 文件</div>
 
     <!-- 截图轮播 -->
     <h2 class="px-section-title" data-animate>界面预览</h2>
@@ -408,7 +431,7 @@ body {
         <span class="px-log-ver latest">v1.2.0 (2026-09-13) <span class="px-new">NEW</span></span>
         <span class="px-log-date">2026-09</span>
       </div>
-      <div class="px-log-body"><b>全面打磨</b>：修复 33 项 bug（挡板加宽不恢复、无尽存档丢诅咒/被动、激光不生效、技能描述与实际不符等）；<b>成就分 Tab</b>（闯关/无尽/二周目/收集，41 个成就分类浏览）；<b>商店已满级沉底</b>；<b>Boss 弹幕碰墙反弹</b>（不再飞出屏幕无威胁）+ 三章 Boss 各加新弹幕形态；<b>二周目砖块更丰富</b>（加入炸弹/混乱/护盾/召唤/重力/反重力砖）；<b>无尽模式全砖块</b>（加入速度砖/炸弹砖，可刷出所有类型）；选关自动跳最新进度；通关即解锁二周目（无需点按钮）；体积再降（release 892KB）。</div>
+      <div class="px-log-body"><b>全面打磨</b>：修复 36 项 bug（挡板加宽不恢复、无尽存档丢诅咒/被动、召唤砖不显示、Boss 弹幕过快/追踪异常、技能描述与实际不符等）；<b>成就分 Tab</b>（闯关/无尽/二周目/收集，41 个成就分类浏览）；<b>商店已满级沉底</b>；<b>Boss 弹幕碰墙反弹</b>（不再飞出屏幕无威胁）+ 三章 Boss 各加新弹幕形态；<b>二周目砖块更丰富</b>（加入炸弹/混乱/护盾/召唤/重力/反重力砖）；<b>无尽模式全砖块</b>（加入速度砖/炸弹砖，可刷出所有类型）；选关自动跳最新进度；通关即解锁二周目（无需点按钮）；<b>砖渲染优化</b>（更流畅）+ 体积再降（release 892KB）。</div>
     </div>
     <div class="glass-card px-log" style="padding:16px;" data-animate>
       <div class="px-log-head">
