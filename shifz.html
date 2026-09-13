@@ -4,20 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<link rel="icon" type="image/png" href="assets/app-icon.png">
 <title>拾分钟 - 手环专注工具 | hhz studio</title>
+<link rel="icon" href="assets/app-icon.png">
 <style>
 :root {
-  --bg: #070a12;
-  --bg-soft: #0c1220;
-  --card: rgba(255, 255, 255, 0.045);
-  --card-border: rgba(255, 255, 255, 0.09);
+  --bg: #05070c;
+  --bg-soft: #0a0e16;
+  --panel: rgba(255, 255, 255, 0.03);
+  --panel-border: rgba(255, 255, 255, 0.08);
   --text: #eef2f8;
-  --text-secondary: rgba(238, 242, 248, 0.72);
-  --text-muted: rgba(238, 242, 248, 0.46);
+  --text-secondary: rgba(238, 242, 248, 0.66);
+  --text-muted: rgba(238, 242, 248, 0.4);
   --primary: #22d3ee;
   --accent: #a78bfa;
+  --lime: #4ade80;
   --grad: linear-gradient(120deg, #22d3ee 0%, #818cf8 55%, #c084fc 100%);
+  --mono: "SF Mono", "JetBrains Mono", "Cascadia Code", ui-monospace, Menlo, Consolas, monospace;
   --radius: 18px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,310 +28,297 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.75;
+  line-height: 1.7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-::selection { background: rgba(34, 211, 238, 0.30); color: #fff; }
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 99px; border: 2px solid var(--bg); }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); }
-/* 背景氛围光 + 网格叠加 */
-.bg-glow { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-.bg-glow::before, .bg-glow::after {
-  content: ''; position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.4;
-  animation: drift 22s ease-in-out infinite alternate;
-}
-.bg-glow::before { width: 560px; height: 560px; top: -180px; left: -140px; background: radial-gradient(circle, rgba(34, 211, 238, 0.34), transparent 65%); }
-.bg-glow::after { width: 680px; height: 680px; top: 26%; right: -240px; background: radial-gradient(circle, rgba(168, 139, 250, 0.28), transparent 65%); animation-delay: -11s; }
-@keyframes drift {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, 30px) scale(1.08); }
-  100% { transform: translate(-30px, 50px) scale(0.96); }
-}
-.bg-grid {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.55;
-  background-image:
-    linear-gradient(rgba(148, 163, 200, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 200, 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 75%);
-}
+::selection { background: rgba(34, 211, 238, 0.35); }
 a { color: var(--primary); text-decoration: none; }
-.wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+.wrap { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== 背景：OLED 深空 + 刻度 ===== */
+.bg-scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-scene::before, .bg-scene::after {
+  content: ''; position: absolute; border-radius: 50%; filter: blur(140px);
+}
+.bg-scene::before { width: 620px; height: 620px; top: -200px; left: -160px; background: radial-gradient(circle, rgba(34, 211, 238, 0.13), transparent 62%); }
+.bg-scene::after { width: 720px; height: 720px; bottom: -260px; right: -200px; background: radial-gradient(circle, rgba(167, 139, 250, 0.10), transparent 62%); }
+/* 时间刻度纹理 */
+.bg-ticks {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5;
+  background-image: repeating-linear-gradient(90deg, rgba(148,163,200,0.06) 0 1px, transparent 1px 90px);
+  mask-image: linear-gradient(180deg, #000 0%, transparent 40%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 40%);
+}
 
 /* ===== 顶栏 ===== */
 .site-header {
   position: sticky; top: 0; z-index: 50;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 20px;
-  background: rgba(7, 10, 18, 0.72);
+  padding: 15px 24px;
+  background: rgba(5, 7, 12, 0.72);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
-.logo { font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: 0.5px; }
+.logo { font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: 0.5px; font-family: var(--mono); }
 .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.nav { display: flex; gap: 18px; font-size: 14px; }
-.nav a { color: var(--text-secondary); transition: color .2s; }
+.nav { display: flex; gap: 20px; font-size: 14px; }
+.nav a { color: var(--text-secondary); transition: color .2s; position: relative; }
 .nav a:hover, .nav a.active { color: var(--text); }
+.nav a.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--grad); border-radius: 2px; }
 
-/* ===== Hero ===== */
-.hero { text-align: center; padding: 104px 20px 64px; position: relative; }
-.hero [data-animate] { transition-delay: 0s; }
-.hero [data-animate]:nth-of-type(2) { transition-delay: 0.06s; }
-.hero [data-animate]:nth-of-type(3) { transition-delay: 0.12s; }
-.hero [data-animate]:nth-of-type(4) { transition-delay: 0.18s; }
-.hero [data-animate]:nth-of-type(5) { transition-delay: 0.24s; }
-.hero [data-animate]:nth-of-type(6) { transition-delay: 0.30s; }
+/* ===== Hero：巨大时钟 ===== */
+.hero { position: relative; text-align: center; padding: 72px 24px 84px; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 16px; border-radius: 999px;
-  background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.32);
-  color: var(--primary); font-size: 13px; font-weight: 600; margin-bottom: 26px;
-  box-shadow: 0 0 24px rgba(34, 211, 238, 0.12), inset 0 0 12px rgba(34, 211, 238, 0.06);
-  backdrop-filter: blur(8px);
+  padding: 7px 16px; border-radius: 999px; font-family: var(--mono);
+  background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.3);
+  color: var(--primary); font-size: 12.5px; font-weight: 600; margin-bottom: 34px; letter-spacing: 0.5px;
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.1);
 }
-.hero h1 {
-  font-size: clamp(52px, 10vw, 108px); font-weight: 800; letter-spacing: 4px; line-height: 1.05;
-  background: linear-gradient(120deg, #22d3ee, #818cf8, #c084fc, #818cf8, #22d3ee);
-  background-size: 220% auto;
+.hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 10px var(--primary); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.clock-stage { position: relative; display: inline-block; margin: 8px 0 10px; }
+.clock-ring {
+  position: absolute; inset: -56px; border-radius: 50%;
+  background: conic-gradient(from 180deg, rgba(34,211,238,0.0), rgba(34,211,238,0.55), rgba(192,132,252,0.55), rgba(34,211,238,0.0));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  animation: spin 14s linear infinite; opacity: 0.8;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.clock-face {
+  position: relative; font-family: var(--mono); font-weight: 700;
+  font-size: clamp(72px, 16vw, 170px); line-height: 1; letter-spacing: 0.02em;
+  background: linear-gradient(180deg, #ffffff 20%, #9fb4ff 80%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: shine 7s linear infinite;
-  filter: drop-shadow(0 0 28px rgba(129, 140, 248, 0.35));
+  filter: drop-shadow(0 0 40px rgba(129, 140, 248, 0.35));
+  font-variant-numeric: tabular-nums;
 }
-@keyframes shine { to { background-position: 220% center; } }
-.hero .slogan {
-  margin-top: 20px; font-size: clamp(18px, 3vw, 26px); font-weight: 600; letter-spacing: 1px;
-  color: var(--text);
+.clock-face .colon { animation: blink 1s steps(1) infinite; opacity: 0.95; }
+@keyframes blink { 50% { opacity: 0.25; } }
+.clock-sub {
+  margin-top: 26px; font-family: var(--mono); font-size: clamp(13px, 2vw, 16px);
+  letter-spacing: 6px; color: var(--text-secondary); text-transform: uppercase;
 }
-.hero .sub { margin: 16px auto 0; max-width: 620px; font-size: 15px; color: var(--text-secondary); line-height: 1.85; }
-.device-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-.chip {
-  padding: 6px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
-  background: var(--card); border: 1px solid var(--card-border); color: var(--text-secondary);
+.hero-name {
+  margin-top: 30px; font-size: clamp(26px, 4.5vw, 40px); font-weight: 800; letter-spacing: 3px;
 }
-.chip.hot { border-color: rgba(167, 139, 250, 0.4); color: var(--accent); background: rgba(167, 139, 250, 0.08); }
-.hero-cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+.hero-tagline { margin-top: 12px; font-size: clamp(15px, 2.4vw, 19px); color: var(--text-secondary); max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+.hero-cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
+
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 48px; padding: 0 28px; border-radius: 12px;
-  font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .15s, box-shadow .2s;
+  height: 52px; padding: 0 32px; border-radius: 14px;
+  font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .25s;
 }
 .btn:hover { transform: translateY(-2px); }
-.btn-primary { background: var(--grad); color: #06121a; box-shadow: 0 8px 28px rgba(56, 189, 248, 0.28), 0 0 26px rgba(129, 140, 248, 0.18); }
-.btn-primary:hover { box-shadow: 0 12px 34px rgba(56, 189, 248, 0.36), 0 0 44px rgba(129, 140, 248, 0.28); }
-.btn-ghost { background: var(--card); border: 1px solid var(--card-border); color: var(--text); }
+.btn-primary { background: var(--grad); color: #06121a; box-shadow: 0 10px 34px rgba(56, 189, 248, 0.3), 0 0 30px rgba(129, 140, 248, 0.2); }
+.btn-primary:hover { box-shadow: 0 14px 42px rgba(56, 189, 248, 0.4), 0 0 50px rgba(129, 140, 248, 0.32); }
+.btn-ghost { background: var(--panel); border: 1px solid var(--panel-border); color: var(--text); }
+.btn-ghost:hover { border-color: rgba(34, 211, 238, 0.4); }
+
+.device-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 48px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px; border-radius: 999px; font-size: 13px; font-weight: 600; font-family: var(--mono);
+  background: var(--panel); border: 1px solid var(--panel-border); color: var(--text-secondary);
+  transition: border-color .2s, color .2s;
+}
+.chip:hover { border-color: rgba(34, 211, 238, 0.4); color: var(--text); }
+.chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 8px var(--lime); font-style: normal; }
+.chip.hot { border-color: rgba(167, 139, 250, 0.45); color: var(--accent); }
+.chip.hot i { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+/* ===== 刻度分隔线 ===== */
+.tick-divider {
+  display: flex; align-items: center; gap: 14px; margin: 0 auto; max-width: 760px;
+  color: var(--text-muted); font-family: var(--mono); font-size: 11px; letter-spacing: 3px;
+}
+.tick-divider::before, .tick-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: repeating-linear-gradient(90deg, rgba(148,163,200,0.35) 0 6px, transparent 6px 14px);
+}
 
 /* ===== 区块 ===== */
-.section { padding: 72px 0 8px; }
-.section-head { text-align: center; margin-bottom: 46px; }
-.section-kicker {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 12px; font-weight: 700; letter-spacing: 3.5px; color: var(--primary); text-transform: uppercase;
-}
-.section-kicker::before, .section-kicker::after {
-  content: ''; width: 26px; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.5));
-}
-.section-kicker::after { background: linear-gradient(90deg, rgba(34,211,238,0.5), transparent); }
+.section { padding: 84px 0 12px; position: relative; }
+.section-head { text-align: center; margin-bottom: 52px; }
+.section-index { font-family: var(--mono); font-size: 13px; color: var(--primary); letter-spacing: 4px; }
 .section-head h2 {
-  font-size: clamp(28px, 4.6vw, 42px); font-weight: 800; margin-top: 14px; letter-spacing: 0.5px; line-height: 1.2;
-  background: linear-gradient(180deg, #ffffff 30%, rgba(238,242,248,0.6));
+  font-size: clamp(30px, 5vw, 48px); font-weight: 800; margin-top: 14px; letter-spacing: 1px; line-height: 1.15;
+  background: linear-gradient(180deg, #ffffff 30%, rgba(238,242,248,0.55));
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.section-head p { margin: 14px auto 0; max-width: 620px; font-size: 14.5px; color: var(--text-secondary); line-height: 1.85; }
+.section-head p { margin: 16px auto 0; max-width: 600px; font-size: 15px; color: var(--text-secondary); line-height: 1.85; }
 
-.glass {
-  background: var(--card);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  position: relative; overflow: hidden;
-  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+/* ===== 学习法：左序号时间轴 ===== */
+.methods-list { display: flex; flex-direction: column; gap: 2px; max-width: 860px; margin: 0 auto; }
+.method-row {
+  display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: 22px;
+  padding: 26px 24px; border-radius: 16px; position: relative;
+  border: 1px solid transparent; transition: background .25s, border-color .25s, transform .25s;
 }
-.glass::before {
-  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 30%, transparent 55%);
+.method-row:hover { background: var(--panel); border-color: var(--panel-border); transform: translateX(6px); }
+.method-row + .method-row { border-top: 1px solid rgba(255,255,255,0.05); }
+.method-num {
+  font-family: var(--mono); font-size: 30px; font-weight: 700; color: rgba(238,242,248,0.16);
+  letter-spacing: 1px; transition: color .25s;
 }
-.glass > * { position: relative; z-index: 1; }
-/* 鼠标跟随光晕 */
-.glass::after {
-  content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: 0; pointer-events: none;
-  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(56,189,248,0.10), transparent 65%);
-  opacity: 0; transition: opacity .3s;
-}
-.glass:hover::after { opacity: 1; }
-/* 顶部滚动进度条 */
-.scroll-progress {
-  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100;
-  background: linear-gradient(90deg, #22d3ee, #818cf8, #c084fc);
-  transform-origin: 0 50%; transform: scaleX(0);
-  box-shadow: 0 0 10px rgba(56,189,248,0.5);
-}
-/* 发光渐变边框卡片（重点卡片用） */
-.glow-border { position: relative; }
-.glow-border::after {
-  content: ''; position: absolute; inset: -1px; border-radius: calc(var(--radius) + 1px); z-index: 0; pointer-events: none;
-  padding: 1px; background: linear-gradient(135deg, rgba(34,211,238,0.5), rgba(129,140,248,0.15) 40%, rgba(192,132,252,0.4));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  opacity: 0.7;
-}
-
-/* 学习法卡片 */
-.methods-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-.method-card {
-  padding: 24px 22px; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-  position: relative;
-}
-.method-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.4), rgba(192,132,252,0.4), transparent);
-  opacity: 0; transition: opacity .25s;
-}
-.method-card:hover { transform: translateY(-6px); border-color: rgba(34, 211, 238, 0.4); box-shadow: 0 16px 40px rgba(2,8,20,0.5), 0 0 30px rgba(56,189,248,0.08); }
-.method-card:hover::before { opacity: 1; }
-.method-icon {
-  font-size: 26px; margin-bottom: 12px; display: inline-flex;
-  width: 50px; height: 50px; align-items: center; justify-content: center;
-  border-radius: 14px; background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.16);
-}
-.method-name { font-weight: 700; font-size: 16.5px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; letter-spacing: 0.3px; }
+.method-row:hover .method-num { color: var(--primary); text-shadow: 0 0 20px rgba(34,211,238,0.5); }
+.method-body h3 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .method-tag {
-  font-size: 10.5px; font-weight: 700; padding: 2px 9px; border-radius: 999px;
-  background: rgba(167, 139, 250, 0.16); border: 1px solid rgba(167, 139, 250, 0.35); color: var(--accent);
+  font-size: 10.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; font-family: var(--mono);
+  background: rgba(167, 139, 250, 0.16); border: 1px solid rgba(167, 139, 250, 0.4); color: var(--accent);
 }
-.method-desc { margin-top: 9px; font-size: 13px; color: var(--text-secondary); line-height: 1.75; }
-
-/* 功能亮点 */
-.feature-group { margin-bottom: 30px; }
-.feature-group-title {
-  font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: var(--text-muted);
-  margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+.method-tag.new { background: rgba(74, 222, 128, 0.14); border-color: rgba(74, 222, 128, 0.4); color: var(--lime); }
+.method-body p { margin-top: 7px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; max-width: 520px; }
+.method-time {
+  font-family: var(--mono); font-size: 13px; color: var(--text-muted); letter-spacing: 1px;
+  padding: 6px 14px; border-radius: 8px; background: var(--panel); border: 1px solid var(--panel-border);
+  white-space: nowrap;
 }
-.feature-group-title::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
-.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
-.feature-card { display: flex; gap: 14px; padding: 16px 18px; }
-.feature-icon {
-  width: 40px; height: 40px; min-width: 40px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center; font-size: 19px;
-  background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.2);
+
+/* ===== 功能亮点：三列大数字 ===== */
+.feature-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.feature-card {
+  padding: 30px 28px; border-radius: var(--radius);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  transition: transform .25s, border-color .25s, box-shadow .25s;
 }
-.feature-title { font-weight: 700; font-size: 14.5px; }
-.feature-desc { margin-top: 3px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; }
+.feature-card:hover { transform: translateY(-5px); border-color: rgba(34, 211, 238, 0.35); box-shadow: 0 18px 44px rgba(2, 8, 20, 0.5); }
+.feature-card .f-num { font-family: var(--mono); font-size: 15px; color: var(--primary); letter-spacing: 2px; }
+.feature-card h3 { margin-top: 14px; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+.feature-card p { margin-top: 9px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.8; }
 
-/* 手机 App 专区 */
-.app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-.app-card { padding: 20px; }
-.app-card .feature-icon { margin-bottom: 12px; }
-.app-card .feature-title { font-size: 15px; }
-.app-card .feature-desc { margin-top: 6px; }
-
-/* 截图轮播 */
-.shot-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 22px; }
+/* ===== 截图 ===== */
+.shot-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; }
 .shot-tab {
-  padding: 8px 20px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer;
-  background: var(--card); border: 1px solid var(--card-border); color: var(--text-secondary);
+  padding: 9px 22px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: var(--mono);
+  background: var(--panel); border: 1px solid var(--panel-border); color: var(--text-secondary);
   transition: all .2s; user-select: none;
 }
-.shot-tab.active { background: var(--grad); color: #06121a; border-color: transparent; }
+.shot-tab.active { background: var(--grad); color: #06121a; border-color: transparent; box-shadow: 0 6px 22px rgba(56,189,248,0.3); }
 .shot-panel { display: none; }
 .shot-panel.active { display: block; }
 .shot-scroll {
-  display: flex; gap: 16px; overflow-x: auto; padding: 6px 4px 18px;
-  scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent;
+  display: flex; gap: 20px; overflow-x: auto; padding: 8px 4px 22px;
+  scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent;
 }
 .shot-card {
-  min-width: 168px; max-width: 168px; scroll-snap-align: start;
-  border-radius: 16px; overflow: hidden;
-  background: var(--bg-soft); border: 1px solid var(--card-border);
+  min-width: 180px; max-width: 180px; scroll-snap-align: start;
+  border-radius: 20px; overflow: hidden; background: var(--bg-soft); border: 1px solid var(--panel-border);
+  transition: transform .25s, border-color .25s, box-shadow .25s;
 }
+.shot-card:hover { transform: translateY(-6px); border-color: rgba(34,211,238,0.4); box-shadow: 0 20px 44px rgba(2,8,20,0.55); }
 .shot-card img { width: 100%; display: block; aspect-ratio: 192/490; object-fit: cover; background: #0a0f1a; }
-.shot-label { padding: 10px 12px 2px; font-weight: 700; font-size: 13px; }
-.shot-desc { padding: 0 12px 12px; font-size: 11.5px; color: var(--text-muted); }
-.shot-note { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+.shot-label { padding: 12px 14px 3px; font-weight: 700; font-size: 13.5px; }
+.shot-desc { padding: 0 14px 14px; font-size: 12px; color: var(--text-muted); }
+.shot-note { text-align: center; font-size: 12.5px; color: var(--text-muted); margin-top: 8px; font-family: var(--mono); letter-spacing: 1px; }
 
-/* 下载区 */
-.download-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-.dl-card { padding: 22px; display: flex; flex-direction: column; gap: 10px; }
-.dl-head { display: flex; align-items: center; gap: 12px; }
-.dl-icon {
-  width: 44px; height: 44px; min-width: 44px; border-radius: 12px; font-size: 21px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(167, 139, 250, 0.12); border: 1px solid rgba(167, 139, 250, 0.28);
+/* ===== 下载：大卡片 ===== */
+.download-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+.dl-card {
+  padding: 28px 26px; display: flex; flex-direction: column; gap: 14px;
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
+  transition: transform .25s, border-color .25s, box-shadow .25s;
 }
-.dl-name { font-weight: 800; font-size: 16px; }
-.dl-sub { font-size: 12px; color: var(--text-muted); }
-.dl-desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; flex: 1; }
-.dl-card .btn { justify-content: center; height: 44px; font-size: 14px; }
+.dl-card:hover { transform: translateY(-5px); border-color: rgba(167, 139, 250, 0.4); box-shadow: 0 18px 44px rgba(2,8,20,0.5); }
+.dl-head { display: flex; align-items: center; gap: 14px; }
+.dl-icon {
+  width: 50px; height: 50px; min-width: 50px; border-radius: 14px; font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.26);
+}
+.dl-name { font-weight: 800; font-size: 17px; letter-spacing: 0.3px; }
+.dl-sub { font-size: 12px; color: var(--text-muted); font-family: var(--mono); margin-top: 2px; }
+.dl-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; flex: 1; }
+.dl-card .btn { justify-content: center; height: 48px; font-size: 14px; }
 
-/* 更新日志 */
-.log-card { padding: 16px 18px; margin-bottom: 10px; }
-.log-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.log-ver { font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-.log-date { font-size: 11.5px; color: var(--text-muted); }
-.log-desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; }
-.log-group { margin-top: 8px; }
-.log-group-t { font-size: 11px; font-weight: 700; color: var(--text); opacity: 0.85; margin-bottom: 3px; letter-spacing: 0.5px; }
-.log-list { margin: 0; padding-left: 16px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.8; }
-.log-list li::marker { color: var(--text-muted); }
+/* ===== 更新日志：时间轴 ===== */
+.changelog { max-width: 780px; margin: 0 auto; position: relative; padding-left: 30px; }
+.changelog::before {
+  content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1px;
+  background: linear-gradient(180deg, rgba(34,211,238,0.5), rgba(167,139,250,0.2), transparent);
+}
+.log-item { position: relative; padding: 0 0 40px 24px; }
+.log-item::before {
+  content: ''; position: absolute; left: -27px; top: 7px; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--primary); box-shadow: 0 0 14px rgba(34,211,238,0.5);
+}
+.log-item.faded::before { border-color: var(--text-muted); box-shadow: none; }
+.log-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.log-ver { font-weight: 800; font-size: 19px; font-family: var(--mono); letter-spacing: 0.5px; }
+.log-date { font-size: 12.5px; color: var(--text-muted); font-family: var(--mono); }
 .log-new {
-  font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+  font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 999px; font-family: var(--mono);
   background: var(--grad); color: #06121a; letter-spacing: 1px;
 }
-
-/* 激活 CTA */
-.cta-card {
-  text-align: center; padding: 52px 28px; margin: 64px 0 8px;
-  background: linear-gradient(160deg, rgba(34,211,238,0.07), rgba(129,140,248,0.05) 50%, rgba(192,132,252,0.06)), var(--card);
+.log-body { margin-top: 14px; }
+.log-group { margin-top: 12px; }
+.log-group-t {
+  font-size: 11.5px; font-weight: 700; color: var(--primary); letter-spacing: 1.5px; margin-bottom: 6px;
+  font-family: var(--mono); text-transform: uppercase;
 }
-.cta-card h2 {
-  font-size: clamp(24px, 4vw, 30px); font-weight: 800; margin-bottom: 10px; letter-spacing: 0.5px;
+.log-list { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.85; }
+.log-list li::marker { color: var(--text-muted); }
+.log-list b { color: var(--text); font-weight: 600; }
+
+/* ===== 激活 CTA ===== */
+.cta-panel {
+  text-align: center; padding: 64px 32px; margin: 80px 0 12px; border-radius: 26px; position: relative; overflow: hidden;
+  background: linear-gradient(160deg, rgba(34,211,238,0.1), rgba(129,140,248,0.06) 50%, rgba(192,132,252,0.09)), var(--panel);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+}
+.cta-panel::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 27px; padding: 1px; z-index: 0; pointer-events: none;
+  background: linear-gradient(135deg, rgba(34,211,238,0.55), rgba(129,140,248,0.15) 45%, rgba(192,132,252,0.5));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.cta-panel h2 {
+  font-size: clamp(26px, 4.5vw, 36px); font-weight: 800; margin-bottom: 14px; letter-spacing: 1px; position: relative;
   background: linear-gradient(120deg, #fff, #b8c4ff); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.cta-card p { color: var(--text-secondary); font-size: 14.5px; margin-bottom: 26px; }
+.cta-panel p { color: var(--text-secondary); font-size: 15px; margin-bottom: 32px; position: relative; }
 
 .site-footer {
-  text-align: center; padding: 34px 20px 40px;
-  color: var(--text-muted); font-size: 12.5px;
-  border-top: 1px solid rgba(255,255,255,0.05); margin-top: 48px;
+  text-align: center; padding: 40px 24px 48px;
+  color: var(--text-muted); font-size: 13px;
+  border-top: 1px solid rgba(255,255,255,0.05); margin-top: 64px;
+  font-family: var(--mono); letter-spacing: 0.5px;
 }
+.site-footer .foot-tick { font-size: 11px; letter-spacing: 4px; color: rgba(238,242,248,0.25); margin-bottom: 12px; }
 
-/* 入场动画 */
-[data-animate] { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+/* ===== 入场动画 ===== */
+[data-animate] { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
 [data-animate].in { opacity: 1; transform: none; }
 
+@media (max-width: 720px) {
+  .method-row { grid-template-columns: 52px 1fr; }
+  .method-time { display: none; }
+  .method-num { font-size: 24px; }
+}
 @media (max-width: 640px) {
-  .hero { padding: 60px 16px 40px; }
-  .section { padding: 40px 0 4px; }
-  .shot-card { min-width: 148px; max-width: 148px; }
+  .hero { padding: 52px 16px 60px; }
+  .clock-ring { inset: -34px; }
+  .section { padding: 56px 0 8px; }
+  .shot-card { min-width: 150px; max-width: 150px; }
 }
 @media (max-width: 480px) {
-  html { font-size: 15px; }
-  .wrap { padding: 0 16px; }
-  .site-header { padding: 12px 16px; }
-  .nav { gap: 12px; }
-  .nav a { font-size: 13px; }
-  .hero { padding: 44px 12px 32px; }
-  .hero h1 { letter-spacing: 1px; }
-  .section { padding: 32px 0 4px; }
-  .section-head { margin-bottom: 26px; }
-  .methods-grid { grid-template-columns: 1fr; }
-  .download-grid { grid-template-columns: 1fr; }
-  .shot-card { min-width: 132px; max-width: 132px; }
-  .shot-tab { padding: 7px 14px; font-size: 12.5px; }
-  .btn { height: 46px; padding: 0 22px; font-size: 14px; }
-  .cta-card { padding: 32px 18px; margin: 40px 0 8px; }
+  .wrap { padding: 0 18px; }
+  .nav { gap: 14px; }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .method-row { padding: 20px 16px; gap: 14px; }
+  .download-grid, .feature-cols { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
-<div class="bg-glow"></div>
-<div class="bg-grid"></div>
+<div class="bg-scene"></div>
+<div class="bg-ticks"></div>
 
 <header class="site-header">
   <a class="logo" href="index.html"><em>hhz</em> studio</a>
@@ -342,415 +331,280 @@ a { color: var(--primary); text-decoration: none; }
 
 <div class="wrap">
 
-  <!-- ===== Hero ===== -->
+  <!-- ===== Hero：大时钟 ===== -->
   <section class="hero">
-    <div class="hero-badge" data-animate>v1.3.0 机制创新学习法 + 红米手表适配</div>
-    <h1 data-animate>拾分钟</h1>
-    <div class="slogan" data-animate>腕上专注，不止番茄钟</div>
-    <p class="sub" data-animate>
-      手环与手机双端协同的专注工具：内置十种科学学习法，净专注算法杜绝划水，
-      自动文字配色让每一张背景都清晰可读。手环负责记录，手机负责分析——你的每一分钟都算数。
-    </p>
-    <div class="device-chips" data-animate>
-      <span class="chip hot">小米手环 10</span>
-      <span class="chip hot">小米手环 9 Pro</span>
-      <span class="chip">Android 手机 App</span>
-      <span class="chip">小米穿戴 SDK 双端通信</span>
+    <div class="hero-badge" data-animate><span class="dot"></span>v1.3.1 · 机制创新学习法 + 红米手表适配</div>
+    <div class="clock-stage" data-animate>
+      <div class="clock-ring"></div>
+      <div class="clock-face"><span id="clock-h">25</span><span class="colon">:</span><span id="clock-m">00</span></div>
     </div>
+    <div class="clock-sub" data-animate>FOCUS · ON YOUR WRIST</div>
+    <h1 class="hero-name" data-animate>拾分钟</h1>
+    <p class="hero-tagline" data-animate>腕上专注，不止番茄钟。手环记录，手机分析，你的每一分钟都算数。</p>
     <div class="hero-cta" data-animate>
       <a class="btn btn-primary" href="#download">&darr; 立即下载</a>
       <a class="btn btn-ghost" href="activate.html">获取激活码</a>
     </div>
+    <div class="device-chips" data-animate>
+      <span class="chip hot"><i></i>小米手环 10</span>
+      <span class="chip hot"><i></i>小米手环 9 Pro</span>
+      <span class="chip"><i></i>红米手表 5/6</span>
+      <span class="chip"><i></i>Android 手机 App</span>
+    </div>
   </section>
 
-  <!-- ===== 学习法体系 ===== -->
+  <div class="tick-divider" data-animate>01 · STUDY METHODS</div>
+
+  <!-- ===== 学习法 ===== -->
   <section class="section" id="methods">
     <div class="section-head" data-animate>
-      <div class="section-kicker">Study Methods</div>
+      <div class="section-index">/ 01</div>
       <h2>十种学习法，一套体系</h2>
-      <p>不止番茄钟。从经典节律到随机抽查，十种方法覆盖从「开始」到「坚持」的每个环节；每种方法附完整介绍弹窗与针对性总结数据。手机导入，手环执行，已导入的方法可随时在腕上删除。</p>
+      <p>从经典节律到机制创新，每种方法都有完整介绍弹窗与针对性总结。手机端导入，手环端执行，随时删除。</p>
     </div>
-    <div class="methods-grid">
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#8986;</div>
-        <div class="method-name">普通模式</div>
-        <div class="method-desc">自由正计时，无时长限制。支持暂停与结束总结，适合自由阅读与弹性学习。</div>
+    <div class="methods-list" data-animate>
+      <div class="method-row">
+        <div class="method-num">01</div>
+        <div class="method-body"><h3>普通模式</h3><p>自由正计时，无时长限制，随时开始结束。适合自由阅读与弹性学习。</p></div>
+        <div class="method-time">正计时</div>
       </div>
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#127813;</div>
-        <div class="method-name">番茄钟</div>
-        <div class="method-desc">经典 25+5 节奏，专注/休息时长可自定义，自动轮换循环，配合净专注算法防止划水。</div>
+      <div class="method-row">
+        <div class="method-num">02</div>
+        <div class="method-body"><h3>番茄钟</h3><p>经典 25+5 节奏，时长可自定义，自动循环，配合净专注算法防划水。</p></div>
+        <div class="method-time">25 + 5</div>
       </div>
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#9203;</div>
-        <div class="method-name">52/17 法则</div>
-        <div class="method-desc">52 分钟深度工作 + 17 分钟彻底休息，被验证的高效工作节律，适合长时间任务。</div>
+      <div class="method-row">
+        <div class="method-num">03</div>
+        <div class="method-body"><h3>52/17 法则</h3><p>52 分钟深度工作 + 17 分钟彻底休息，被验证的高效节律。</p></div>
+        <div class="method-time">52 + 17</div>
       </div>
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#127763;</div>
-        <div class="method-name">90 分钟超昼夜节律</div>
-        <div class="method-desc">顺应人体自然的 90 分钟精力周期，一个完整循环后充分休整，保持全天高效。</div>
+      <div class="method-row">
+        <div class="method-num">04</div>
+        <div class="method-body"><h3>90 分钟超昼夜节律</h3><p>顺应人体 90 分钟精力周期，一个完整循环后充分休整。</p></div>
+        <div class="method-time">90 + 20</div>
       </div>
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#128276;</div>
-        <div class="method-name">随机提示音法</div>
-        <div class="method-desc">默认 3–5 分钟随机间隔触发（手环端可调区间），三短震 + 亮屏提醒，响起时「闭眼休息 10 秒，然后继续专注」。建议关闭「异动提醒」以免混淆，总结页附提示频率分析。</div>
+      <div class="method-row">
+        <div class="method-num">05</div>
+        <div class="method-body"><h3>随机提示音法</h3><p>3–5 分钟随机三短震 + 亮屏提醒，闭眼休息 10 秒再继续，不打断心流。</p></div>
+        <div class="method-time">随机 3–5′</div>
       </div>
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#128293;</div>
-        <div class="method-name">50/10 深度番茄</div>
-        <div class="method-desc">加长版番茄钟：50 分钟深度专注 + 10 分钟休息，为进入心流状态而设计。</div>
+      <div class="method-row">
+        <div class="method-num">06</div>
+        <div class="method-body"><h3>50/10 深度番茄</h3><p>加长版番茄钟：50 分钟深度专注 + 10 分钟休息，为心流而设计。</p></div>
+        <div class="method-time">50 + 10</div>
       </div>
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#128640;</div>
-        <div class="method-name">15 分钟启动法</div>
-        <div class="method-desc">「只学 15 分钟」降低开始门槛。战胜拖延的第一步，往往只需一个微小的承诺。</div>
+      <div class="method-row">
+        <div class="method-num">07</div>
+        <div class="method-body"><h3>15 分钟启动法</h3><p>「只学 15 分钟」降低开始门槛，战胜拖延只需一个微小承诺。</p></div>
+        <div class="method-time">15′</div>
       </div>
-      <div class="glass glow-border method-card" data-animate>
-        <div class="method-icon">&#128200;</div>
-        <div class="method-name">递进专注法 <span class="method-tag">新</span></div>
-        <div class="method-desc">每轮专注自动加长 5 分钟（5→10→15…），破窗即回起点，循序渐进训练专注耐力。</div>
+      <div class="method-row">
+        <div class="method-num">08</div>
+        <div class="method-body"><h3>递进专注法 <span class="method-tag new">新</span></h3><p>每轮专注自动加长 5 分钟，破窗即回起点，循序渐进训练专注耐力。</p></div>
+        <div class="method-time">5→30′</div>
       </div>
-      <div class="glass glow-border method-card" data-animate>
-        <div class="method-icon">&#128279;</div>
-        <div class="method-name">番茄链 <span class="method-tag">新</span></div>
-        <div class="method-desc">连续完成完整番茄串即连链，中途放弃则断链，记录页统计最长连击，用连胜激励坚持。</div>
+      <div class="method-row">
+        <div class="method-num">09</div>
+        <div class="method-body"><h3>番茄链 <span class="method-tag new">新</span></h3><p>连续完成完整番茄串即连链，中断则断链，统计最长连击激励坚持。</p></div>
+        <div class="method-time">连击</div>
       </div>
-      <div class="glass glow-border method-card" data-animate>
-        <div class="method-icon">&#127919;</div>
-        <div class="method-name">目标倒推法 <span class="method-tag">新</span></div>
-        <div class="method-desc">先定今日总目标（如 120 分钟），手环自动切分成若干轮并动态分配，看着进度条填满。</div>
+      <div class="method-row">
+        <div class="method-num">10</div>
+        <div class="method-body"><h3>目标倒推法 <span class="method-tag new">新</span></h3><p>先定今日总目标，手环自动切分轮次动态分配，看着进度条填满。</p></div>
+        <div class="method-time">目标制</div>
       </div>
-      <div class="glass method-card" data-animate>
-        <div class="method-icon">&#9881;&#65039;</div>
-        <div class="method-name">全屏自定义 <span class="method-tag">进阶</span></div>
-        <div class="method-desc">时长、循环、休息、随机提示、严格模式全由你定，打造完全属于你的专属学习法。</div>
+      <div class="method-row">
+        <div class="method-num">+</div>
+        <div class="method-body"><h3>全屏自定义 <span class="method-tag">进阶</span></h3><p>时长、循环、休息、随机提示、严格模式全由你定，打造专属学习法。</p></div>
+        <div class="method-time">自定义</div>
       </div>
     </div>
   </section>
+
+  <div class="tick-divider" data-animate>02 · FEATURES</div>
 
   <!-- ===== 功能亮点 ===== -->
   <section class="section" id="features">
     <div class="section-head" data-animate>
-      <div class="section-kicker">Features</div>
+      <div class="section-index">/ 02</div>
       <h2>功能亮点</h2>
-      <p>从计时算法到个性化定制，每一处细节都为真实的专注体验服务。</p>
+      <p>手环端深耕专注体验，从计时算法到个性化定制，每一处都为真实效率服务。</p>
     </div>
-
-    <div class="feature-group" data-animate>
-      <div class="feature-group-title">专注</div>
-      <div class="feature-grid">
-        <div class="glass feature-card">
-          <div class="feature-icon">&#9889;</div>
-          <div><div class="feature-title">净专注算法</div><div class="feature-desc">利用加速度传感器检测真实运动状态，静止时正常计时、动作过大自动减速，杜绝划水式假专注。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#128275;</div>
-          <div><div class="feature-title">严格模式</div><div class="feature-desc">开启后专注期间无法中途退出，强制完成设定时长，培养自律习惯的终极武器。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#127919;</div>
-          <div><div class="feature-title">每日目标</div><div class="feature-desc">设定每日专注时长目标，主页进度一目了然，达标提醒持续激励。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#128268;</div>
-          <div><div class="feature-title">省电三档</div><div class="feature-desc">静止时自动简化界面显示，三档省电策略可选，长时间专注无忧续航。</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-group" data-animate>
-      <div class="feature-group-title">定制</div>
-      <div class="feature-grid">
-        <div class="glass feature-card">
-          <div class="feature-icon">&#127912;</div>
-          <div><div class="feature-title">自定义背景</div><div class="feature-desc">手机 App 推图到手环：20 张预设图库 + 自定义裁切上传，腕上界面随你而变。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#10024;</div>
-          <div><div class="feature-title">自动文字配色</div><div class="feature-desc">自动解析背景图主色调，状态栏、标签等文字自动变色保证可读性，时钟与进度条颜色保持不变。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#128343;</div>
-          <div><div class="feature-title">样式自定义</div><div class="feature-desc">时钟颜色、大小、秒数开关；进度条颜色与位置，细节全部可调。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#128243;</div>
-          <div><div class="feature-title">震动五档自定义</div><div class="feature-desc">五档震动强度自由调节，提醒节奏完全贴合你的体感偏好。</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-group" data-animate>
-      <div class="feature-group-title">效率</div>
-      <div class="feature-grid">
-        <div class="glass feature-card">
-          <div class="feature-icon">&#128276;</div>
-          <div><div class="feature-title">随机提醒拉回注意力</div><div class="feature-desc">随机提示音法在专注中以 3–5 分钟随机间隔三短震 + 亮屏提醒，响起时闭眼休息 10 秒再继续，配合提示频率分析，看见自己的走神规律。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#129529;</div>
-          <div><div class="feature-title">缓存清理</div><div class="feature-desc">一键清理运行缓存，保持应用轻快流畅。</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-group" data-animate>
-      <div class="feature-group-title">数据</div>
-      <div class="feature-grid">
-        <div class="glass feature-card">
-          <div class="feature-icon">&#9776;</div>
-          <div><div class="feature-title">专注记录</div><div class="feature-desc">自动记录每一次专注的日期、时长与学习法，记录页展示学习法使用分布。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#128200;</div>
-          <div><div class="feature-title">专注统计</div><div class="feature-desc">日/周/累计数据可视化，趋势图表一目了然。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#127942;</div>
-          <div><div class="feature-title">25 个成就</div><div class="feature-desc">累计时长、连续天数、循环轮次……每一次突破都有纪念。</div></div>
-        </div>
-        <div class="glass feature-card">
-          <div class="feature-icon">&#128202;</div>
-          <div><div class="feature-title">针对性总结</div><div class="feature-desc">每种学习法拥有专属总结页：循环完成度、提示频率分析等针对性数据。</div></div>
-        </div>
-      </div>
+    <div class="feature-cols">
+      <div class="feature-card" data-animate><div class="f-num">A·01</div><h3>净专注算法</h3><p>加速度传感器检测真实运动状态，静止正常计时、动作过大自动减速，杜绝划水式假专注。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">A·02</div><h3>严格模式</h3><p>开启后专注期间无法中途退出，强制完成设定时长，培养自律的终极武器。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">A·03</div><h3>每日目标</h3><p>设定每日专注时长目标，主页进度一目了然，达标提醒持续激励。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">B·01</div><h3>自动文字配色</h3><p>解析背景图真实主色调，主页与专注页文字分区自适应变色，任何背景都清晰协调。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">B·02</div><h3>自定义背景</h3><p>20 张预设 + 自定义裁切上传，红米手表方屏自动放大适配，腕上界面随你而变。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">B·03</div><h3>样式与震动</h3><p>时钟颜色大小、进度条位置、五档震动强度自由调节，细节全部可定制。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">C·01</div><h3>数据统计</h3><p>柱状图、感受分布、专注建议、25 个成就，多维度复盘你的专注表现。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">C·02</div><h3>备份恢复</h3><p>完整备份含成就与统计，恢复时只增不减智能合并，换机无忧。</p></div>
+      <div class="feature-card" data-animate><div class="f-num">C·03</div><h3>省电三档</h3><p>静止时自动简化显示，三档省电策略可选，长时间专注无忧续航。</p></div>
     </div>
   </section>
 
-  <!-- ===== 手机 App 专区 ===== -->
-  <section class="section" id="phone-app">
-    <div class="section-head" data-animate>
-      <div class="section-kicker">Phone App</div>
-      <h2>手机端 App，手环的最佳搭档</h2>
-      <p>与手环包名签名一致，通过小米穿戴 SDK 稳定通信。数据同步、图片推送、学习法导入，一机搞定。</p>
-    </div>
-    <div class="app-grid">
-      <div class="glass app-card" data-animate>
-        <div class="feature-icon">&#127752;</div>
-        <div class="feature-title">自动文字配色</div>
-        <div class="feature-desc">上传或选择预设背景图时自动解析主色调，手环上的状态栏、标签文字自动变色，任何背景都清晰可读。</div>
-      </div>
-      <div class="glass app-card" data-animate>
-        <div class="feature-icon">&#128202;</div>
-        <div class="feature-title">数据分析</div>
-        <div class="feature-desc">柱状图、感受分布、专注建议，多维度复盘你的专注表现，让数据开口说话。</div>
-      </div>
-      <div class="glass app-card" data-animate>
-        <div class="feature-icon">&#127769;</div>
-        <div class="feature-title">三档主题</div>
-        <div class="feature-desc">深色 / 浅色 / 跟随系统，磨砂玻璃质感界面，任何光线下都舒适。</div>
-      </div>
-      <div class="glass app-card" data-animate>
-        <div class="feature-icon">&#128444;&#65039;</div>
-        <div class="feature-title">图片库</div>
-        <div class="feature-desc">20 张精选预设背景 + 自定义裁切上传，一键推送到手环。</div>
-      </div>
-      <div class="glass app-card" data-animate>
-        <div class="feature-icon">&#128190;</div>
-        <div class="feature-title">备份恢复</div>
-        <div class="feature-desc">完整备份含成就与统计，恢复时只增不减智能合并，换机无忧。</div>
-      </div>
-      <div class="glass app-card" data-animate>
-        <div class="feature-icon">&#128214;</div>
-        <div class="feature-title">学习法导入</div>
-        <div class="feature-desc">52/17、90 分钟节律、随机提示音、50/10、15 分钟启动法，及 v1.3 新增的递进专注、番茄链、目标倒推与全屏自定义，统统从手机导入到手环。</div>
-      </div>
-    </div>
-  </section>
+  <div class="tick-divider" data-animate>03 · PREVIEW</div>
 
-  <!-- ===== 界面预览 ===== -->
+  <!-- ===== 截图 ===== -->
   <section class="section" id="preview">
     <div class="section-head" data-animate>
-      <div class="section-kicker">Preview</div>
+      <div class="section-index">/ 03</div>
       <h2>界面预览</h2>
       <p>双端实拍，所见即所得。</p>
     </div>
     <div class="shot-tabs" data-animate>
-      <div class="shot-tab active" data-device="band10">小米手环 10</div>
-      <div class="shot-tab" data-device="band9">小米手环 9 Pro</div>
+      <div class="shot-tab active" data-tab="band10">小米手环 10</div>
+      <div class="shot-tab" data-tab="band9">小米手环 9 Pro</div>
     </div>
-
-    <div class="shot-panel active" id="shots-band10">
-      <div class="shot-scroll">
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/home.png" alt="主页面"><div class="shot-label">主页面</div><div class="shot-desc">今日目标与快捷入口</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/mode-select.png" alt="学习法选择"><div class="shot-label">学习法选择</div><div class="shot-desc">多种学习法自由切换</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/focus.png" alt="专注计时"><div class="shot-label">专注计时</div><div class="shot-desc">倒计时专注进行中</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/focus-panel.png" alt="控制面板"><div class="shot-label">控制面板</div><div class="shot-desc">暂停与结束操作</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/summary.png" alt="专注总结"><div class="shot-label">专注总结</div><div class="shot-desc">完成评价与数据</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/records-top.png" alt="本周记录"><div class="shot-label">本周记录</div><div class="shot-desc">每日达标一览</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/records-stats.png" alt="记录统计"><div class="shot-label">专注统计</div><div class="shot-desc">数据趋势分析</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/records-list.png" alt="记录列表"><div class="shot-label">专注记录</div><div class="shot-desc">历史记录查看</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/achievements.png" alt="成就"><div class="shot-label">成就系统</div><div class="shot-desc">25 个成就等你解锁</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/settings.png" alt="设置"><div class="shot-label">设置</div><div class="shot-desc">专注偏好与开关</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/clock-settings.png" alt="时钟设置"><div class="shot-label">时钟设置</div><div class="shot-desc">颜色与大小定制</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/progress-settings.png" alt="进度条设置"><div class="shot-label">进度条设置</div><div class="shot-desc">颜色与位置调整</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/bg-starry.png" alt="星空"><div class="shot-label">背景选择</div><div class="shot-desc">丰富图片自由切换</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/bg-aurora.png" alt="极光"><div class="shot-label">极光幻彩</div><div class="shot-desc">20 张精美背景</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/bg-desert.png" alt="沙漠"><div class="shot-label">沙漠星河</div><div class="shot-desc">沉浸式专注体验</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/bg-light.png" alt="流光"><div class="shot-label">流光轨迹</div><div class="shot-desc">科技感动态风格</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band10-screenshots/bg-sunrise.png" alt="日出"><div class="shot-label">海面日出</div><div class="shot-desc">治愈系自然风光</div></div>
+    <div class="shot-panel active" id="panel-band10">
+      <div class="shot-scroll" data-animate>
+        <div class="shot-card"><img src="assets/band10-screenshots/home.png" alt="主页" loading="lazy"><div class="shot-label">主页</div><div class="shot-desc">目标进度 + 菜单</div></div>
+        <div class="shot-card"><img src="assets/band10-screenshots/mode-select.png" alt="模式选择" loading="lazy"><div class="shot-label">模式选择</div><div class="shot-desc">十种学习法</div></div>
+        <div class="shot-card"><img src="assets/band10-screenshots/focus.png" alt="专注中" loading="lazy"><div class="shot-label">专注中</div><div class="shot-desc">大时钟 + 进度</div></div>
+        <div class="shot-card"><img src="assets/band10-screenshots/summary.png" alt="总结" loading="lazy"><div class="shot-label">专注总结</div><div class="shot-desc">数据复盘</div></div>
+        <div class="shot-card"><img src="assets/band10-screenshots/records-stats.png" alt="记录" loading="lazy"><div class="shot-label">记录统计</div><div class="shot-desc">周历与分布</div></div>
+        <div class="shot-card"><img src="assets/band10-screenshots/bg-starry.png" alt="背景" loading="lazy"><div class="shot-label">背景商店</div><div class="shot-desc">20 张预设</div></div>
+        <div class="shot-card"><img src="assets/band10-screenshots/achievements.png" alt="成就" loading="lazy"><div class="shot-label">成就</div><div class="shot-desc">25 个成就</div></div>
+        <div class="shot-card"><img src="assets/band10-screenshots/settings.png" alt="设置" loading="lazy"><div class="shot-label">设置</div><div class="shot-desc">分组排版</div></div>
       </div>
-      <div class="shot-note">界面以实物为准 · 左右滑动查看更多</div>
     </div>
-
-    <div class="shot-panel" id="shots-band9">
-      <div class="shot-scroll">
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/home.png" alt="主页面"><div class="shot-label">主页面</div><div class="shot-desc">今日目标与快捷入口</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/goal.png" alt="每日目标"><div class="shot-label">每日目标</div><div class="shot-desc">目标进度一目了然</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/focus-default.png" alt="专注页面"><div class="shot-label">专注页面</div><div class="shot-desc">默认专注视图</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/focus-compact.png" alt="专注精简"><div class="shot-label">专注精简</div><div class="shot-desc">省电精简模式</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/summary.png" alt="专注总结"><div class="shot-label">专注总结</div><div class="shot-desc">完成评价与数据</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/focus-records.png" alt="专注记录"><div class="shot-label">专注记录</div><div class="shot-desc">历史记录查看</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/focus-stats.png" alt="专注统计"><div class="shot-label">专注统计</div><div class="shot-desc">数据趋势分析</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/records.png" alt="记录与统计"><div class="shot-label">记录与统计</div><div class="shot-desc">本周达标一览</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/achievements.png" alt="成就"><div class="shot-label">成就系统</div><div class="shot-desc">25 个成就等你解锁</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/settings.png" alt="设置"><div class="shot-label">设置</div><div class="shot-desc">专注偏好与开关</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/clock.png" alt="时钟设置"><div class="shot-label">时钟设置</div><div class="shot-desc">颜色与大小定制</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/progress.png" alt="进度条设置"><div class="shot-label">进度条设置</div><div class="shot-desc">颜色与位置调整</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/styles.png" alt="专注样式"><div class="shot-label">专注样式</div><div class="shot-desc">暮色森林主题</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/bg-lighthouse.png" alt="灯塔"><div class="shot-label">灯塔背景</div><div class="shot-desc">沉浸式专注体验</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/bg-maple.png" alt="枫叶"><div class="shot-label">枫叶背景</div><div class="shot-desc">自然风格背景</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/bg-sunset.png" alt="日落"><div class="shot-label">日落海滩</div><div class="shot-desc">治愈系自然风光</div></div>
-        <div class="shot-card"><img loading="lazy" src="assets/band9-screenshots/bg-forest.png" alt="森林"><div class="shot-label">森林背景</div><div class="shot-desc">丰富背景自由切换</div></div>
+    <div class="shot-panel" id="panel-band9">
+      <div class="shot-scroll" data-animate>
+        <div class="shot-card"><img src="assets/band9-screenshots/home.png" alt="主页" loading="lazy"><div class="shot-label">主页</div><div class="shot-desc">目标进度 + 菜单</div></div>
+        <div class="shot-card"><img src="assets/band9-screenshots/clock.png" alt="时钟" loading="lazy"><div class="shot-label">专注时钟</div><div class="shot-desc">大数字计时</div></div>
+        <div class="shot-card"><img src="assets/band9-screenshots/focus-default.png" alt="专注" loading="lazy"><div class="shot-label">专注中</div><div class="shot-desc">大时钟 + 进度</div></div>
+        <div class="shot-card"><img src="assets/band9-screenshots/summary.png" alt="总结" loading="lazy"><div class="shot-label">专注总结</div><div class="shot-desc">数据复盘</div></div>
+        <div class="shot-card"><img src="assets/band9-screenshots/records.png" alt="记录" loading="lazy"><div class="shot-label">记录</div><div class="shot-desc">历史与统计</div></div>
+        <div class="shot-card"><img src="assets/band9-screenshots/styles.png" alt="样式" loading="lazy"><div class="shot-label">样式</div><div class="shot-desc">背景与配色</div></div>
+        <div class="shot-card"><img src="assets/band9-screenshots/achievements.png" alt="成就" loading="lazy"><div class="shot-label">成就</div><div class="shot-desc">25 个成就</div></div>
+        <div class="shot-card"><img src="assets/band9-screenshots/settings.png" alt="设置" loading="lazy"><div class="shot-label">设置</div><div class="shot-desc">分组排版</div></div>
       </div>
-      <div class="shot-note">界面以实物为准 · 左右滑动查看更多</div>
     </div>
+    <div class="shot-note">← 左右滑动查看更多 · 界面以实物为准 →</div>
   </section>
 
-  <!-- ===== 下载区 ===== -->
+  <div class="tick-divider" data-animate>04 · DOWNLOAD</div>
+
+  <!-- ===== 下载 ===== -->
   <section class="section" id="download">
     <div class="section-head" data-animate>
-      <div class="section-kicker">Download</div>
+      <div class="section-index">/ 04</div>
       <h2>下载拾分钟</h2>
-      <p>手环与手机包名签名一致，通过小米穿戴 SDK 稳定通信。请选择与你的设备对应的安装包。</p>
+      <p>手环端与手机端包名签名一致，通过小米穿戴 SDK 通信。请按你的设备选择安装包。</p>
     </div>
     <div class="download-grid">
-      <div class="glass dl-card" data-animate>
-        <div class="dl-head">
-          <div class="dl-icon">&#9000;</div>
-          <div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK 快应用 · v1.3.0</div></div>
-        </div>
+      <div class="dl-card" data-animate>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK · v1.3.1</div></div></div>
         <div class="dl-desc">为小米手环 10 深度适配，完整学习法体系、自动文字配色、自定义背景全部可用。</div>
         <a class="btn btn-primary" href="assets/shifz-band10.rpk" download>&darr; 下载 RPK</a>
       </div>
-      <div class="glass dl-card" data-animate>
-        <div class="dl-head">
-          <div class="dl-icon">&#8986;</div>
-          <div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK 快应用 · v1.3.0</div></div>
-        </div>
+      <div class="dl-card" data-animate>
+        <div class="dl-head"><div class="dl-icon">&#8986;</div><div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK · v1.3.1</div></div></div>
         <div class="dl-desc">为小米手环 9 Pro 单独构建，同一包名、同一体验，功能与手环 10 版保持一致。</div>
         <a class="btn btn-primary" href="assets/shifz-band9pro.rpk" download>&darr; 下载 RPK</a>
       </div>
-      <div class="glass dl-card" data-animate>
-        <div class="dl-head">
-          <div class="dl-icon">&#128241;</div>
-          <div><div class="dl-name">手机端 App</div><div class="dl-sub">Android APK · v1.3.0</div></div>
-        </div>
-        <div class="dl-desc">学习法导入、图片推送、数据分析、备份恢复。手环的好搭档，建议搭配使用。</div>
-        <a class="btn btn-primary" href="assets/shifz-phone.apk" download>&darr; 下载 APK</a>
-      </div>
-      <div class="glass dl-card" data-animate>
-        <div class="dl-head">
-          <div class="dl-icon">&#9000;</div>
-          <div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK 快应用 · v1.3.0</div></div>
-        </div>
+      <div class="dl-card" data-animate>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK · v1.3.1</div></div></div>
         <div class="dl-desc">适配红米手表 5/6 方屏（432×514），功能与手环版一致，预设背景自动放大适配。</div>
         <a class="btn btn-primary" href="assets/shifz-redmiwatch.rpk" download>&darr; 下载 RPK</a>
       </div>
+      <div class="dl-card" data-animate>
+        <div class="dl-head"><div class="dl-icon">&#128241;</div><div><div class="dl-name">手机端 App</div><div class="dl-sub">APK · v1.3.1</div></div></div>
+        <div class="dl-desc">学习法导入、图片推送、数据分析、备份恢复。手环的好搭档，建议搭配使用。</div>
+        <a class="btn btn-primary" href="assets/shifz-phone.apk" download>&darr; 下载 APK</a>
+      </div>
     </div>
   </section>
+
+  <div class="tick-divider" data-animate>05 · CHANGELOG</div>
 
   <!-- ===== 更新日志 ===== -->
   <section class="section" id="changelog">
     <div class="section-head" data-animate>
-      <div class="section-kicker">Changelog</div>
+      <div class="section-index">/ 05</div>
       <h2>更新日志</h2>
     </div>
-    <div class="glass log-card" data-animate>
-      <div class="log-head"><span class="log-ver">v1.3.0 <span class="log-new">NEW</span></span><span class="log-date">2026-09</span></div>
-      <div class="log-group">
-        <div class="log-group-t">✦ 新功能</div>
-        <ul class="log-list">
-          <li>新增 3 个机制创新型学习法：<b>递进专注法</b>（每轮自动加长，破窗回起点，训练专注耐力）、<b>番茄链</b>（连续完成不断链，统计最长连击）、<b>目标倒推法</b>（设今日总目标，自动切分轮次）</li>
-          <li>颜色自适应重写：提取图片真实主色调，全页面文字自适应背景、配色协调且保证对比度清晰（专注页大时钟与进度条仍走你的手动设置）</li>
-          <li>红米手表 5/6 适配（方屏 432×514），预设背景自动放大适配</li>
-          <li>预设背景分区可折叠，默认收起更清爽</li>
-        </ul>
+    <div class="changelog">
+      <div class="log-item" data-animate>
+        <div class="log-head"><span class="log-ver">v1.3.1</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
+        <div class="log-body">
+          <div class="log-group"><div class="log-group-t">✦ 新功能</div>
+            <ul class="log-list">
+              <li>新增 3 个机制创新型学习法：<b>递进专注法</b>、<b>番茄链</b>、<b>目标倒推法</b></li>
+              <li>颜色自适应重写：提取图片真实主色调，主页与专注页<b>分区自适应</b>，配色协调且对比清晰</li>
+              <li>红米手表 5/6 适配（方屏 432×514），预设背景自动放大适配</li>
+              <li>预设背景分区可折叠，默认收起更清爽</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 修复</div>
+            <ul class="log-list">
+              <li>修复手环 10 连接后 App 始终显示未激活（自动重查 + 失败重试）</li>
+              <li>修复 App 传图崩溃（recycled bitmap）与手环端传图闪退（改流式写文件）</li>
+              <li>导入重名图片自动改名（_2/_3），原图不再丢失</li>
+              <li>学习法导入各分支补齐成功 / 未连接 / 传输忙提示</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 优化</div>
+            <ul class="log-list">
+              <li>学习法准备页字号加大、介绍加长至 400 字，介绍弹窗更高更清晰</li>
+              <li>随机提示音法三档按钮改整宽竖排，时钟设置秒数开关换行更易调</li>
+              <li>手环 9 Pro 设置页分组排版，弹窗文字加大提亮，描述不再截断</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="log-group">
-        <div class="log-group-t">✦ 修复</div>
-        <ul class="log-list">
-          <li>修复手环 10 连接后 App 始终显示未激活（连接后自动重查 + 失败重试）</li>
-          <li>修复 App 传图崩溃（recycled bitmap）与手环端传图闪退（改流式写文件，不再连累整机）</li>
-          <li>导入重名图片自动改名（_2/_3），原图不再丢失</li>
-          <li>学习法导入各分支补齐成功 / 未连接 / 传输忙提示</li>
-        </ul>
+      <div class="log-item faded" data-animate>
+        <div class="log-head"><span class="log-ver">v1.2.0</span><span class="log-date">2026-09</span></div>
+        <div class="log-body"><div class="log-group"><ul class="log-list"><li>全新学习法体系（52/17、90 分钟节律、随机提示音、50/10、15 分钟启动法与全屏自定义）· 自动文字配色 · 手机端数据分析页 · 三档主题 · 图片库 20 预设 + 裁切上传 · 备份恢复 · 震动五档 · 缓存清理</li></ul></div></div>
       </div>
-      <div class="log-group">
-        <div class="log-group-t">✦ 优化</div>
-        <ul class="log-list">
-          <li>学习法准备页字号加大、介绍加长至 400 字，方法介绍弹窗更高更清晰</li>
-          <li>随机提示音法三档按钮改整宽竖排，带说明文字，不再误触</li>
-          <li>手环 9 Pro 设置页分组排版（专注 / 偏好 / 震动 / 显示 / 系统），描述不再截断</li>
-        </ul>
+      <div class="log-item faded" data-animate>
+        <div class="log-head"><span class="log-ver">v1.1.0</span><span class="log-date">2026-07</span></div>
+        <div class="log-body"><div class="log-group"><ul class="log-list"><li>小米手环 10 适配 · 专注币系统 · 背景商店 · 图片换新</li></ul></div></div>
       </div>
-    </div>
-    <div class="glass log-card" data-animate>
-      <div class="log-head"><span class="log-ver">v1.2.0</span><span class="log-date">2026-09</span></div>
-      <div class="log-desc">全新学习法体系：52/17 法则、90 分钟超昼夜节律、随机提示音法、50/10 深度番茄、15 分钟启动法与全屏自定义 · 每种学习法专属准备页（含完整方法介绍弹窗，手环端可删除已导入方法）与针对性总结数据 · 自动文字配色（解析背景主色调，文字自动变色） · 手机端数据分析页 · 深色/浅色/跟随系统三档主题 · 图片库 20 张预设 + 自定义裁切上传 · 备份恢复（含成就与统计，只增不减合并） · 震动五档自定义 · 缓存清理</div>
-    </div>
-    <div class="glass log-card" data-animate>
-      <div class="log-head"><span class="log-ver">v1.1.0</span><span class="log-date">2026-07</span></div>
-      <div class="log-desc">小米手环 10 适配 · 专注币系统 · 背景商店 · 图片换新</div>
-    </div>
-    <div class="glass log-card" data-animate>
-      <div class="log-head"><span class="log-ver">v1.0.2</span><span class="log-date">2026-07</span></div>
-      <div class="log-desc">专注币系统 · 成就购买 · 图片背景商店 · 帮助页重写 · 支付激活系统</div>
-    </div>
-    <div class="glass log-card" data-animate>
-      <div class="log-head"><span class="log-ver">v1.0.1</span><span class="log-date">2026-06</span></div>
-      <div class="log-desc">UI 重构 · Bug 修复 · 功能增强</div>
-    </div>
-    <div class="glass log-card" data-animate>
-      <div class="log-head"><span class="log-ver">v1.0.0</span><span class="log-date">2026-06</span></div>
-      <div class="log-desc">首次发布 · 普通专注 + 番茄钟模式 · 净专注算法</div>
+      <div class="log-item faded" data-animate>
+        <div class="log-head"><span class="log-ver">v1.0.0</span><span class="log-date">2026-06</span></div>
+        <div class="log-body"><div class="log-group"><ul class="log-list"><li>首次发布 · 普通专注 + 番茄钟模式 · 净专注算法</li></ul></div></div>
+      </div>
     </div>
   </section>
 
   <!-- ===== 激活 CTA ===== -->
-  <div class="glass glow-border cta-card" data-animate>
+  <div class="cta-panel" data-animate>
     <h2>立即激活，解锁全部功能</h2>
     <p>获取激活码，开启完整学习法体系与全部高级功能</p>
-    <a class="btn btn-primary" href="activate.html" style="height:50px;padding:0 44px;font-size:15px;">激活指南</a>
+    <a class="btn btn-primary" href="activate.html" style="height:54px;padding:0 46px;font-size:16px;">激活指南</a>
   </div>
 
 </div>
 
 <footer class="site-footer">
-  <span>&copy; 2026 hhz studio · 拾分钟 · 界面以实物为准</span>
+  <div class="foot-tick">— · — · — · — · —</div>
+  <div>hhz studio · 拾分钟 shifenzheng · 腕上专注工具</div>
 </footer>
 
+<script src="assets/script.js"></script>
 <script>
-(function () {
-  // 入场动画
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('[data-animate]').forEach(function (el) { io.observe(el); });
-
-  // 截图双端切换
-  document.querySelectorAll('.shot-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var dev = tab.dataset.device;
-      document.querySelectorAll('.shot-tab').forEach(function (t) {
-        t.classList.toggle('active', t === tab);
-      });
-      document.querySelectorAll('.shot-panel').forEach(function (p) {
-        p.classList.toggle('active', p.id === 'shots-' + dev);
-      });
+// 大时钟走秒
+;(function(){
+  var h=document.getElementById('clock-h'), m=document.getElementById('clock-m');
+  if(!h||!m) return;
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var d=new Date();
+    h.textContent=pad(d.getHours());
+    m.textContent=pad(d.getMinutes());
+  }
+  tick(); setInterval(tick, 1000);
+})();
+// 截图 tab 切换
+;(function(){
+  var tabs=document.querySelectorAll('.shot-tab');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){x.classList.remove('active')});
+      t.classList.add('active');
+      document.querySelectorAll('.shot-panel').forEach(function(p){p.classList.remove('active')});
+      document.getElementById('panel-'+t.getAttribute('data-tab')).classList.add('active');
     });
   });
 })();
