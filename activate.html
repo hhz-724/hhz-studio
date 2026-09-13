@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="assets/app-icon.png">
 <title>激活指南 - hhz studio</title>
 <style>
 :root {
@@ -12,8 +13,8 @@
   --card: rgba(255, 255, 255, 0.045);
   --card-border: rgba(255, 255, 255, 0.09);
   --text: #eef2f8;
-  --text-secondary: rgba(238, 242, 248, 0.62);
-  --text-muted: rgba(238, 242, 248, 0.38);
+  --text-secondary: rgba(238, 242, 248, 0.72);
+  --text-muted: rgba(238, 242, 248, 0.46);
   --primary: #22d3ee;
   --accent: #a78bfa;
   --error: #f87171;
@@ -26,10 +27,15 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.75;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+::selection { background: rgba(34, 211, 238, 0.30); color: #fff; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 99px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); }
 /* 背景氛围光 */
 body::before, body::after {
   content: ''; position: fixed; border-radius: 50%; filter: blur(120px);
@@ -58,6 +64,8 @@ a { color: var(--primary); text-decoration: none; }
 .nav { display: flex; gap: 18px; font-size: 14px; }
 .nav a { color: var(--text-secondary); transition: color .2s; }
 .nav a:hover { color: var(--text); }
+.nav a.active { color: var(--primary); font-weight: 600; }
+.logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 /* ===== 页面通用 ===== */
 .page-section { padding: 28px 0 8px; flex: 1; }
@@ -174,10 +182,10 @@ a { color: var(--primary); text-decoration: none; }
   height: 48px; padding: 0 28px; border-radius: 12px;
   font-size: 15px; font-weight: 700; cursor: pointer;
   background: var(--grad); color: #06121a;
-  box-shadow: 0 8px 28px rgba(56, 189, 248, 0.28);
+  box-shadow: 0 8px 28px rgba(56, 189, 248, 0.28), 0 0 26px rgba(129, 140, 248, 0.18);
   transition: transform .15s, box-shadow .2s;
 }
-.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(56, 189, 248, 0.36), 0 0 44px rgba(129, 140, 248, 0.28); }
 .btn-primary.cta { width: 100%; }
 
 /* ===== 页脚 ===== */
@@ -198,15 +206,25 @@ a { color: var(--primary); text-decoration: none; }
   .nav { gap: 14px; }
   .nav a { font-size: 13px; }
 }
+@media (max-width: 480px) {
+  html { font-size: 15px; }
+  .site-header { padding: 12px 4px; }
+  .device-tabs { gap: 8px; }
+  .device-tab { font-size: 13px; padding: 10px; }
+  .step-card { padding: 14px; }
+  .qr-wrap { padding: 20px 16px; }
+  .qr-wrap img { width: 160px; height: 160px; }
+}
 </style>
 </head>
 <body>
 <div class="container">
   <header class="site-header">
-    <a class="logo" href="index.html">hhz studio</a>
+    <a class="logo" href="index.html"><em>hhz</em> studio</a>
     <nav class="nav">
       <a href="shifz.html">拾分钟</a>
       <a href="dazk.html">咚咚砖</a>
+      <a href="activate.html" class="active">激活</a>
     </nav>
   </header>
 
@@ -288,7 +306,7 @@ a { color: var(--primary); text-decoration: none; }
     <h2 style="font-size:15px;font-weight:700;margin:24px 0 14px;" data-animate>前往电铺</h2>
 
     <div class="qr-wrap" data-animate>
-      <img src="assets/afdian-qr.jpg" alt="爱发电电铺二维码">
+      <img loading="lazy" src="assets/afdian-qr.jpg" alt="爱发电电铺二维码">
       <div style="font-weight:600;font-size:15px;margin-bottom:4px;">爱发电电铺</div>
       <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">下单后自动回复授权码</div>
       <a class="btn-primary" href="https://www.ifdian.net/a/h072409" target="_blank" rel="noopener">

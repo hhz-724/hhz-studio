@@ -4,8 +4,8 @@
   // Nav highlight
   function setup() {
     var path = location.pathname.split('/').pop() || 'index.html'
-    document.querySelectorAll('.nav a').forEach(function(a) {
-      if (a.getAttribute('href') === path) a.style.color = 'var(--primary)'
+    document.querySelectorAll('.site-header nav a, .nav a').forEach(function(a) {
+      if (a.getAttribute('href') === path) a.classList.add('active')
     })
   }
   document.addEventListener('DOMContentLoaded', setup)
@@ -26,6 +26,22 @@
   ;(function() {
     var els = document.querySelectorAll('[data-animate]')
     if (!els.length) return
+
+    // 卡片组逐项 stagger：父级已带 data-animate 时，为兄弟卡片递增延迟
+    ;(function stagger() {
+      var groups = ['.methods-grid', '.feature-grid', '.app-grid', '.download-grid', '.projects-grid', '.contact-grid', '.px-dl-grid', '.px-stats', '.steps']
+      groups.forEach(function(sel) {
+        document.querySelectorAll(sel).forEach(function(grid) {
+          var idx = 0
+          Array.prototype.forEach.call(grid.children, function(child) {
+            if (!child.hasAttribute('data-animate') || child.hasAttribute('data-delay')) return
+            if (idx > 0 && idx <= 3) child.setAttribute('data-delay', String(idx))
+            idx++
+          })
+        })
+      })
+    })();
+
     if (!('IntersectionObserver' in window)) {
       els.forEach(function(el) { el.setAttribute('data-animated', '') })
       return

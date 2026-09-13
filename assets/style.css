@@ -12,8 +12,8 @@
 
   --bg-page: #08080a;
   --text-primary: #e8e8ee;
-  --text-secondary: #c0c0d0;
-  --text-muted: #787888;
+  --text-secondary: #c6c6d6;
+  --text-muted: #8a8a9c;
 
   --error: #ef4444;
   --success: #10b981;
@@ -38,10 +38,24 @@ body {
   font-family: "MiSans", "Noto Sans SC", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-page);
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.75;
   position: relative;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* 选中文本色 */
+::selection { background: rgba(34, 211, 238, 0.30); color: #fff; }
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+  border: 2px solid var(--bg-page);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.22); }
 
 /* 深色背景 + 高级氛围光效 */
 body::before {
@@ -333,7 +347,26 @@ img { max-width: 100%; display: block; }
     inset 0 1px 0 rgba(255,255,255,0.25),
     inset 0 -1px 0 rgba(255,255,255,0.05),
     0 8px 24px rgba(0,0,0,0.18),
-    0 0 40px rgba(8,145,178,0.08);
+    0 0 44px rgba(8,145,178,0.18);
+}
+
+/* 提交按钮（404 页等复用） */
+.submit-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 50px; padding: 0 32px; border-radius: 14px;
+  background: rgba(8, 145, 178, 0.12);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(8, 145, 178, 0.28);
+  color: #fff; font-weight: 600; font-size: 1rem;
+  cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.submit-btn:hover {
+  background: rgba(8, 145, 178, 0.20);
+  border-color: rgba(8, 145, 178, 0.45);
+  transform: translateY(-2px);
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0 0 32px rgba(8,145,178,0.10);
 }
 
 /* ---- Header ---- */
@@ -359,6 +392,7 @@ img { max-width: 100%; display: block; }
 .site-header nav { display: flex; gap: 16px; }
 .site-header nav a { font-size: 0.875rem; color: var(--text-secondary); transition: color 0.2s; }
 .site-header nav a:hover { color: var(--primary); text-decoration: none; }
+.site-header nav a.active { color: var(--primary); font-weight: 600; }
 
 /* ---- 首页 ---- */
 .hero { padding: 32px 0; }
@@ -782,6 +816,11 @@ img { max-width: 100%; display: block; }
   transform: translateY(0);
 }
 
+/* 逐项 stagger 延迟 */
+[data-animate][data-delay="1"] { transition-delay: 0.07s; }
+[data-animate][data-delay="2"] { transition-delay: 0.14s; }
+[data-animate][data-delay="3"] { transition-delay: 0.21s; }
+
 /* ---- 导航下划线 ---- */
 nav a { position: relative; }
 nav a::after {
@@ -813,6 +852,18 @@ nav a:hover::after { width: 100%; left: 50%; }
   .site-header nav { gap: 12px; }
   .site-header nav a { font-size: 13px; }
   .page-title { font-size: 1.375rem; }
+}
+@media (max-width: 480px) {
+  html { font-size: 15px; }
+  .site-header { padding: 12px 16px; }
+  .site-header .logo { font-size: 1.1rem; }
+  .site-header nav { gap: 10px; }
+  .hero { padding: 24px 0; }
+  .page-section { padding: 20px 0; }
+  .step { padding: 10px; font-size: 0.75rem; }
+  .result-key { font-size: 20px; padding: 12px 18px; }
+  .modal-dialog { padding: 16px; }
+  .modal-code { font-size: 17px; }
 }
 @media (max-width: 400px) {
   .qr-area { flex-direction: column !important; align-items: center !important; text-align: center; }

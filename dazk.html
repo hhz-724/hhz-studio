@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="assets/dazk-logo.png">
 <title>咚咚砖 - hhz studio</title>
 <link rel="stylesheet" href="assets/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -249,6 +250,14 @@ body {
   .px-stats { grid-template-columns: repeat(3, 1fr); }
   .px-dl-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 480px) {
+  html { font-size: 15px; }
+  .px-stats { gap: 6px; }
+  .px-stat .num { font-size: 11px; }
+  .px-stat .lbl { font-size: 10px; }
+  .px-section-title { font-size: 13px; }
+  .px-blink { font-size: 8px; letter-spacing: 1px; }
+}
 
 /* 更新日志条目 */
 .px-log { margin-bottom: 12px; }
@@ -258,12 +267,8 @@ body {
 .px-log-ver { font-weight: 800; font-size: 13px; }
 .px-log-ver.latest { color: var(--px-gold); }
 .px-log-date { font-family: var(--px-font); font-size: 8px; color: var(--text-muted); }
-.px-log-body { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+.px-log-body { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
 .px-log-body b { color: var(--text-primary); }
-
-@media (max-width: 640px) {
-  .px-stats { grid-template-columns: repeat(3, 1fr); }
-}
 </style>
 </head>
 <body>
@@ -272,7 +277,7 @@ body {
     <a class="logo" href="index.html">hhz studio</a>
     <nav class="nav">
       <a href="shifz.html">拾分钟</a>
-      <a href="dazk.html">咚咚砖</a>
+      <a href="dazk.html" class="active">咚咚砖</a>
     </nav>
   </header>
 
@@ -327,17 +332,17 @@ body {
     <!-- 截图轮播 -->
     <h2 class="px-section-title" data-animate>界面预览</h2>
     <div class="screenshot-scroll" id="scroll-dazk" data-animate>
-      <div class="screenshot-card active"><img src="assets/dazk-screenshots/menu.png" alt="主菜单" style="width:100%;display:block;"><div class="screenshot-label">主菜单</div><div class="screenshot-desc">闯关、无尽、商店一步直达</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/level-select.png" alt="关卡选择" style="width:100%;display:block;"><div class="screenshot-label">关卡选择</div><div class="screenshot-desc">三章 30 关，选关再出发</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/level.png" alt="闯关第一关" style="width:100%;display:block;"><div class="screenshot-label">闯关第一关</div><div class="screenshot-desc">手指滑动挡板，开始对战</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/level-goal.png" alt="目标砖" style="width:100%;display:block;"><div class="screenshot-label">目标砖</div><div class="screenshot-desc">看清目标，优先击碎</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/boss.png" alt="Boss 战" style="width:100%;display:block;"><div class="screenshot-label">Boss 战</div><div class="screenshot-desc">三阶段弹幕，终极对决</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/endless.png" alt="无尽大砖" style="width:100%;display:block;"><div class="screenshot-label">无尽大砖</div><div class="screenshot-desc">大砖奖励，一波更比一波强</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/endless-event.png" alt="无尽事件" style="width:100%;display:block;"><div class="screenshot-label">无尽事件</div><div class="screenshot-desc">随机事件，惊喜不断</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/skills.png" alt="技能选择" style="width:100%;display:block;"><div class="screenshot-label">技能选择</div><div class="screenshot-desc">三选一，打造专属套路</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/shop.png" alt="商店升级" style="width:100%;display:block;"><div class="screenshot-label">商店升级</div><div class="screenshot-desc">永久升级，越战越强</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/shop-skins.png" alt="球皮肤" style="width:100%;display:block;"><div class="screenshot-label">球皮肤</div><div class="screenshot-desc">多款皮肤，随心搭配</div></div>
-      <div class="screenshot-card"><img src="assets/dazk-screenshots/achievements.png" alt="成就" style="width:100%;display:block;"><div class="screenshot-label">成就</div><div class="screenshot-desc">21 个成就等你解锁</div></div>
+      <div class="screenshot-card active"><img loading="lazy" src="assets/dazk-screenshots/menu.png" alt="主菜单" style="width:100%;display:block;"><div class="screenshot-label">主菜单</div><div class="screenshot-desc">闯关、无尽、商店一步直达</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/level-select.png" alt="关卡选择" style="width:100%;display:block;"><div class="screenshot-label">关卡选择</div><div class="screenshot-desc">三章 30 关，选关再出发</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/level.png" alt="闯关第一关" style="width:100%;display:block;"><div class="screenshot-label">闯关第一关</div><div class="screenshot-desc">手指滑动挡板，开始对战</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/level-goal.png" alt="目标砖" style="width:100%;display:block;"><div class="screenshot-label">目标砖</div><div class="screenshot-desc">看清目标，优先击碎</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/boss.png" alt="Boss 战" style="width:100%;display:block;"><div class="screenshot-label">Boss 战</div><div class="screenshot-desc">三阶段弹幕，终极对决</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/endless.png" alt="无尽大砖" style="width:100%;display:block;"><div class="screenshot-label">无尽大砖</div><div class="screenshot-desc">大砖奖励，一波更比一波强</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/endless-event.png" alt="无尽事件" style="width:100%;display:block;"><div class="screenshot-label">无尽事件</div><div class="screenshot-desc">随机事件，惊喜不断</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/skills.png" alt="技能选择" style="width:100%;display:block;"><div class="screenshot-label">技能选择</div><div class="screenshot-desc">三选一，打造专属套路</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/shop.png" alt="商店升级" style="width:100%;display:block;"><div class="screenshot-label">商店升级</div><div class="screenshot-desc">永久升级，越战越强</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/shop-skins.png" alt="球皮肤" style="width:100%;display:block;"><div class="screenshot-label">球皮肤</div><div class="screenshot-desc">多款皮肤，随心搭配</div></div>
+      <div class="screenshot-card"><img loading="lazy" src="assets/dazk-screenshots/achievements.png" alt="成就" style="width:100%;display:block;"><div class="screenshot-label">成就</div><div class="screenshot-desc">21 个成就等你解锁</div></div>
     </div>
     <div class="scroll-dots" id="dots-dazk">
       <span class="scroll-dot active" data-index="0"></span><span class="scroll-dot" data-index="1"></span><span class="scroll-dot" data-index="2"></span><span class="scroll-dot" data-index="3"></span><span class="scroll-dot" data-index="4"></span><span class="scroll-dot" data-index="5"></span><span class="scroll-dot" data-index="6"></span><span class="scroll-dot" data-index="7"></span><span class="scroll-dot" data-index="8"></span><span class="scroll-dot" data-index="9"></span><span class="scroll-dot" data-index="10"></span>
