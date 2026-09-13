@@ -186,6 +186,10 @@ a { color: var(--primary); text-decoration: none; }
 .log-ver { font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 8px; }
 .log-date { font-size: 11.5px; color: var(--text-muted); }
 .log-desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; }
+.log-group { margin-top: 8px; }
+.log-group-t { font-size: 11px; font-weight: 700; color: var(--text); opacity: 0.85; margin-bottom: 3px; letter-spacing: 0.5px; }
+.log-list { margin: 0; padding-left: 16px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.8; }
+.log-list li::marker { color: var(--text-muted); }
 .log-new {
   font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
   background: var(--grad); color: #06121a; letter-spacing: 1px;
@@ -252,7 +256,7 @@ a { color: var(--primary); text-decoration: none; }
   <section class="section" id="methods">
     <div class="section-head" data-animate>
       <div class="section-kicker">Study Methods</div>
-      <h2>七种学习法，一套体系</h2>
+      <h2>十种学习法，一套体系</h2>
       <p>不再只有番茄钟。从经典节律到随机抽查，每种学习法的准备页都有完整方法介绍弹窗，附针对性总结数据和记录页使用分布统计。手机端导入，手环端执行，已导入的方法也可在手环端随时删除。</p>
     </div>
     <div class="methods-grid">
@@ -290,6 +294,21 @@ a { color: var(--primary); text-decoration: none; }
         <div class="method-icon">&#128640;</div>
         <div class="method-name">15 分钟启动法</div>
         <div class="method-desc">「只学 15 分钟」降低开始门槛。战胜拖延的第一步，往往只需一个微小的承诺。</div>
+      </div>
+      <div class="glass method-card" data-animate>
+        <div class="method-icon">&#128200;</div>
+        <div class="method-name">递进专注法 <span class="method-tag">新</span></div>
+        <div class="method-desc">每轮专注自动加长 5 分钟（5→10→15…），破窗即回起点，循序渐进训练专注耐力。</div>
+      </div>
+      <div class="glass method-card" data-animate>
+        <div class="method-icon">&#128279;</div>
+        <div class="method-name">番茄链 <span class="method-tag">新</span></div>
+        <div class="method-desc">连续完成完整番茄串即连链，中途放弃则断链，记录页统计最长连击，用连胜激励坚持。</div>
+      </div>
+      <div class="glass method-card" data-animate>
+        <div class="method-icon">&#127919;</div>
+        <div class="method-name">目标倒推法 <span class="method-tag">新</span></div>
+        <div class="method-desc">先定今日总目标（如 120 分钟），手环自动切分成若干轮并动态分配，看着进度条填满。</div>
       </div>
       <div class="glass method-card" data-animate>
         <div class="method-icon">&#9881;&#65039;</div>
@@ -424,7 +443,7 @@ a { color: var(--primary); text-decoration: none; }
       <div class="glass app-card" data-animate>
         <div class="feature-icon">&#128214;</div>
         <div class="feature-title">学习法导入</div>
-        <div class="feature-desc">52/17、90 分钟节律、随机提示音、50/10、15 分钟启动法及全屏自定义，统统从手机导入到手环。</div>
+        <div class="feature-desc">52/17、90 分钟节律、随机提示音、50/10、15 分钟启动法，及 v1.3 新增的递进专注、番茄链、目标倒推与全屏自定义，统统从手机导入到手环。</div>
       </div>
     </div>
   </section>
@@ -539,7 +558,32 @@ a { color: var(--primary); text-decoration: none; }
     </div>
     <div class="glass log-card" data-animate>
       <div class="log-head"><span class="log-ver">v1.3.0 <span class="log-new">NEW</span></span><span class="log-date">2026-09</span></div>
-      <div class="log-desc">新增 3 个机制创新型学习法：递进专注法（每轮自动加长，训练专注耐力）、番茄链（连续完成不断链，统计最长连击）、目标倒推法（设今日总目标，自动切分轮次） · 颜色自适应重写（提取图片真实主色调，文字配色协调且保证对比度清晰） · 红米手表 5/6 适配（方屏 432×514） · 修复 band10 连接后显示未激活 · 修复 app 传图崩溃与 recycled bitmap 崩溃 · 传图改流式写文件，不再闪退 · 学习法准备页字号加大、介绍加长至 400 字 · 随机提示音法三档按钮改整宽竖排 · 9pro 设置页分组排版 · 预设背景分区可折叠 · 导入重名图片自动改名不覆盖 · 学习法导入补齐成功/失败提示</div>
+      <div class="log-group">
+        <div class="log-group-t">✦ 新功能</div>
+        <ul class="log-list">
+          <li>新增 3 个机制创新型学习法：<b>递进专注法</b>（每轮自动加长，破窗回起点，训练专注耐力）、<b>番茄链</b>（连续完成不断链，统计最长连击）、<b>目标倒推法</b>（设今日总目标，自动切分轮次）</li>
+          <li>颜色自适应重写：提取图片真实主色调，全页面文字自适应背景、配色协调且保证对比度清晰（专注页大时钟与进度条仍走你的手动设置）</li>
+          <li>红米手表 5/6 适配（方屏 432×514），预设背景自动放大适配</li>
+          <li>预设背景分区可折叠，默认收起更清爽</li>
+        </ul>
+      </div>
+      <div class="log-group">
+        <div class="log-group-t">✦ 修复</div>
+        <ul class="log-list">
+          <li>修复手环 10 连接后 App 始终显示未激活（连接后自动重查 + 失败重试）</li>
+          <li>修复 App 传图崩溃（recycled bitmap）与手环端传图闪退（改流式写文件，不再连累整机）</li>
+          <li>导入重名图片自动改名（_2/_3），原图不再丢失</li>
+          <li>学习法导入各分支补齐成功 / 未连接 / 传输忙提示</li>
+        </ul>
+      </div>
+      <div class="log-group">
+        <div class="log-group-t">✦ 优化</div>
+        <ul class="log-list">
+          <li>学习法准备页字号加大、介绍加长至 400 字，方法介绍弹窗更高更清晰</li>
+          <li>随机提示音法三档按钮改整宽竖排，带说明文字，不再误触</li>
+          <li>手环 9 Pro 设置页分组排版（专注 / 偏好 / 震动 / 显示 / 系统），描述不再截断</li>
+        </ul>
+      </div>
     </div>
     <div class="glass log-card" data-animate>
       <div class="log-head"><span class="log-ver">v1.2.0</span><span class="log-date">2026-09</span></div>
