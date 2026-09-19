@@ -337,7 +337,7 @@ a { color: var(--primary); text-decoration: none; }
 
   <!-- ===== Hero：大时钟 ===== -->
   <section class="hero">
-    <div class="hero-badge" data-animate><span class="dot"></span>v1.3.3 · 数据分析大幅丰富 + 配色进化</div>
+    <div class="hero-badge" data-animate><span class="dot"></span>v1.3.4 · 设置调节修复 + 准备页配色适配 + 全部记录</div>
     <div class="clock-stage" data-animate>
       <div class="clock-ring"></div>
       <div class="clock-face"><span id="clock-h">25</span><span class="colon">:</span><span id="clock-m">00</span></div>
@@ -498,22 +498,22 @@ a { color: var(--primary); text-decoration: none; }
     </div>
     <div class="download-grid">
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK · v1.3.2</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK · v1.3.4</div></div></div>
         <div class="dl-desc">为小米手环 10 深度适配，完整学习法体系、自动文字配色、自定义背景全部可用。</div>
         <a class="btn btn-primary" href="assets/shifz-band10.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#8986;</div><div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK · v1.3.2</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#8986;</div><div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK · v1.3.4</div></div></div>
         <div class="dl-desc">为小米手环 9 Pro 单独构建，同一包名、同一体验，功能与手环 10 版保持一致。</div>
         <a class="btn btn-primary" href="assets/shifz-band9pro.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK · v1.3.2</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK · v1.3.4</div></div></div>
         <div class="dl-desc">适配红米手表 5/6 方屏（432×514），功能与手环版一致，预设背景自动放大适配。</div>
         <a class="btn btn-primary" href="assets/shifz-redmiwatch.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#128241;</div><div><div class="dl-name">手机端 App</div><div class="dl-sub">APK · v1.3.3</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#128241;</div><div><div class="dl-name">手机端 App</div><div class="dl-sub">APK · v1.3.4</div></div></div>
         <div class="dl-desc">学习法导入、图片推送、数据分析（30 天热力图/月度总览/纪录卡）、备份恢复。手环的好搭档。</div>
         <a class="btn btn-primary" href="assets/shifz-phone.apk" download>&darr; 下载 APK</a>
       </div>
@@ -530,9 +530,31 @@ a { color: var(--primary); text-decoration: none; }
     </div>
     <div class="changelog">
       <div class="log-item" data-animate>
-        <div class="log-head"><span class="log-ver">v1.3.3</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
+        <div class="log-head"><span class="log-ver">v1.3.4</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
         <div class="log-body">
-          <div class="log-group"><div class="log-group-t">✦ 数据分析大幅丰富（手机端）</div>
+          <div class="log-group"><div class="log-group-t">✦ 修复</div>
+            <ul class="log-list">
+              <li><b>设置页时间调节终于好了</b>：前 N 秒可退出、延迟黑屏秒数、超时提醒秒数等调节项此前无法调整，已彻底修复</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 专注页自动配色适配</div>
+            <ul class="log-list">
+              <li>专注运行页状态栏（时钟/日期）随背景自动配色，不再固定色看不清</li>
+              <li>各学习法准备页的介绍文字、时间数字、标签全部接入自动配色</li>
+              <li>手环 10 / 红米手表准备页字号整体加大，文字更清晰</li>
+              <li>按钮不再过度透明，在自定义背景上清晰可辨</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 数据分析再丰富（手机端）</div>
+            <ul class="log-list">
+              <li><b>全部记录页</b>：查看每一条专注明细（时长/净率/暂停/轮次/感受…），点 30 天柱状图可按天筛选</li>
+              <li>新增<b>暂停与分心</b>分析卡、<b>净专注率分布</b>图</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="log-item faded" data-animate>
+        <div class="log-head"><span class="log-ver">v1.3.3</span><span class="log-date">2026-09</span></div>
             <ul class="log-list">
               <li><b>近 30 天日历热力图</b>：一眼看清长期坚持模式与低谷，达标日高亮描边</li>
               <li><b>每日时长趋势（30 天）</b>：30 根柱 + 达标线，波动与回升清晰可见</li>
@@ -545,7 +567,7 @@ a { color: var(--primary); text-decoration: none; }
         </div>
       </div>
       <div class="log-item faded" data-animate>
-        <div class="log-head"><span class="log-ver">v1.3.2</span><span class="log-date">2026-09</span></div>
+        <div class="log-head"><span class="log-ver">v1.3.4</span><span class="log-date">2026-09</span></div>
         <div class="log-body">
           <div class="log-group"><div class="log-group-t">✦ 配色大幅进化</div>
             <ul class="log-list">
