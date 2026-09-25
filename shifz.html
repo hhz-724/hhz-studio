@@ -337,7 +337,7 @@ a { color: var(--primary); text-decoration: none; }
 
   <!-- ===== Hero：大时钟 ===== -->
   <section class="hero">
-    <div class="hero-badge" data-animate><span class="dot"></span>v1.3.7 · 9Pro 修复 + 学习法可删除</div>
+    <div class="hero-badge" data-animate><span class="dot"></span>v1.3.8 · 9Pro 四项问题彻底修复</div>
     <div class="clock-stage" data-animate>
       <div class="clock-ring"></div>
       <div class="clock-face"><span id="clock-h">25</span><span class="colon">:</span><span id="clock-m">00</span></div>
@@ -498,17 +498,17 @@ a { color: var(--primary); text-decoration: none; }
     </div>
     <div class="download-grid">
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK · v1.3.7</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK · v1.3.8</div></div></div>
         <div class="dl-desc">为小米手环 10 深度适配，完整学习法体系、自动文字配色、自定义背景全部可用。</div>
         <a class="btn btn-primary" href="assets/shifz-band10.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#8986;</div><div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK · v1.3.7</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#8986;</div><div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK · v1.3.8</div></div></div>
         <div class="dl-desc">为小米手环 9 Pro 单独构建，同一包名、同一体验，功能与手环 10 版保持一致。</div>
         <a class="btn btn-primary" href="assets/shifz-band9pro.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK · v1.3.7</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK · v1.3.8</div></div></div>
         <div class="dl-desc">适配红米手表 5/6 方屏（432×514），功能与手环版一致，预设背景自动放大适配。</div>
         <a class="btn btn-primary" href="assets/shifz-redmiwatch.rpk" download>&darr; 下载 RPK</a>
       </div>
@@ -530,12 +530,19 @@ a { color: var(--primary); text-decoration: none; }
     </div>
     <div class="changelog">
       <div class="log-item" data-animate>
-        <div class="log-head"><span class="log-ver">v1.3.7</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
+        <div class="log-head"><span class="log-ver">v1.3.8</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
         <div class="log-body">
           <div class="log-group"><div class="log-group-t">✦ 关键修复（9 Pro）</div>
             <ul class="log-list">
-              <li><b>设置页时间调节终于真正生效</b>：找到根因——此前为修复此问题误用了 Vela 不支持的渲染指令，导致「严格模式」「省电模式」「传感器」的展开内容<b>整块没有被渲染</b>。已改回正确指令，前 N 秒可退出 / 延迟黑屏秒数 / 超时提醒秒数 / 触发秒数现在都能正常显示和调节（长按可快速连调，步进 5 秒）</li>
-              <li><b>随机提示音准备页重排</b>：卡片宽度统一不再左边缘错位、去掉重复样式定义、纵向从顶部排列避免被裁切</li>
+              <li><b>设置页时间调节彻底修复</b>：前 N 秒可退出 / 延迟黑屏秒数 / 超时提醒秒数 / 触发秒数——这四项此前位于展开式设置项内部，条件渲染出问题导致它们时隐时现、点不动。现已<b>移到固定位置</b>，始终可见可调（长按可快速连调，步进 5 秒）</li>
+              <li><b>随机提示音准备页不再截断</b>：内容区改为可滚动，卡片宽度统一，长内容完整显示</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 界面修正</div>
+            <ul class="log-list">
+              <li><b>时钟设置「显示秒数」开关</b>位置与「显示日期」「精简模式」对齐</li>
+              <li><b>「删除此方法」按钮</b>与「返回」按钮同宽同高对齐，改为醒目红字红框，一眼可辨</li>
+              <li>设置页与帮助页版本号同步显示</li>
             </ul>
           </div>
           <div class="log-group"><div class="log-group-t">✦ 新增</div>
