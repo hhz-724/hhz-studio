@@ -532,26 +532,35 @@ a { color: var(--primary); text-decoration: none; }
       <div class="log-item" data-animate>
         <div class="log-head"><span class="log-ver">v1.3.9</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
         <div class="log-body">
-          <div class="log-group"><div class="log-group-t">✦ 三端预设背景各就各位</div>
-            <ul class="log-list">
-              <li><b>手机 App 现在按连接的设备显示对应预设</b>：连手环 9 Pro 显示 9 Pro 的 20 张预设，连手环 10 显示手环 10 的 16 张，连红米手表显示红米的 20 张——不再混用</li>
-              <li>手环 10 与红米手表端补齐了各自的内置预设（此前两端只有一张图，选什么都显示同一张）</li>
-              <li>预设缩略图按设备屏幕比例适配，导入后不再变形裁切</li>
-            </ul>
-          </div>
           <div class="log-group"><div class="log-group-t">✦ 时钟体验修复</div>
             <ul class="log-list">
-              <li><b>时钟设置页的预览时钟改为实时走秒</b>，不再是固定的 25:00</li>
-              <li>预览颜色正确响应「自动适配时钟颜色」：开启时显示背景适配色，关闭时显示你的自定义色</li>
-              <li>修复<b>「显示秒数」开关不生效</b>的问题（对预览时钟与专注页时钟均已生效）</li>
-              <li>开启<b>精简模式</b>后，点击大时钟也能切换「剩余时间 / 当前时间」了</li>
+              <li><b>预览时钟改为实时走秒</b>，不再固定显示 25:00，所见即所得</li>
+              <li>预览颜色正确响应「自动适配时钟颜色」：开启时跟随背景适配色，关闭时用你的自定义色</li>
+              <li>修复<b>「显示秒数」开关不生效</b>——预览时钟与专注页时钟现在都会真正显示秒数</li>
+              <li>开启<b>精简模式</b>后，点击大时钟同样能切换「剩余时间 / 当前时间」</li>
             </ul>
           </div>
-          <div class="log-group"><div class="log-group-t">✦ 多设备数据</div>
+          <div class="log-group"><div class="log-group-t">✦ 预设背景按设备分发</div>
             <ul class="log-list">
-              <li><b>支持多设备数据整合</b>：连接过的手环数据会分别记录来源，手机端可按设备筛选查看</li>
-              <li>每条记录的详情里新增「来源」标识，一眼看出这条专注是在哪台设备上完成的</li>
-              <li>恢复备份时不再因设备码不同而直接拒绝，改为提示确认后按设备恢复</li>
+              <li><b>手机 App 按连接的设备显示对应预设</b>：连手环 9 Pro 出 9 Pro 的 20 张，连手环 10 出手环 10 的 16 张，连红米手表出红米的 20 张，不再混用</li>
+              <li>手环 10 与红米手表端此前只有一张内置图（选什么都显示同一张），现已各自补齐</li>
+              <li>预设缩略图按设备屏幕比例适配，导入后不再拉伸变形</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 多设备数据整合</div>
+            <ul class="log-list">
+              <li><b>连接过的设备分别记录来源</b>，手机端可按设备筛选查看</li>
+              <li>每条记录详情新增「来源」标识，一眼看出这次专注是在哪台设备上完成的</li>
+              <li>恢复备份不再因设备码不同而直接拒绝，改为提示确认后按设备恢复</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 稳定性与优化</div>
+            <ul class="log-list">
+              <li>修复导入同名图片时覆盖原图的问题</li>
+              <li>修复手环 10 / 红米端「手机推送的图片」提示文字无法自适应配色（亮色背景下看不清）</li>
+              <li>修复手机下发背景时可能显示纯黑的问题</li>
+              <li>9 Pro 修复震动设置页写入不生效</li>
+              <li><b>手环 10 与红米端安装包大幅瘦身</b>：预设背景改为按需导入，体积分别减少 73% 与 81%</li>
             </ul>
           </div>
         </div>
@@ -561,14 +570,14 @@ a { color: var(--primary); text-decoration: none; }
         <div class="log-body">
           <div class="log-group"><div class="log-group-t">✦ 关键修复（9 Pro）</div>
             <ul class="log-list">
-              <li><b>设置页时间调节彻底修复</b>：前 N 秒可退出 / 延迟黑屏秒数 / 超时提醒秒数 / 触发秒数——这四项此前位于展开式设置项内部，条件渲染出问题导致它们时隐时现、点不动。现已<b>移到固定位置</b>，始终可见可调（长按可快速连调，步进 5 秒）</li>
+              <li><b>设置页时间调节彻底修复</b>：前 N 秒可退出 / 延迟黑屏秒数 / 超时提醒秒数 / 触发秒数——这四项此前位于展开式设置项内部，条件渲染出错导致时隐时现、点不动，现已<b>移到固定位置</b>，始终可见可调（长按可快速连调，步进 5 秒）</li>
               <li><b>随机提示音准备页不再截断</b>：内容区改为可滚动，卡片宽度统一，长内容完整显示</li>
             </ul>
           </div>
           <div class="log-group"><div class="log-group-t">✦ 界面修正</div>
             <ul class="log-list">
-              <li><b>时钟设置「显示秒数」开关</b>位置与「显示日期」「精简模式」对齐</li>
-              <li><b>「删除此方法」按钮</b>与「返回」按钮同宽同高对齐，改为醒目红字红框，一眼可辨</li>
+              <li>时钟设置「显示秒数」开关位置与「显示日期」「精简模式」对齐</li>
+              <li><b>「删除此方法」按钮</b>与「返回」按钮同宽同高对齐，改为醒目红字红框</li>
               <li>设置页与帮助页版本号同步显示</li>
             </ul>
           </div>
@@ -576,13 +585,36 @@ a { color: var(--primary); text-decoration: none; }
             <ul class="log-list">
               <li><b>内置学习法也能删除了</b>：递进专注法、番茄链、目标倒推法等内置方法现在都有「删除此方法」按钮（普通模式与番茄钟为系统模式，保留不可删）</li>
               <li><b>恢复默认学习法</b>：设置页新增入口，一键找回已删除的内置学习法</li>
-              <li><b>默认专注/休息时长支持长按连调</b>，三端步进统一</li>
+              <li>默认专注 / 休息时长支持长按连调，三端步进统一</li>
             </ul>
           </div>
-          <div class="log-group"><div class="log-group-t">✦ 补齐与优化</div>
+          <div class="log-group"><div class="log-group-t">✦ 补齐</div>
             <ul class="log-list">
-              <li>9 Pro 补齐暂停期间省电计时（暂停时屏幕可按省电策略变暗，不再常亮耗电）</li>
+              <li>9 Pro 补齐暂停期间的省电计时（暂停时屏幕可按省电策略变暗，不再常亮耗电）</li>
               <li>9 Pro 补上「番茄钟时长至少 3 分钟」提示弹窗</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="log-item faded" data-animate>
+        <div class="log-head"><span class="log-ver">v1.3.5</span><span class="log-date">2026-09</span></div>
+        <div class="log-body">
+          <div class="log-group"><div class="log-group-t">✦ 配色大幅进化</div>
+            <ul class="log-list">
+              <li>自动颜色适配彻底重写：<b>焦点色提取</b>（红枫、火山、森林等高饱和主题色不再被深色背景淹没）＋ <b>矢量色相平均</b>，文字配色真正随图片主色调变化</li>
+              <li>次级与辅助文字同步带图色调，告别单调黑白灰，且全部通过对比度校验保证清晰可读</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 修复</div>
+            <ul class="log-list">
+              <li>修复部分时间 / 时长调节无法正常使用（滑动灵敏度、连调失控、分钟数被重置）</li>
+              <li>修复缓存清理的图片缓存功能失效（可正常清理残留图片与断传文件）</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 优化</div>
+            <ul class="log-list">
+              <li>设置页文字全面加大，小号说明文字也清晰易读</li>
+              <li>调节按钮加大到易点尺寸，避免误触与「点了没反应」</li>
             </ul>
           </div>
         </div>
@@ -597,7 +629,7 @@ a { color: var(--primary); text-decoration: none; }
           </div>
           <div class="log-group"><div class="log-group-t">✦ 专注页自动配色适配</div>
             <ul class="log-list">
-              <li>专注运行页状态栏（时钟/日期）随背景自动配色，不再固定色看不清</li>
+              <li>专注运行页状态栏（时钟 / 日期）随背景自动配色，不再固定色看不清</li>
               <li>各学习法准备页的介绍文字、时间数字、标签全部接入自动配色</li>
               <li>手环 10 / 红米手表准备页字号整体加大，文字更清晰</li>
               <li>按钮不再过度透明，在自定义背景上清晰可辨</li>
@@ -605,7 +637,7 @@ a { color: var(--primary); text-decoration: none; }
           </div>
           <div class="log-group"><div class="log-group-t">✦ 数据分析再丰富（手机端）</div>
             <ul class="log-list">
-              <li><b>全部记录页</b>：查看每一条专注明细（时长/净率/暂停/轮次/感受…），点 30 天柱状图可按天筛选</li>
+              <li><b>全部记录页</b>：查看每一条专注明细（时长 / 净率 / 暂停 / 轮次 / 感受…），点 30 天柱状图可按天筛选</li>
               <li>新增<b>暂停与分心</b>分析卡、<b>净专注率分布</b>图</li>
             </ul>
           </div>
@@ -614,36 +646,14 @@ a { color: var(--primary); text-decoration: none; }
       <div class="log-item faded" data-animate>
         <div class="log-head"><span class="log-ver">v1.3.3</span><span class="log-date">2026-09</span></div>
         <div class="log-body">
-          <div class="log-group"><ul class="log-list">
+          <div class="log-group"><div class="log-group-t">✦ 手机端数据分析上线</div>
+            <ul class="log-list">
               <li><b>近 30 天日历热力图</b>：一眼看清长期坚持模式与低谷，达标日高亮描边</li>
               <li><b>每日时长趋势（30 天）</b>：30 根柱 + 达标线，波动与回升清晰可见</li>
               <li><b>月度总览 + 月环比</b>：本月累计、达标天数、日均与上月对比</li>
-              <li><b>学习法分布</b>：哪种学习法用得最多，分布一目了然</li>
+              <li><b>学习法分布</b>：哪种学习法用得最多，一目了然</li>
               <li><b>纪录与最佳</b>：最长单次、最佳连续、最高净率、累计次数</li>
-              <li>更聪明的洞察：破纪录即时祝贺、连续天数临近提醒、"用哪种学习法感受最好"推荐</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="log-item faded" data-animate>
-        <div class="log-head"><span class="log-ver">v1.3.4</span><span class="log-date">2026-09</span></div>
-        <div class="log-body">
-          <div class="log-group"><div class="log-group-t">✦ 配色大幅进化</div>
-            <ul class="log-list">
-              <li>自动颜色适配彻底重写：<b>焦点色提取</b>（红枫、火山、森林等高饱和主题色不再被深色背景淹没）+ <b>矢量色相平均</b>，文字配色真正随图片主色调变化</li>
-              <li>次级与辅助文字同步带图色调，告别单调黑白灰，且全部通过对比度校验保证清晰可读</li>
-            </ul>
-          </div>
-          <div class="log-group"><div class="log-group-t">✦ 修复</div>
-            <ul class="log-list">
-              <li>修复部分时间/时长调节无法正常使用（滑动灵敏度、连调失控、分钟数被重置）</li>
-              <li>修复缓存清理的图片缓存功能失效（可正常清理残留图片与断传文件）</li>
-            </ul>
-          </div>
-          <div class="log-group"><div class="log-group-t">✦ 优化</div>
-            <ul class="log-list">
-              <li>设置页文字全面加大，小号说明文字也清晰易读</li>
-              <li>调节按钮加大到易点尺寸，避免误触与"点了没反应"</li>
+              <li>更聪明的洞察：破纪录即时祝贺、连续天数临近提醒、「用哪种学习法感受最好」推荐</li>
             </ul>
           </div>
         </div>
@@ -651,9 +661,9 @@ a { color: var(--primary); text-decoration: none; }
       <div class="log-item faded" data-animate>
         <div class="log-head"><span class="log-ver">v1.3.1</span><span class="log-date">2026-09</span></div>
         <div class="log-body">
-          <div class="log-group"><div class="log-group-t">✦ 新功能</div>
+          <div class="log-group"><div class="log-group-t">✦ 新增</div>
             <ul class="log-list">
-              <li>新增 3 个机制创新型学习法：<b>递进专注法</b>、<b>番茄链</b>、<b>目标倒推法</b></li>
+              <li>新增 3 个机制创新型学习法：<b>递进专注法</b>（每轮自动 +5 分钟，破窗回起点）、<b>番茄链</b>（连击不断链，记录最长链）、<b>目标倒推法</b>（先定总目标，自动切分轮次）</li>
               <li>颜色自适应分区（主页与专注页分别配色）· 红米手表 5/6 适配 · 预设背景折叠</li>
             </ul>
           </div>
@@ -667,15 +677,34 @@ a { color: var(--primary); text-decoration: none; }
       </div>
       <div class="log-item faded" data-animate>
         <div class="log-head"><span class="log-ver">v1.2.0</span><span class="log-date">2026-09</span></div>
-        <div class="log-body"><div class="log-group"><ul class="log-list"><li>全新学习法体系（52/17、90 分钟节律、随机提示音、50/10、15 分钟启动法与全屏自定义）· 自动文字配色 · 手机端数据分析页 · 三档主题 · 图片库 20 预设 + 裁切上传 · 备份恢复 · 震动五档 · 缓存清理</li></ul></div></div>
+        <div class="log-body">
+          <div class="log-group"><div class="log-group-t">✦ 学习法体系与手机端</div>
+            <ul class="log-list">
+              <li>全新学习法体系：52/17 法则、90 分钟超昼夜节律、随机提示音法、50/10 深度番茄、15 分钟启动法、全屏自定义</li>
+              <li>自动文字配色 · 手机端数据分析页 · 三档主题 · 图片库 20 预设＋裁切上传 · 备份恢复 · 震动五档 · 缓存清理</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="log-item faded" data-animate>
         <div class="log-head"><span class="log-ver">v1.1.0</span><span class="log-date">2026-07</span></div>
-        <div class="log-body"><div class="log-group"><ul class="log-list"><li>小米手环 10 适配 · 专注币系统 · 背景商店 · 图片换新</li></ul></div></div>
+        <div class="log-body">
+          <div class="log-group"><div class="log-group-t">✦ 手环 10 适配</div>
+            <ul class="log-list">
+              <li>小米手环 10 适配 · 专注币系统 · 背景商店 · 图片换新</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="log-item faded" data-animate>
         <div class="log-head"><span class="log-ver">v1.0.0</span><span class="log-date">2026-06</span></div>
-        <div class="log-body"><div class="log-group"><ul class="log-list"><li>首次发布 · 普通专注 + 番茄钟模式 · 净专注算法</li></ul></div></div>
+        <div class="log-body">
+          <div class="log-group"><div class="log-group-t">✦ 首次发布</div>
+            <ul class="log-list">
+              <li>普通专注 + 番茄钟模式 · 净专注算法</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
