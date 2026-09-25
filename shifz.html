@@ -337,7 +337,7 @@ a { color: var(--primary); text-decoration: none; }
 
   <!-- ===== Hero：大时钟 ===== -->
   <section class="hero">
-    <div class="hero-badge" data-animate><span class="dot"></span>v1.3.8 · 9Pro 四项问题彻底修复</div>
+    <div class="hero-badge" data-animate><span class="dot"></span>v1.3.9 · 三端预设适配 + 时钟体验修复</div>
     <div class="clock-stage" data-animate>
       <div class="clock-ring"></div>
       <div class="clock-face"><span id="clock-h">25</span><span class="colon">:</span><span id="clock-m">00</span></div>
@@ -498,22 +498,22 @@ a { color: var(--primary); text-decoration: none; }
     </div>
     <div class="download-grid">
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK · v1.3.8</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">小米手环 10 版</div><div class="dl-sub">RPK · v1.3.9</div></div></div>
         <div class="dl-desc">为小米手环 10 深度适配，完整学习法体系、自动文字配色、自定义背景全部可用。</div>
         <a class="btn btn-primary" href="assets/shifz-band10.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#8986;</div><div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK · v1.3.8</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#8986;</div><div><div class="dl-name">小米手环 9 Pro 版</div><div class="dl-sub">RPK · v1.3.9</div></div></div>
         <div class="dl-desc">为小米手环 9 Pro 单独构建，同一包名、同一体验，功能与手环 10 版保持一致。</div>
         <a class="btn btn-primary" href="assets/shifz-band9pro.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK · v1.3.8</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#9000;</div><div><div class="dl-name">红米手表 5/6 版</div><div class="dl-sub">RPK · v1.3.9</div></div></div>
         <div class="dl-desc">适配红米手表 5/6 方屏（432×514），功能与手环版一致，预设背景自动放大适配。</div>
         <a class="btn btn-primary" href="assets/shifz-redmiwatch.rpk" download>&darr; 下载 RPK</a>
       </div>
       <div class="dl-card" data-animate>
-        <div class="dl-head"><div class="dl-icon">&#128241;</div><div><div class="dl-name">手机端 App</div><div class="dl-sub">APK · v1.3.4</div></div></div>
+        <div class="dl-head"><div class="dl-icon">&#128241;</div><div><div class="dl-name">手机端 App</div><div class="dl-sub">APK · v1.3.9</div></div></div>
         <div class="dl-desc">学习法导入、图片推送、数据分析（30 天热力图/月度总览/纪录卡）、备份恢复。手环的好搭档。</div>
         <a class="btn btn-primary" href="assets/shifz-phone.apk" download>&darr; 下载 APK</a>
       </div>
@@ -530,7 +530,34 @@ a { color: var(--primary); text-decoration: none; }
     </div>
     <div class="changelog">
       <div class="log-item" data-animate>
-        <div class="log-head"><span class="log-ver">v1.3.8</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
+        <div class="log-head"><span class="log-ver">v1.3.9</span><span class="log-new">NEW</span><span class="log-date">2026-09</span></div>
+        <div class="log-body">
+          <div class="log-group"><div class="log-group-t">✦ 三端预设背景各就各位</div>
+            <ul class="log-list">
+              <li><b>手机 App 现在按连接的设备显示对应预设</b>：连手环 9 Pro 显示 9 Pro 的 20 张预设，连手环 10 显示手环 10 的 16 张，连红米手表显示红米的 20 张——不再混用</li>
+              <li>手环 10 与红米手表端补齐了各自的内置预设（此前两端只有一张图，选什么都显示同一张）</li>
+              <li>预设缩略图按设备屏幕比例适配，导入后不再变形裁切</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 时钟体验修复</div>
+            <ul class="log-list">
+              <li><b>时钟设置页的预览时钟改为实时走秒</b>，不再是固定的 25:00</li>
+              <li>预览颜色正确响应「自动适配时钟颜色」：开启时显示背景适配色，关闭时显示你的自定义色</li>
+              <li>修复<b>「显示秒数」开关不生效</b>的问题（对预览时钟与专注页时钟均已生效）</li>
+              <li>开启<b>精简模式</b>后，点击大时钟也能切换「剩余时间 / 当前时间」了</li>
+            </ul>
+          </div>
+          <div class="log-group"><div class="log-group-t">✦ 多设备数据</div>
+            <ul class="log-list">
+              <li><b>支持多设备数据整合</b>：连接过的手环数据会分别记录来源，手机端可按设备筛选查看</li>
+              <li>每条记录的详情里新增「来源」标识，一眼看出这条专注是在哪台设备上完成的</li>
+              <li>恢复备份时不再因设备码不同而直接拒绝，改为提示确认后按设备恢复</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="log-item faded" data-animate>
+        <div class="log-head"><span class="log-ver">v1.3.8</span><span class="log-date">2026-09</span></div>
         <div class="log-body">
           <div class="log-group"><div class="log-group-t">✦ 关键修复（9 Pro）</div>
             <ul class="log-list">
@@ -586,7 +613,8 @@ a { color: var(--primary); text-decoration: none; }
       </div>
       <div class="log-item faded" data-animate>
         <div class="log-head"><span class="log-ver">v1.3.3</span><span class="log-date">2026-09</span></div>
-            <ul class="log-list">
+        <div class="log-body">
+          <div class="log-group"><ul class="log-list">
               <li><b>近 30 天日历热力图</b>：一眼看清长期坚持模式与低谷，达标日高亮描边</li>
               <li><b>每日时长趋势（30 天）</b>：30 根柱 + 达标线，波动与回升清晰可见</li>
               <li><b>月度总览 + 月环比</b>：本月累计、达标天数、日均与上月对比</li>
